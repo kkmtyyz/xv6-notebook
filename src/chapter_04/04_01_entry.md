@@ -1,7 +1,7 @@
 # 4.1. entry.S
 entry.Sではページングを有効化し、ページディレクトリを作成して、main関数を呼び出す。
 
-エントリーポイントは[「2.4. ターゲットkernel」](/chapter_02/02_04_kernel.md)で見たリンカスクリプトkernel.ldにより\_startに設定されている。\_startのアドレスは0x10000cだったことを[3.2. bootmain関数](/chapter_03/03_02_bootmain.md)で確認した。  
+エントリーポイントは[「2.4. ターゲットkernel」](../chapter_02/02_04_kernel.md)で見たリンカスクリプトkernel.ldにより\_startに設定されている。\_startのアドレスは0x10000cだったことを[3.2. bootmain関数](/chapter_03/03_02_bootmain.md)で確認した。  
 今、カーネルを実行していくためにentry.Sのentryラベルから実行を開始したい。
 しかし、リンカスクリプトによりカーネルは仮想アドレス0x80100000で実行されるようにリンクされている。
 これは[「xv6 a simple, Unix-like teaching operating system」](https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf)の「Figure 1-3. Layout of a Virtual address space」のように、仮想アドレスの上の方にカーネルを置きたいからである。
