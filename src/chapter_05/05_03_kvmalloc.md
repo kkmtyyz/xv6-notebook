@@ -142,7 +142,7 @@ PTEには属性（perm）を設定する。
 
 まず変換範囲の開始仮想アドレス（a）と終了仮想アドレス（last）を求める。
 どちらもページサイズにアラインメントされている必要があるので、PGROUNDDOWNマクロを使用する。
-PGROUNDDOWNマクロは、[「5.2. kinit1関数」](/chapter_05/05_02_kinit1.md)で使用したPGROUNDUPマクロと同様の方法で、アドレスから前のページ境界のアドレスを計算する。
+PGROUNDDOWNマクロは、[「5.2. kinit1関数」](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_02_kinit1.html)で使用したPGROUNDUPマクロと同様の方法で、アドレスから前のページ境界のアドレスを計算する。
 0x1000（PGSIZE）から1引いた0xFFFの否定0x000を論理積して4kBにアラインメントする。  
 
 mmu.h

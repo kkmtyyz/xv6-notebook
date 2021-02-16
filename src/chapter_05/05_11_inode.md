@@ -1,7 +1,7 @@
 # 5.11. iノード
 スケジューラの実行までに使用するiノード周りの操作について書く。
 
-- [inode構造体](/chapter_05/05_11_inode.md#inode構造体)
+- [inode構造体](#inode構造体)
 - [inode構造体の作成（iget関数）](/chapter_05/05_11_inode.md#inode構造体の作成iget関数)
 - [ロック（ilock/iunlock関数）](/chapter_05/05_11_inode.md#ロックilockiunlock関数)
 - [参照カウンタのインクリメント（idup数）](/chapter_05/05_11_inode.md#参照カウンタのインクリメントidup関数)

@@ -1,7 +1,7 @@
 # 5.6. seginit関数
 この関数はGDTを作成し、ロードする。
 
-ここまでは[「3.1. bootasm.S」](/chapter_03/03_01_bootasm.md)で作成した3つのエントリを持つGDTを使用してきた。  
+ここまでは[「3.1. bootasm.S」](https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_01_bootasm.html)で作成した3つのエントリを持つGDTを使用してきた。  
 ここではユーザ空間用のセグメントディスクリプタを持った新しいGDTを作成する。
 
 セグメントディスクリプタの構造は[「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）](https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html)の「Vol.3 3.4.5 Segment Descriptors」に書いてある。
@@ -25,7 +25,7 @@ cpu構造体のgdtフィールドは要素数が6（定数NSEGS）に定義さ�
 
 作成したGDTをlgdt関数でgdtレジスタにロードする。  
 このとき、ecsレジスタの値は更新不要。
-[「3.1. bootasm.S」](/chapter_03/03_01_bootasm.md#プロテクトモードへの切り替え)ではファージャンプを行うことでecsの設定を行っているが、コードセグメントディスクリプタのインデックスがここで作成したGDTでも変わらず1番目（8バイト目）であるため、再設定が不要。
+[「3.1. bootasm.S」](https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_01_bootasm.html#プロテクトモードへの切り替え)ではファージャンプを行うことでecsの設定を行っているが、コードセグメントディスクリプタのインデックスがここで作成したGDTでも変わらず1番目（8バイト目）であるため、再設定が不要。
 
 mmu.h
 ```c
@@ -102,7 +102,7 @@ eflagsレジスタの値を取得し、Interrupt enableビット（9bit）を確
 eflagsレジスタの各bitの役割は[「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）](https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html)の「Vol.3 2.3 SYSTEM FLAGS AND FIELDS IN THE EFLAGS REGISTER」に書いてある。
 
 cpus配列をfor文で走査し、apicidフィールドの値が関数を実行しているプロセッサのLAPIC IDと等しいエントリを探す。
-各cpu構造体のapicidフィールドは[「5.4. mpinit関数」](/chapter_05/05_04_mpinit.md)で設定済み。
+各cpu構造体のapicidフィールドは[「5.4. mpinit関数」](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html)で設定済み。
 
 mmu.h
 ```c
@@ -149,7 +149,7 @@ readeflags(void)
 この関数は、この関数を実行しているプロセッサのLAPIC IDを取得する。
 
 LAPIC IDは [「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）](https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html)の「Vol.3 10.4.6 Local APIC ID」によると、Local APIC ID Register（0x20）の24～31bitから得られる。  
-LAPICへのアクセスについては[「5.4. mpinit関数」](/chapter_05/05_04_mpinit.md)に書いた。
+LAPICへのアクセスについては[「5.4. mpinit関数」](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html)に書いた。
 
 lapic.c
 ```c

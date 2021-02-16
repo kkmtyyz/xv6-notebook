@@ -7,7 +7,7 @@ xv6ではIOAPICのIOリダイレクションテーブルのエントリに割り
 内部からの割り込みは、LAPICがLVT（ローカルベクタテーブル）を使用してプロセッサに割り込みを送信する。
 ローカル割り込みのソースとしては、プロセッサの割り込みピン（LINT0とLINT1ピン）、APICタイマ、温度センサ、パフォーマンスモニタリングカウンタ、他のプロセッサがある。  
 ローカルAPICは多くのレジスタを備えており、そのアドレスと名前はIntel-SDMの「Table 10-1 Local APIC Register Address Map」にリストされている。
-各レジスタへのアクセスは[「5.4. mpinit関数」](/chapter_05/05_04_mpinit.md)にてLAPICへのアクセスアドレスを設定した大域変数lapicを通して行う。
+各レジスタへのアクセスは[「5.4. mpinit関数」](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html)にてLAPICへのアクセスアドレスを設定した大域変数lapicを通して行う。
 レジスタのアドレスをオフセットとして使うことにより、lapic変数から任意のレジスタにアクセスできる。
 lapic変数はuint\*型なので、バイト単位でオフセットを使用するために4で割る。
 例えばLocal APIC ID Register（0xFEE00020）にアクセスする際は、`lapic[0x0020 / 4]`とする。  

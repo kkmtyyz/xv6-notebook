@@ -58,8 +58,8 @@ IOAPICへ入力されるIRQ番号がそれぞれどの割込みソースに割�
 ioapicinit関数では、まず大域変数ioapicにIOAPICへのアクセスアドレス0xFEC00000を設定する。  
 次にIOリダイレクションテーブルの最大エントリ番号と、IOAPIC IDを取得する。
 デバッガで最大エントリ番号を見ると、今回は仕様書の値と同じ24（値は23）だった。
-IOAPIC IDが[「5.4. mpinit関数」](/chapter_05/05_04_mpinit.md)にてMP設定テーブルから取得したIOAPIC IDと異なる場合、コンソールにメッセージを出力する。
-出力に使用するcprintf関数は[「5.17 startothers関数」](/chapter_05/05_19_startothers.md#cprintf関数)で見る。
+IOAPIC IDが[「5.4. mpinit関数」](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html)にてMP設定テーブルから取得したIOAPIC IDと異なる場合、コンソールにメッセージを出力する。
+出力に使用するcprintf関数は[「5.17 startothers関数」](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_19_startothers.html#cprintf関数)で見る。
 
 for文でIOリダイレクションテーブルのエントリを走査し、以下の設定を行う。
 エントリの構造は仕様書の「3.2.4. IOREDTBL[23:0]—I/O REDIRECTION TABLE REGISTERS」に記載されている。  

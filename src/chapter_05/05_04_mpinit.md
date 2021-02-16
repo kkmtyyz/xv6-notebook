@@ -249,7 +249,7 @@ mpsearch(void)
 mpsearch1関数では与えられた物理アドレスと長さ分の範囲を走査し、MPフローティングポインタ構造体を探す。  
 MP仕様書の「Table 4-1. MP Floating Pointer Structure Fields」によると、SIGNATUREフィールド（0バイト目）に  ”\_MP\_” が入っているため、それを頼りに同構造体を探すことができる。
 また、CHECKSUMフィールド（10バイト目）により、見つけた領域がMPフローティングポインタ構造体であるか否かを断定できる。
-チェックサムの計算方法は[「mpconfig関数」](/chapter_05/05_04_mpinit.md#mpconfig関数)のときと同様。
+チェックサムの計算方法は[「mpconfig関数」](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html#mpconfig関数)のときと同様。
 
 mp.c
 ```c
