@@ -1,0 +1,6 @@
+[book]
+title = "xv6ノート"
+authors = ["kkmtyyz"]
+language = "ja"
+multilingual = false
+src = "src"
