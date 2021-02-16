@@ -167,7 +167,7 @@
                     <main>
                         <h1><a class="header" href="#xv6ノート" id="xv6ノート">xv6ノート</a></h1>
 <p>これはxv6を読んだ際のノート。</p>
-<p>参考資料は<a href="docs/ref_links.html">「9. 参考リンク」</a>と<a href="docs/ref_books.html">「10. 参考書籍」</a>に列挙した。<br />
+<p>参考資料は<a href="ref_links.html">「9. 参考リンク」</a>と<a href="ref_books.html">「10. 参考書籍」</a>に列挙した。<br />
 また、ノートの節々でどの参考資料を参照したのかを記した。</p>
 <h1><a class="header" href="#環境" id="環境">環境</a></h1>
 <p>使用したソースコードやツールのバージョン。</p>
@@ -776,7 +776,7 @@ insl命令では出力: edi(addr)と入力: edx(port)を使う。rep命令はecx
 <p>entry.Sからmain関数の実行まで。</p>
 <h1><a class="header" href="#41-entrys" id="41-entrys">4.1. entry.S</a></h1>
 <p>entry.Sではページングを有効化し、ページディレクトリを作成して、main関数を呼び出す。</p>
-<p>エントリーポイントは<a href="chapter_04//chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldにより_startに設定されている。_startのアドレスは0x10000cだったことを<a href="chapter_04//chapter_03/03_02_bootmain.html">3.2. bootmain関数</a>で確認した。<br />
+<p>エントリーポイントは<a href="chapter_04/../chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldにより_startに設定されている。_startのアドレスは0x10000cだったことを<a href="chapter_04//chapter_03/03_02_bootmain.html">3.2. bootmain関数</a>で確認した。<br />
 今、カーネルを実行していくためにentry.Sのentryラベルから実行を開始したい。
 しかし、リンカスクリプトによりカーネルは仮想アドレス0x80100000で実行されるようにリンクされている。
 これは<a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」</a>の「Figure 1-3. Layout of a Virtual address space」のように、仮想アドレスの上の方にカーネルを置きたいからである。
