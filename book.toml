@@ -4,3 +4,6 @@ authors = ["kkmtyyz"]
 language = "ja"
 multilingual = false
 src = "src"
+
+[output.html]
+git-repository-url = "https://github.com/kkmtyyz/xv6-notebook"
