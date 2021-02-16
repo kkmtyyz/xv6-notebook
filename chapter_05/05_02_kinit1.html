@@ -176,7 +176,7 @@ main(void)
 {
   kinit1(end, P2V(4*1024*1024)); // phys page allocator
 </code></pre>
-<p>endは<a href="/chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldによりbssセグメントの後ろ、elfの最後に作成されている。
+<p>endは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldによりbssセグメントの後ろ、elfの最後に作成されている。
 アドレスはreadelfで確認でき、ここでは0x80116528になっている。<br />
 物理アドレスにすると0x116528。</p>
 <p><code>readelf -s kernel | grep end</code></p>
@@ -276,7 +276,7 @@ kfree(char *v)
 <p>書き込み先アドレス（dst）と書き込みサイズ（n）が4で割り切れる場合、stosl関数を使用して4バイトずつ書き込みを行う。
 割り切れない場合はstosb関数を使って1バイトずつ書き込む。<br />
 4バイトずつ書き込む場合は、書き込む値（c）から1バイト分取り出し、それをシフトして4バイト並べた値を書き込む。</p>
-<p>stosb関数とstosl関数は<a href="/chapter_03/03_02_bootmain.html#inb%E9%96%A2%E6%95%B0outb%E9%96%A2%E6%95%B0insl%E9%96%A2%E6%95%B0">「3.2. bootmain関数」</a>で見たinsl関数と同様にrepを使用したパターンになっている。</p>
+<p>stosb関数とstosl関数は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_02_bootmain.html#inb%E9%96%A2%E6%95%B0outb%E9%96%A2%E6%95%B0insl%E9%96%A2%E6%95%B0">「3.2. bootmain関数」</a>で見たinsl関数と同様にrepを使用したパターンになっている。</p>
 <p>string.c</p>
 <pre><code class="language-c">void*
 memset(void *dst, int c, uint n)

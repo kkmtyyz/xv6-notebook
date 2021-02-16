@@ -226,7 +226,7 @@ xv6.imgはbootblockとkernelから次のように作られる。</p>
 各オプションの意味はマニュアル<a href="https://gcc.gnu.org/onlinedocs/gcc-6.5.0/gcc/">「Using the GNU Compiler Collection (GCC)」（リンク3）</a>を見るとだいたいわかる。
 知りたいオプションをOption Summaryページでページ内検索して、各ページに飛ぶのと楽。</p>
 <table><thead><tr><th>Option</th><th>意味</th></tr></thead><tbody>
-<tr><td>fno-pic</td><td>マニュアルにこのオプションの記載はないが、fpicオプションはあるのでその否定だとわかる。出力を位置独立コード（Position Independent Code）にしない。位置独立コードに関しては<a href="chapter_02/docs/ref_books.html">「リンカ・ローダ 実践開発テクニック」（書籍1）</a>に詳しく載っている。</td></tr>
+<tr><td>fno-pic</td><td>マニュアルにこのオプションの記載はないが、fpicオプションはあるのでその否定だとわかる。出力を位置独立コード（Position Independent Code）にしない。位置独立コードに関しては<a href="chapter_02/ref_books.html">「リンカ・ローダ 実践開発テクニック」（書籍1）</a>に詳しく載っている。</td></tr>
 <tr><td>static</td><td>動的ライブラリを静的リンクする。</td></tr>
 <tr><td>fno-builtin</td><td>組み込み関数を使わないようにする。</td></tr>
 <tr><td>O2</td><td>レベル2の最適化オプションを有効にする。</td></tr>
@@ -243,7 +243,7 @@ xv6.imgはbootblockとkernelから次のように作られる。</p>
 <code>LDFLAGS = -m    elf_i386</code><br />
 オプションの意味はマニュアル<a href="https://ftp.gnu.org/old-gnu/Manuals/ld-2.9.1/html_mono/ld.html">「Using ld The GNU linker ld version 2 January 1994」（リンク4）</a>で確認できる。このマニュアルはIndexからオプションが簡単に探せる。</p>
 <table><thead><tr><th>Option</th><th>意味</th></tr></thead><tbody>
-<tr><td>m</td><td>指定したリンカをエミュレートする。ここではelf_i386をエミュレート。elfについては<a href="chapter_02/docs/ref_books.html">「リンカ・ローダ 実践開発テクニック」（書籍1）</a>に詳しく記載されている。</td></tr>
+<tr><td>m</td><td>指定したリンカをエミュレートする。ここではelf_i386をエミュレート。elfについては<a href="chapter_02/ref_books.html">「リンカ・ローダ 実践開発テクニック」（書籍1）</a>に詳しく記載されている。</td></tr>
 </tbody></table>
 <p>変数OBJDUMPはobjdump。<br />
 変数OBJCOPYはobjcopy。マニュアル<a href="https://sourceware.org/binutils/docs-2.35/binutils/objcopy.html#objcopy">「3 objcopy」（リンク5）</a>によると、Oオプションで出力ファイルのフォーマットを指定できる。また、出力フォーマットにバイナリを指定した場合、オブジェクトには以下の3つのシンボルが作成され、プログラムからデータにアクセスすることができる。</p>
@@ -321,7 +321,7 @@ bootblockの頭の方はbootasm.Sなので、startから実行が開始される
 cli命令で割り込みを無効化する。<br />
 axレジスタを使い、各セグメントレジスタ（ds, es, ss）の値を0に初期化する。</p>
 <p>次に、キーボードコントローラを使ってアドレスバスのA20ライン以上を使えるように設定を行う。<br />
-このA20ラインや、セグメント機構、ページング、割り込み等については<a href="chapter_03/docs/ref_books.html">「はじめて読む486」（書籍2）</a>に詳しく記載されている。
+このA20ラインや、セグメント機構、ページング、割り込み等については<a href="chapter_03/ref_books.html">「はじめて読む486」（書籍2）</a>に詳しく記載されている。
 まだアドレスバスが0～19までしか無く、20bitで1MBのアドレスを使用していた時代、0xFFFFFの次0x100000へのアクセスで0x0にアクセスすることができたらしく、その性質を利用したプログラムも書かれていたらしい。その互換性を維持するために起動時はアドレスバスがA19までしか使用できないようになっているらしいので、この上限を開放する必要がある。
 A20ラインの有効化にはいくつかの方法があり、その内のひとつとしてキーボードコントローラを使用した方法がある。</p>
 <p>キーボードコントローラの仕様については<a href="https://www.win.tue.nl/%7Eaeb/linux/kbd/scancodes.html">「Keyboard scancodes」（リンク7）</a>の「The AT keyboard controller」に載っている。<br />
@@ -475,11 +475,11 @@ spin:
 </code></pre>
 <h1><a class="header" href="#32-bootmain関数" id="32-bootmain関数">3.2. bootmain関数</a></h1>
 <p>この関数はディスクからカーネル（elfバイナリ）を物理アドレス0x100000にロードし、entry関数を実行する。</p>
-<p><a href="chapter_03//chapter_02/02_01_xv6_img.html">「2.1. ターゲットxv6.img」</a>で見たように、kernelは1セクタ目から存在している。<br />
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_01_xv6_img.html">「2.1. ターゲットxv6.img」</a>で見たように、kernelは1セクタ目から存在している。<br />
 readseg関数で1セクタ目から4096バイト分をelfhdrポインタに読み込む。
 ここでは読み込みを開始するオフセットに0を渡しているが、readseg関数は読み込みを1セクタ目から開始するので問題ない。<br />
 マジックナンバーを確認し、読み込んだデータが少なくともelfヘッダを持っていることを確認する。</p>
-<p>elfの構造に関しては<a href="chapter_03//ref_books.html">「リンカ・ローダ 実践開発テクニック」（書籍1）</a>に詳しく記載されている。<br />
+<p>elfの構造に関しては<a href="chapter_03/ref_books.html">「リンカ・ローダ 実践開発テクニック」（書籍1）</a>に詳しく記載されている。<br />
 読み込んだデータ（カーネル）から、プログラムヘッダを取得する。elfヘッダのアドレス（0x10000）にelfhdr構造体のphoffフィールド（プログラムヘッダのオフセット）を加算することでプログラムヘッダが始まるアドレスが求められる。<br />
 プログラムヘッダの個数はelfhdr構造体のphnumフィールドから得られる。<br />
 プログラムヘッダの開始アドレスと個数が分かったので、for文で各プログラムヘッダをproghdr構造体に取り出し、以下のようにセグメントをディスクから読み込む。</p>
@@ -560,7 +560,7 @@ bootmain(void)
 }
 </code></pre>
 <p>プログラムヘッダとセクションヘッダの情報はobjdumpで確認できるので、以下のようにここで処理されているプログラムヘッダの値を確認できる。<br />
-プログラムヘッダは次の3エントリ。仮想アドレスと物理アドレスは<a href="chapter_03//chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldにより設定されている。</p>
+プログラムヘッダは次の3エントリ。仮想アドレスと物理アドレスは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldにより設定されている。</p>
 <ol>
 <li>textセクション。物理アドレス0x100000にロードする。</li>
 <li>dataセクション。物理アドレス0x108000にロードする。</li>
@@ -776,7 +776,7 @@ insl命令では出力: edi(addr)と入力: edx(port)を使う。rep命令はecx
 <p>entry.Sからmain関数の実行まで。</p>
 <h1><a class="header" href="#41-entrys" id="41-entrys">4.1. entry.S</a></h1>
 <p>entry.Sではページングを有効化し、ページディレクトリを作成して、main関数を呼び出す。</p>
-<p>エントリーポイントは<a href="chapter_04/../chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldにより_startに設定されている。_startのアドレスは0x10000cだったことを<a href="chapter_04//chapter_03/03_02_bootmain.html">3.2. bootmain関数</a>で確認した。<br />
+<p>エントリーポイントは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldにより_startに設定されている。_startのアドレスは0x10000cだったことを<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_02_bootmain.html">3.2. bootmain関数</a>で確認した。<br />
 今、カーネルを実行していくためにentry.Sのentryラベルから実行を開始したい。
 しかし、リンカスクリプトによりカーネルは仮想アドレス0x80100000で実行されるようにリンクされている。
 これは<a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」</a>の「Figure 1-3. Layout of a Virtual address space」のように、仮想アドレスの上の方にカーネルを置きたいからである。
@@ -976,7 +976,7 @@ main(void)
 {
   kinit1(end, P2V(4*1024*1024)); // phys page allocator
 </code></pre>
-<p>endは<a href="chapter_05//chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldによりbssセグメントの後ろ、elfの最後に作成されている。
+<p>endは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldによりbssセグメントの後ろ、elfの最後に作成されている。
 アドレスはreadelfで確認でき、ここでは0x80116528になっている。<br />
 物理アドレスにすると0x116528。</p>
 <p><code>readelf -s kernel | grep end</code></p>
@@ -1076,7 +1076,7 @@ kfree(char *v)
 <p>書き込み先アドレス（dst）と書き込みサイズ（n）が4で割り切れる場合、stosl関数を使用して4バイトずつ書き込みを行う。
 割り切れない場合はstosb関数を使って1バイトずつ書き込む。<br />
 4バイトずつ書き込む場合は、書き込む値（c）から1バイト分取り出し、それをシフトして4バイト並べた値を書き込む。</p>
-<p>stosb関数とstosl関数は<a href="chapter_05//chapter_03/03_02_bootmain.html#inb%E9%96%A2%E6%95%B0outb%E9%96%A2%E6%95%B0insl%E9%96%A2%E6%95%B0">「3.2. bootmain関数」</a>で見たinsl関数と同様にrepを使用したパターンになっている。</p>
+<p>stosb関数とstosl関数は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_02_bootmain.html#inb%E9%96%A2%E6%95%B0outb%E9%96%A2%E6%95%B0insl%E9%96%A2%E6%95%B0">「3.2. bootmain関数」</a>で見たinsl関数と同様にrepを使用したパターンになっている。</p>
 <p>string.c</p>
 <pre><code class="language-c">void*
 memset(void *dst, int c, uint n)
@@ -1230,7 +1230,7 @@ kalloc(void)
 PTEには属性（perm）を設定する。</p>
 <p>まず変換範囲の開始仮想アドレス（a）と終了仮想アドレス（last）を求める。
 どちらもページサイズにアラインメントされている必要があるので、PGROUNDDOWNマクロを使用する。
-PGROUNDDOWNマクロは、<a href="chapter_05//chapter_05/05_02_kinit1.html">「5.2. kinit1関数」</a>で使用したPGROUNDUPマクロと同様の方法で、アドレスから前のページ境界のアドレスを計算する。
+PGROUNDDOWNマクロは、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_02_kinit1.html">「5.2. kinit1関数」</a>で使用したPGROUNDUPマクロと同様の方法で、アドレスから前のページ境界のアドレスを計算する。
 0x1000（PGSIZE）から1引いた0xFFFの否定0x000を論理積して4kBにアラインメントする。</p>
 <p>mmu.h</p>
 <pre><code>&gt; 90 #define PGROUNDUP(sz)  (((sz)+PGSIZE-1) &amp; ~(PGSIZE-1))
@@ -1564,7 +1564,7 @@ mpsearch(void)
 <p>mpsearch1関数では与えられた物理アドレスと長さ分の範囲を走査し、MPフローティングポインタ構造体を探す。<br />
 MP仕様書の「Table 4-1. MP Floating Pointer Structure Fields」によると、SIGNATUREフィールド（0バイト目）に  ”_MP_” が入っているため、それを頼りに同構造体を探すことができる。
 また、CHECKSUMフィールド（10バイト目）により、見つけた領域がMPフローティングポインタ構造体であるか否かを断定できる。
-チェックサムの計算方法は<a href="chapter_05//chapter_05/05_04_mpinit.html#mpconfig%E9%96%A2%E6%95%B0">「mpconfig関数」</a>のときと同様。</p>
+チェックサムの計算方法は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html#mpconfig%E9%96%A2%E6%95%B0">「mpconfig関数」</a>のときと同様。</p>
 <p>mp.c</p>
 <pre><code class="language-c">// Look for an MP structure in the len bytes at addr.
 static struct mp*
@@ -1607,7 +1607,7 @@ xv6ではIOAPICのIOリダイレクションテーブルのエントリに割り
 内部からの割り込みは、LAPICがLVT（ローカルベクタテーブル）を使用してプロセッサに割り込みを送信する。
 ローカル割り込みのソースとしては、プロセッサの割り込みピン（LINT0とLINT1ピン）、APICタイマ、温度センサ、パフォーマンスモニタリングカウンタ、他のプロセッサがある。<br />
 ローカルAPICは多くのレジスタを備えており、そのアドレスと名前はIntel-SDMの「Table 10-1 Local APIC Register Address Map」にリストされている。
-各レジスタへのアクセスは<a href="chapter_05//chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>にてLAPICへのアクセスアドレスを設定した大域変数lapicを通して行う。
+各レジスタへのアクセスは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>にてLAPICへのアクセスアドレスを設定した大域変数lapicを通して行う。
 レジスタのアドレスをオフセットとして使うことにより、lapic変数から任意のレジスタにアクセスできる。
 lapic変数はuint*型なので、バイト単位でオフセットを使用するために4で割る。
 例えばLocal APIC ID Register（0xFEE00020）にアクセスする際は、<code>lapic[0x0020 / 4]</code>とする。</p>
@@ -1878,7 +1878,7 @@ TPRについてはIntel-SDMの「Vol.3 10.8.3.1 Task and Processor Priorities」
 </code></pre>
 <h1><a class="header" href="#56-seginit関数" id="56-seginit関数">5.6. seginit関数</a></h1>
 <p>この関数はGDTを作成し、ロードする。</p>
-<p>ここまでは<a href="chapter_05//chapter_03/03_01_bootasm.html">「3.1. bootasm.S」</a>で作成した3つのエントリを持つGDTを使用してきた。<br />
+<p>ここまでは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_01_bootasm.html">「3.1. bootasm.S」</a>で作成した3つのエントリを持つGDTを使用してきた。<br />
 ここではユーザ空間用のセグメントディスクリプタを持った新しいGDTを作成する。</p>
 <p>セグメントディスクリプタの構造は<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.3 3.4.5 Segment Descriptors」に書いてある。</p>
 <p>関数を実行しているcpu構造体のgdtフィールドに以下の4つのセグメントディスクリプタを作成する。0番目はNULLディスクリプタなので初期化は不要。</p>
@@ -1896,7 +1896,7 @@ cpu構造体のgdtフィールドは要素数が6（定数NSEGS）に定義さ�
 0から4番目まではここで作成するが、5番目はプロセスのコンテキストスイッチを行う際にTSS（タスク状態セグメント）ディスクリプタとして作成することになる。</p>
 <p>作成したGDTをlgdt関数でgdtレジスタにロードする。<br />
 このとき、ecsレジスタの値は更新不要。
-<a href="chapter_05//chapter_03/03_01_bootasm.html#%E3%83%97%E3%83%AD%E3%83%86%E3%82%AF%E3%83%88%E3%83%A2%E3%83%BC%E3%83%89%E3%81%B8%E3%81%AE%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88">「3.1. bootasm.S」</a>ではファージャンプを行うことでecsの設定を行っているが、コードセグメントディスクリプタのインデックスがここで作成したGDTでも変わらず1番目（8バイト目）であるため、再設定が不要。</p>
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_01_bootasm.html#%E3%83%97%E3%83%AD%E3%83%86%E3%82%AF%E3%83%88%E3%83%A2%E3%83%BC%E3%83%89%E3%81%B8%E3%81%AE%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88">「3.1. bootasm.S」</a>ではファージャンプを行うことでecsの設定を行っているが、コードセグメントディスクリプタのインデックスがここで作成したGDTでも変わらず1番目（8バイト目）であるため、再設定が不要。</p>
 <p>mmu.h</p>
 <pre><code class="language-c">#define SEG_KCODE 1  // kernel code
 #define SEG_KDATA 2  // kernel data+stack
@@ -1959,7 +1959,7 @@ $5 = {lim_15_0 = 0xffff, base_15_0 = 0x0, base_23_16 = 0x0, type = 0x2, s = 0x1,
 0が無効で1が有効。
 eflagsレジスタの各bitの役割は<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.3 2.3 SYSTEM FLAGS AND FIELDS IN THE EFLAGS REGISTER」に書いてある。</p>
 <p>cpus配列をfor文で走査し、apicidフィールドの値が関数を実行しているプロセッサのLAPIC IDと等しいエントリを探す。
-各cpu構造体のapicidフィールドは<a href="chapter_05//chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>で設定済み。</p>
+各cpu構造体のapicidフィールドは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>で設定済み。</p>
 <p>mmu.h</p>
 <pre><code class="language-c">#define FL_IF           0x00000200      // Interrupt Enable
 </code></pre>
@@ -1997,7 +1997,7 @@ readeflags(void)
 <h2><a class="header" href="#lapic関数" id="lapic関数">lapic関数</a></h2>
 <p>この関数は、この関数を実行しているプロセッサのLAPIC IDを取得する。</p>
 <p>LAPIC IDは <a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.3 10.4.6 Local APIC ID」によると、Local APIC ID Register（0x20）の24～31bitから得られる。<br />
-LAPICへのアクセスについては<a href="chapter_05//chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>に書いた。</p>
+LAPICへのアクセスについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>に書いた。</p>
 <p>lapic.c</p>
 <pre><code class="language-c">int
 lapicid(void)
@@ -2081,8 +2081,8 @@ IOAPICへ入力されるIRQ番号がそれぞれどの割込みソースに割�
 <p>ioapicinit関数では、まず大域変数ioapicにIOAPICへのアクセスアドレス0xFEC00000を設定する。<br />
 次にIOリダイレクションテーブルの最大エントリ番号と、IOAPIC IDを取得する。
 デバッガで最大エントリ番号を見ると、今回は仕様書の値と同じ24（値は23）だった。
-IOAPIC IDが<a href="chapter_05//chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>にてMP設定テーブルから取得したIOAPIC IDと異なる場合、コンソールにメッセージを出力する。
-出力に使用するcprintf関数は<a href="chapter_05//chapter_05/05_19_startothers.html#cprintf%E9%96%A2%E6%95%B0">「5.17 startothers関数」</a>で見る。</p>
+IOAPIC IDが<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>にてMP設定テーブルから取得したIOAPIC IDと異なる場合、コンソールにメッセージを出力する。
+出力に使用するcprintf関数は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_19_startothers.html#cprintf%E9%96%A2%E6%95%B0">「5.17 startothers関数」</a>で見る。</p>
 <p>for文でIOリダイレクションテーブルのエントリを走査し、以下の設定を行う。
 エントリの構造は仕様書の「3.2.4. IOREDTBL[23:0]—I/O REDIRECTION TABLE REGISTERS」に記載されている。</p>
 <ul>
@@ -2145,7 +2145,7 @@ file.cでdevsw構造体の配列devswが定義されており、デバイス10�
 <p>コンソールの排他制御にはconsole.cの静的変数consを使用する。
 consはspinlock構造体のlockフィールドと、int型のlockingフィールドを持っている。
 lockフィールドはコンソールを使用する際のロックに使われる。
-ロックについては<a href="chapter_05//chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。
+ロックについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。
 lockingフィールドの値は通常1で、panic関数が呼ばれると0になり、その後1に戻ることはない。
 このフィールドはcprintf関数内で使用されており、値が1の場合はコンソールのロックを取り、0の場合は取らない。
 おそらくpanic関数が呼ばれた際に、既にコンソールのロックが取られている可能性があるため、panic関数でlockingを0にするのだと思う。</p>
@@ -2184,7 +2184,7 @@ consoleinit(void)
 <p>inodeのロックを解放し、コンソールのロックを取ってbufからn文字分出力する。
 出力が終わったらコンソールのロックを解放し、inodeのロックを再び取得する。
 コンソール出力中はinodeのロックが不要なのでロックを解放する。
-inodeについては<a href="chapter_05/chapter_05/05_11_ilock.html">「5.11. iノードのロック」</a>に書く。<br />
+inodeについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_ilock.html">「5.11. iノードのロック」</a>に書く。<br />
 出力はconsputc関数で行う。
 consputc関数の引数はint型だが、アスキーコードの範囲で渡したいので、0xffで論理積を取って1バイトだけ渡す。</p>
 <p>console.c</p>
@@ -2230,7 +2230,7 @@ consputc(int c)
   cgaputc(c);
 }
 </code></pre>
-<p>uartputc関数は<a href="chapter_05//chapter_05/05_13_uartinit.html">「5.13. uartinit」</a>に書くとして、cgaputc関数を見る。
+<p>uartputc関数は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_13_uartinit.html">「5.13. uartinit」</a>に書くとして、cgaputc関数を見る。
 cgaputc関数はメモリ上のビデオメモリ領域に書き込むことで画面出力を行う。</p>
 <p>カーソル位置はCRTコントローラを使用して読み書きする。
 <a href="http://web.stanford.edu/class/cs140/projects/pintos/specs/freevga/vga/crtcreg.htm">「Hardware Level VGA and SVGA Video Programming Information Page CRT Controller Registers」（リンク19）</a>
@@ -2320,7 +2320,7 @@ memmove(void *dst, const void *src, uint n)
 なお、割り込み時の動作については<a href="chapter_05/">「」</a>に書く。<br />
 キーボードあるいはシリアルポートから入力が行われると、割込みが生じ最終的にkbdintr関数かuartintr関数が呼ばれる。
 それらはいずれもconsoleintr関数を呼び出しており、引数としてkbdgetc関数あるいはuartgetc関数を渡す。
-uartgetc関数については<a href="chapter_05//chapter_05/05_13_uartinit.html">「5.13. uartinit関数」</a>に書く。</p>
+uartgetc関数については<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_13_uartinit.html">「5.13. uartinit関数」</a>に書く。</p>
 <p>kbd.c</p>
 <pre><code class="language-c">void
 kbdintr(void)
@@ -2520,7 +2520,7 @@ consoleintr(int (*getc)(void))
 <p>consoleread関数はinput構造体のbufフィールドを読み込む。<br />
 コンソールの読み込み位置（r）が出力済み位置（w）に追いついている場合、入力待ちのために現在のプロセスをスリープ状態にする。
 このため第一引数で与えられたiノードのロックを開放する。
-スリープについては<a href="chapter_05//chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。<br />
+スリープについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。<br />
 プロセスが起床し、出力済み位置（w）が読み込み位置（r）よりも先に進んだ場合、rをインクリメントしbufから文字コードを取り出す。
 文字コードがCtrl + D（EOT）の場合、読み込みのwhileループから抜ける。
 このとき、既に何文字か読み込んでいた場合はrをデクリメントする。
@@ -2567,7 +2567,7 @@ consoleread(struct inode *ip, char *dst, int n)
 </code></pre>
 <h2><a class="header" href="#ioapicenable関数" id="ioapicenable関数">ioapicenable関数</a></h2>
 <p>この関数は指定されたIRQのリダイレクトを有効化し、リダイレクト先LAPICを設定する。</p>
-<p>IOリダイレクションテーブルの設定は<a href="chapter_05//chapter_05/05_08_ioapicinit.html">「5.8. ioapicinit関数」</a>で行った。
+<p>IOリダイレクションテーブルの設定は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_08_ioapicinit.html">「5.8. ioapicinit関数」</a>で行った。
 ここではそこでも使用したioapicwrite関数にて、エントリのDestination Field（56bit（32+24））にLAPIC IDを設定する。
 また、同時にInterrupt Mask（16bit）が0に設定されることにより割り込みのリダイレクトを有効化している。</p>
 <p>ioapic.c</p>
@@ -2583,9 +2583,9 @@ ioapicenable(int irq, int cpunum)
 </code></pre>
 <h1><a class="header" href="#510-ロックspinlock-sleeplock" id="510-ロックspinlock-sleeplock">5.10. ロック（spinlock, sleeplock）</a></h1>
 <p><a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」（リンク1）</a>の4章「Locking」と5章「Scheduling」を読むとよい。
-xv6には<a href="chapter_05//chapter_05/05_10_lock.html#%E3%82%B9%E3%83%94%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AF">スピンロック</a>と<a href="chapter_05//chapter_05/05_10_lock.html#%E3%82%B9%E3%83%AA%E3%83%BC%E3%83%97%E3%83%AD%E3%83%83%E3%82%AF">スリープロック</a>の2種類のロックがあり、それぞれacquire関数とacquiresleep関数で取ることができる。
+xv6には<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#%E3%82%B9%E3%83%94%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AF">スピンロック</a>と<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#%E3%82%B9%E3%83%AA%E3%83%BC%E3%83%97%E3%83%AD%E3%83%83%E3%82%AF">スリープロック</a>の2種類のロックがあり、それぞれacquire関数とacquiresleep関数で取ることができる。
 前者はロックが取れるまでプロセッサを占有するので短時間のロックに使用し、後者はロックが取れるまでプロセッサを明け渡すので長時間のロックに使用する。<br />
-ロックの解放には<a href="chapter_05//chapter_05/05_10_lock.html#release%E9%96%A2%E6%95%B0">release関数</a>と<a href="chapter_05//chapter_05/05_10_lock.html#releasesleep%E9%96%A2%E6%95%B0">releasesleep関数</a>をそれぞれ使用する。</p>
+ロックの解放には<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#release%E9%96%A2%E6%95%B0">release関数</a>と<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#releasesleep%E9%96%A2%E6%95%B0">releasesleep関数</a>をそれぞれ使用する。</p>
 <h2><a class="header" href="#スピンロック" id="スピンロック">スピンロック</a></h2>
 <p>このロックはロックが取れるまでプロセッサを明け渡さない。<br />
 spinlock構造体を使用する。
@@ -2609,13 +2609,13 @@ cpuフィールドやpcsフィールドはデバッグに使用する。</p>
 もしもここで割り込みを禁止しなかった場合、あるロックを取得し、直後に割り込みが生じて同じロックを取得しようとした場合に割り込み側がロックが解放されるまで待つことになるが、ロックを持っている処理は進まないのでデッドロックとなる。<br />
 現在のプロセッサが既にそのロックを取得している場合はpanicする。<br />
 spinlock構造体のlockedフィールドを1にできるまで（ロックを取得できるまで）ループする。
-ここがスピンロックの肝であり、<a href="chapter_05//chapter_05/05_10_lock.html#xchg%E9%96%A2%E6%95%B0">xchg関数</a>でlockedフィールドの独立性を保つ。<br />
+ここがスピンロックの肝であり、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#xchg%E9%96%A2%E6%95%B0">xchg関数</a>でlockedフィールドの独立性を保つ。<br />
 ロック取得前後の命令の実行順序が入れ替わらないように__sync_synchronize関数を呼び出す。
 この関数はGCCのビルトイン関数で、<a href="https://gcc.gnu.org/onlinedocs/gcc-6.5.0/gcc/">「Using the GNU Compiler Collection (GCC)」 （リンク3）</a>の「6.51 Legacy __sync Built-in Functions for Atomic Memory Access」によると、フルメモリバリアを行う関数である。
 手元でコードを書きアセンブリ出力してみると、mfence命令にコンパイルされる。
 mfence命令は、<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>によると、この命令の前にあるメモリを読み書きする命令は必ずこの命令よりも前に実行され、この命令の後にあるメモリを読み書きする命令は必ずこの命令よりも後に実行されることを保証する。
 これはプロセッサのOut-Of-Order実行を抑止するという点で、コンパイラレベルの最適化を抑止するvolatile修飾子とは異なる。
-Out-Of-Order実行やプロセッサの仕組みについては<a href="chapter_05//ref_books.html">「プロセッサを支える技術」（書籍4）</a>がとても詳しくて分かりやすい。<br />
+Out-Of-Order実行やプロセッサの仕組みについては<a href="chapter_05/ref_books.html">「プロセッサを支える技術」（書籍4）</a>がとても詳しくて分かりやすい。<br />
 acquire関数は最後に、デバッグのための情報をspinlock構造体の中に残す。</p>
 <p>spinlock.c</p>
 <pre><code class="language-c">void
@@ -2740,7 +2740,7 @@ xchg(volatile uint *addr, uint newval)
 <h2><a class="header" href="#getcallerpcs関数" id="getcallerpcs関数">getcallerpcs関数</a></h2>
 <p>この関数は引数pcs配列にコールスタックを作成する。</p>
 <p>動作は関数の呼び出し規約が分かると分かりやすい。
-呼び出し規約については<a href="chapter_05//ref_books.html">「コンピュータの構成と設計 第4版」（書籍5）</a>に説明があり、GCCにおける呼び出し規約は<a href="http://www.delorie.com/djgpp/doc/ug/asm/calling.html">「Guide: Function Calling Conventions」（リンク22）</a>にまとめられている。<br />
+呼び出し規約については<a href="chapter_05/ref_books.html">「コンピュータの構成と設計 第4版」（書籍5）</a>に説明があり、GCCにおける呼び出し規約は<a href="http://www.delorie.com/djgpp/doc/ug/asm/calling.html">「Guide: Function Calling Conventions」（リンク22）</a>にまとめられている。<br />
 この関数はまず変数ebpに現在のスタックフレームのベースアドレスを取得する。
 スタックには引数pcs、引数v、リターンアドレス、ベースアドレスの順で積まれており、ひとつ16バイトで低いアドレスへ伸びていくので、引数vの積まれているアドレスから、-32バイトするとベースアドレスを得ることができる。<br />
 次にspinlock構造体の配列pcsは要素数が10なので、10個分までのスタックフレームのベースアドレスを入れるため、for文で10回ループする。
@@ -2767,7 +2767,7 @@ getcallerpcs(void *v, uint pcs[])
 </code></pre>
 <h2><a class="header" href="#release関数" id="release関数">release関数</a></h2>
 <p>この関数はspinlock構造体のロックを解放する。</p>
-<p>基本的に<a href="chapter_05//chapter_05/05_10_lock.html#acquire%E9%96%A2%E6%95%B0">acquire関数</a>の動作を反対から行う。
+<p>基本的に<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#acquire%E9%96%A2%E6%95%B0">acquire関数</a>の動作を反対から行う。
 movl命令を用いたロック解放部分以外は上で確認した通り。</p>
 <p>spinlock構造体のコールスタックとcpu構造体を0でリセットした後、__sync_synchronize関数でロック解放前と解放後の命令順序を保証する。<br />
 ロックの解放は、既に現在のプロセッサが当該ロックを取得していることがholding関数により保証されているため、xchg命令ではなく、move命令でlockedフィールドに0を代入する。
@@ -2905,7 +2905,7 @@ sleep(void *chan, struct spinlock *lk)
 <p>準備ができていることを確認後、自分のcpu構造体からintenaフィールドの値を退避する。
 これは再びコンテキストスイッチされ今のプロセスに戻ってきた際に、intenaフィールドの値が変わっているかもしれないため。<br />
 そしてswtch関数でスケジューラスレッドにコンテキストスイッチする。
-swtch関数については<a href="chapter_05//chapter_05/05_22_scheduler.html">5.22. scheduler関数とmpmain関数</a>に書く。
+swtch関数については<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_22_scheduler.html">5.22. scheduler関数とmpmain関数</a>に書く。
 関数呼び出しのような要領でコンテキストスイッチを行う。<br />
 再び今のプロセスにコンテキストスイッチして戻ってきた際に、退避しておいたintenaフィールドの値を復元する。</p>
 <p>proc.c</p>
@@ -2974,7 +2974,7 @@ wakeup(void *chan)
 <h1><a class="header" href="#511-iノード" id="511-iノード">5.11. iノード</a></h1>
 <p>スケジューラの実行までに使用するiノード周りの操作について書く。</p>
 <ul>
-<li><a href="chapter_05//chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93">inode構造体</a></li>
+<li><a href="chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93">inode構造体</a></li>
 <li><a href="chapter_05//chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">inode構造体の作成（iget関数）</a></li>
 <li><a href="chapter_05//chapter_05/05_11_inode.html#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">ロック（ilock/iunlock関数）</a></li>
 <li><a href="chapter_05//chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">参照カウンタのインクリメント（idup数）</a></li>

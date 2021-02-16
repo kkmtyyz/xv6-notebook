@@ -185,7 +185,7 @@ file.cでdevsw構造体の配列devswが定義されており、デバイス10�
 <p>コンソールの排他制御にはconsole.cの静的変数consを使用する。
 consはspinlock構造体のlockフィールドと、int型のlockingフィールドを持っている。
 lockフィールドはコンソールを使用する際のロックに使われる。
-ロックについては<a href="/chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。
+ロックについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。
 lockingフィールドの値は通常1で、panic関数が呼ばれると0になり、その後1に戻ることはない。
 このフィールドはcprintf関数内で使用されており、値が1の場合はコンソールのロックを取り、0の場合は取らない。
 おそらくpanic関数が呼ばれた際に、既にコンソールのロックが取られている可能性があるため、panic関数でlockingを0にするのだと思う。</p>
@@ -224,7 +224,7 @@ consoleinit(void)
 <p>inodeのロックを解放し、コンソールのロックを取ってbufからn文字分出力する。
 出力が終わったらコンソールのロックを解放し、inodeのロックを再び取得する。
 コンソール出力中はinodeのロックが不要なのでロックを解放する。
-inodeについては<a href="chapter_05/05_11_ilock.html">「5.11. iノードのロック」</a>に書く。<br />
+inodeについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_ilock.html">「5.11. iノードのロック」</a>に書く。<br />
 出力はconsputc関数で行う。
 consputc関数の引数はint型だが、アスキーコードの範囲で渡したいので、0xffで論理積を取って1バイトだけ渡す。</p>
 <p>console.c</p>
@@ -270,7 +270,7 @@ consputc(int c)
   cgaputc(c);
 }
 </code></pre>
-<p>uartputc関数は<a href="/chapter_05/05_13_uartinit.html">「5.13. uartinit」</a>に書くとして、cgaputc関数を見る。
+<p>uartputc関数は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_13_uartinit.html">「5.13. uartinit」</a>に書くとして、cgaputc関数を見る。
 cgaputc関数はメモリ上のビデオメモリ領域に書き込むことで画面出力を行う。</p>
 <p>カーソル位置はCRTコントローラを使用して読み書きする。
 <a href="http://web.stanford.edu/class/cs140/projects/pintos/specs/freevga/vga/crtcreg.htm">「Hardware Level VGA and SVGA Video Programming Information Page CRT Controller Registers」（リンク19）</a>
@@ -360,7 +360,7 @@ memmove(void *dst, const void *src, uint n)
 なお、割り込み時の動作については<a href="">「」</a>に書く。<br />
 キーボードあるいはシリアルポートから入力が行われると、割込みが生じ最終的にkbdintr関数かuartintr関数が呼ばれる。
 それらはいずれもconsoleintr関数を呼び出しており、引数としてkbdgetc関数あるいはuartgetc関数を渡す。
-uartgetc関数については<a href="/chapter_05/05_13_uartinit.html">「5.13. uartinit関数」</a>に書く。</p>
+uartgetc関数については<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_13_uartinit.html">「5.13. uartinit関数」</a>に書く。</p>
 <p>kbd.c</p>
 <pre><code class="language-c">void
 kbdintr(void)
@@ -560,7 +560,7 @@ consoleintr(int (*getc)(void))
 <p>consoleread関数はinput構造体のbufフィールドを読み込む。<br />
 コンソールの読み込み位置（r）が出力済み位置（w）に追いついている場合、入力待ちのために現在のプロセスをスリープ状態にする。
 このため第一引数で与えられたiノードのロックを開放する。
-スリープについては<a href="/chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。<br />
+スリープについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。<br />
 プロセスが起床し、出力済み位置（w）が読み込み位置（r）よりも先に進んだ場合、rをインクリメントしbufから文字コードを取り出す。
 文字コードがCtrl + D（EOT）の場合、読み込みのwhileループから抜ける。
 このとき、既に何文字か読み込んでいた場合はrをデクリメントする。
@@ -607,7 +607,7 @@ consoleread(struct inode *ip, char *dst, int n)
 </code></pre>
 <h2><a class="header" href="#ioapicenable関数" id="ioapicenable関数">ioapicenable関数</a></h2>
 <p>この関数は指定されたIRQのリダイレクトを有効化し、リダイレクト先LAPICを設定する。</p>
-<p>IOリダイレクションテーブルの設定は<a href="/chapter_05/05_08_ioapicinit.html">「5.8. ioapicinit関数」</a>で行った。
+<p>IOリダイレクションテーブルの設定は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_08_ioapicinit.html">「5.8. ioapicinit関数」</a>で行った。
 ここではそこでも使用したioapicwrite関数にて、エントリのDestination Field（56bit（32+24））にLAPIC IDを設定する。
 また、同時にInterrupt Mask（16bit）が0に設定されることにより割り込みのリダイレクトを有効化している。</p>
 <p>ioapic.c</p>

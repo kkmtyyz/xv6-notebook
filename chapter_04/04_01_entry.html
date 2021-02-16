@@ -165,7 +165,7 @@
                     <main>
                         <h1><a class="header" href="#41-entrys" id="41-entrys">4.1. entry.S</a></h1>
 <p>entry.Sではページングを有効化し、ページディレクトリを作成して、main関数を呼び出す。</p>
-<p>エントリーポイントは<a href="../chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldにより_startに設定されている。_startのアドレスは0x10000cだったことを<a href="/chapter_03/03_02_bootmain.html">3.2. bootmain関数</a>で確認した。<br />
+<p>エントリーポイントは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldにより_startに設定されている。_startのアドレスは0x10000cだったことを<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_02_bootmain.html">3.2. bootmain関数</a>で確認した。<br />
 今、カーネルを実行していくためにentry.Sのentryラベルから実行を開始したい。
 しかし、リンカスクリプトによりカーネルは仮想アドレス0x80100000で実行されるようにリンクされている。
 これは<a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」</a>の「Figure 1-3. Layout of a Virtual address space」のように、仮想アドレスの上の方にカーネルを置きたいからである。

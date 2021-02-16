@@ -165,7 +165,7 @@
                     <main>
                         <h1><a class="header" href="#56-seginit関数" id="56-seginit関数">5.6. seginit関数</a></h1>
 <p>この関数はGDTを作成し、ロードする。</p>
-<p>ここまでは<a href="/chapter_03/03_01_bootasm.html">「3.1. bootasm.S」</a>で作成した3つのエントリを持つGDTを使用してきた。<br />
+<p>ここまでは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_01_bootasm.html">「3.1. bootasm.S」</a>で作成した3つのエントリを持つGDTを使用してきた。<br />
 ここではユーザ空間用のセグメントディスクリプタを持った新しいGDTを作成する。</p>
 <p>セグメントディスクリプタの構造は<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.3 3.4.5 Segment Descriptors」に書いてある。</p>
 <p>関数を実行しているcpu構造体のgdtフィールドに以下の4つのセグメントディスクリプタを作成する。0番目はNULLディスクリプタなので初期化は不要。</p>
@@ -183,7 +183,7 @@ cpu構造体のgdtフィールドは要素数が6（定数NSEGS）に定義さ�
 0から4番目まではここで作成するが、5番目はプロセスのコンテキストスイッチを行う際にTSS（タスク状態セグメント）ディスクリプタとして作成することになる。</p>
 <p>作成したGDTをlgdt関数でgdtレジスタにロードする。<br />
 このとき、ecsレジスタの値は更新不要。
-<a href="/chapter_03/03_01_bootasm.html#%E3%83%97%E3%83%AD%E3%83%86%E3%82%AF%E3%83%88%E3%83%A2%E3%83%BC%E3%83%89%E3%81%B8%E3%81%AE%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88">「3.1. bootasm.S」</a>ではファージャンプを行うことでecsの設定を行っているが、コードセグメントディスクリプタのインデックスがここで作成したGDTでも変わらず1番目（8バイト目）であるため、再設定が不要。</p>
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_01_bootasm.html#%E3%83%97%E3%83%AD%E3%83%86%E3%82%AF%E3%83%88%E3%83%A2%E3%83%BC%E3%83%89%E3%81%B8%E3%81%AE%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88">「3.1. bootasm.S」</a>ではファージャンプを行うことでecsの設定を行っているが、コードセグメントディスクリプタのインデックスがここで作成したGDTでも変わらず1番目（8バイト目）であるため、再設定が不要。</p>
 <p>mmu.h</p>
 <pre><code class="language-c">#define SEG_KCODE 1  // kernel code
 #define SEG_KDATA 2  // kernel data+stack
@@ -246,7 +246,7 @@ $5 = {lim_15_0 = 0xffff, base_15_0 = 0x0, base_23_16 = 0x0, type = 0x2, s = 0x1,
 0が無効で1が有効。
 eflagsレジスタの各bitの役割は<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.3 2.3 SYSTEM FLAGS AND FIELDS IN THE EFLAGS REGISTER」に書いてある。</p>
 <p>cpus配列をfor文で走査し、apicidフィールドの値が関数を実行しているプロセッサのLAPIC IDと等しいエントリを探す。
-各cpu構造体のapicidフィールドは<a href="/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>で設定済み。</p>
+各cpu構造体のapicidフィールドは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>で設定済み。</p>
 <p>mmu.h</p>
 <pre><code class="language-c">#define FL_IF           0x00000200      // Interrupt Enable
 </code></pre>
@@ -284,7 +284,7 @@ readeflags(void)
 <h2><a class="header" href="#lapic関数" id="lapic関数">lapic関数</a></h2>
 <p>この関数は、この関数を実行しているプロセッサのLAPIC IDを取得する。</p>
 <p>LAPIC IDは <a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.3 10.4.6 Local APIC ID」によると、Local APIC ID Register（0x20）の24～31bitから得られる。<br />
-LAPICへのアクセスについては<a href="/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>に書いた。</p>
+LAPICへのアクセスについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>に書いた。</p>
 <p>lapic.c</p>
 <pre><code class="language-c">int
 lapicid(void)

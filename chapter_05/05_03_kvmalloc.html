@@ -284,7 +284,7 @@ kalloc(void)
 PTEには属性（perm）を設定する。</p>
 <p>まず変換範囲の開始仮想アドレス（a）と終了仮想アドレス（last）を求める。
 どちらもページサイズにアラインメントされている必要があるので、PGROUNDDOWNマクロを使用する。
-PGROUNDDOWNマクロは、<a href="/chapter_05/05_02_kinit1.html">「5.2. kinit1関数」</a>で使用したPGROUNDUPマクロと同様の方法で、アドレスから前のページ境界のアドレスを計算する。
+PGROUNDDOWNマクロは、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_02_kinit1.html">「5.2. kinit1関数」</a>で使用したPGROUNDUPマクロと同様の方法で、アドレスから前のページ境界のアドレスを計算する。
 0x1000（PGSIZE）から1引いた0xFFFの否定0x000を論理積して4kBにアラインメントする。</p>
 <p>mmu.h</p>
 <pre><code>&gt; 90 #define PGROUNDUP(sz)  (((sz)+PGSIZE-1) &amp; ~(PGSIZE-1))

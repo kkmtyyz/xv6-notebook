@@ -165,9 +165,9 @@
                     <main>
                         <h1><a class="header" href="#510-ロックspinlock-sleeplock" id="510-ロックspinlock-sleeplock">5.10. ロック（spinlock, sleeplock）</a></h1>
 <p><a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」（リンク1）</a>の4章「Locking」と5章「Scheduling」を読むとよい。
-xv6には<a href="/chapter_05/05_10_lock.html#%E3%82%B9%E3%83%94%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AF">スピンロック</a>と<a href="/chapter_05/05_10_lock.html#%E3%82%B9%E3%83%AA%E3%83%BC%E3%83%97%E3%83%AD%E3%83%83%E3%82%AF">スリープロック</a>の2種類のロックがあり、それぞれacquire関数とacquiresleep関数で取ることができる。
+xv6には<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#%E3%82%B9%E3%83%94%E3%83%B3%E3%83%AD%E3%83%83%E3%82%AF">スピンロック</a>と<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#%E3%82%B9%E3%83%AA%E3%83%BC%E3%83%97%E3%83%AD%E3%83%83%E3%82%AF">スリープロック</a>の2種類のロックがあり、それぞれacquire関数とacquiresleep関数で取ることができる。
 前者はロックが取れるまでプロセッサを占有するので短時間のロックに使用し、後者はロックが取れるまでプロセッサを明け渡すので長時間のロックに使用する。<br />
-ロックの解放には<a href="/chapter_05/05_10_lock.html#release%E9%96%A2%E6%95%B0">release関数</a>と<a href="/chapter_05/05_10_lock.html#releasesleep%E9%96%A2%E6%95%B0">releasesleep関数</a>をそれぞれ使用する。</p>
+ロックの解放には<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#release%E9%96%A2%E6%95%B0">release関数</a>と<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#releasesleep%E9%96%A2%E6%95%B0">releasesleep関数</a>をそれぞれ使用する。</p>
 <h2><a class="header" href="#スピンロック" id="スピンロック">スピンロック</a></h2>
 <p>このロックはロックが取れるまでプロセッサを明け渡さない。<br />
 spinlock構造体を使用する。
@@ -191,13 +191,13 @@ cpuフィールドやpcsフィールドはデバッグに使用する。</p>
 もしもここで割り込みを禁止しなかった場合、あるロックを取得し、直後に割り込みが生じて同じロックを取得しようとした場合に割り込み側がロックが解放されるまで待つことになるが、ロックを持っている処理は進まないのでデッドロックとなる。<br />
 現在のプロセッサが既にそのロックを取得している場合はpanicする。<br />
 spinlock構造体のlockedフィールドを1にできるまで（ロックを取得できるまで）ループする。
-ここがスピンロックの肝であり、<a href="/chapter_05/05_10_lock.html#xchg%E9%96%A2%E6%95%B0">xchg関数</a>でlockedフィールドの独立性を保つ。<br />
+ここがスピンロックの肝であり、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#xchg%E9%96%A2%E6%95%B0">xchg関数</a>でlockedフィールドの独立性を保つ。<br />
 ロック取得前後の命令の実行順序が入れ替わらないように__sync_synchronize関数を呼び出す。
 この関数はGCCのビルトイン関数で、<a href="https://gcc.gnu.org/onlinedocs/gcc-6.5.0/gcc/">「Using the GNU Compiler Collection (GCC)」 （リンク3）</a>の「6.51 Legacy __sync Built-in Functions for Atomic Memory Access」によると、フルメモリバリアを行う関数である。
 手元でコードを書きアセンブリ出力してみると、mfence命令にコンパイルされる。
 mfence命令は、<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>によると、この命令の前にあるメモリを読み書きする命令は必ずこの命令よりも前に実行され、この命令の後にあるメモリを読み書きする命令は必ずこの命令よりも後に実行されることを保証する。
 これはプロセッサのOut-Of-Order実行を抑止するという点で、コンパイラレベルの最適化を抑止するvolatile修飾子とは異なる。
-Out-Of-Order実行やプロセッサの仕組みについては<a href="/ref_books.html">「プロセッサを支える技術」（書籍4）</a>がとても詳しくて分かりやすい。<br />
+Out-Of-Order実行やプロセッサの仕組みについては<a href="ref_books.html">「プロセッサを支える技術」（書籍4）</a>がとても詳しくて分かりやすい。<br />
 acquire関数は最後に、デバッグのための情報をspinlock構造体の中に残す。</p>
 <p>spinlock.c</p>
 <pre><code class="language-c">void
@@ -322,7 +322,7 @@ xchg(volatile uint *addr, uint newval)
 <h2><a class="header" href="#getcallerpcs関数" id="getcallerpcs関数">getcallerpcs関数</a></h2>
 <p>この関数は引数pcs配列にコールスタックを作成する。</p>
 <p>動作は関数の呼び出し規約が分かると分かりやすい。
-呼び出し規約については<a href="/ref_books.html">「コンピュータの構成と設計 第4版」（書籍5）</a>に説明があり、GCCにおける呼び出し規約は<a href="http://www.delorie.com/djgpp/doc/ug/asm/calling.html">「Guide: Function Calling Conventions」（リンク22）</a>にまとめられている。<br />
+呼び出し規約については<a href="ref_books.html">「コンピュータの構成と設計 第4版」（書籍5）</a>に説明があり、GCCにおける呼び出し規約は<a href="http://www.delorie.com/djgpp/doc/ug/asm/calling.html">「Guide: Function Calling Conventions」（リンク22）</a>にまとめられている。<br />
 この関数はまず変数ebpに現在のスタックフレームのベースアドレスを取得する。
 スタックには引数pcs、引数v、リターンアドレス、ベースアドレスの順で積まれており、ひとつ16バイトで低いアドレスへ伸びていくので、引数vの積まれているアドレスから、-32バイトするとベースアドレスを得ることができる。<br />
 次にspinlock構造体の配列pcsは要素数が10なので、10個分までのスタックフレームのベースアドレスを入れるため、for文で10回ループする。
@@ -349,7 +349,7 @@ getcallerpcs(void *v, uint pcs[])
 </code></pre>
 <h2><a class="header" href="#release関数" id="release関数">release関数</a></h2>
 <p>この関数はspinlock構造体のロックを解放する。</p>
-<p>基本的に<a href="/chapter_05/05_10_lock.html#acquire%E9%96%A2%E6%95%B0">acquire関数</a>の動作を反対から行う。
+<p>基本的に<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#acquire%E9%96%A2%E6%95%B0">acquire関数</a>の動作を反対から行う。
 movl命令を用いたロック解放部分以外は上で確認した通り。</p>
 <p>spinlock構造体のコールスタックとcpu構造体を0でリセットした後、__sync_synchronize関数でロック解放前と解放後の命令順序を保証する。<br />
 ロックの解放は、既に現在のプロセッサが当該ロックを取得していることがholding関数により保証されているため、xchg命令ではなく、move命令でlockedフィールドに0を代入する。
@@ -487,7 +487,7 @@ sleep(void *chan, struct spinlock *lk)
 <p>準備ができていることを確認後、自分のcpu構造体からintenaフィールドの値を退避する。
 これは再びコンテキストスイッチされ今のプロセスに戻ってきた際に、intenaフィールドの値が変わっているかもしれないため。<br />
 そしてswtch関数でスケジューラスレッドにコンテキストスイッチする。
-swtch関数については<a href="/chapter_05/05_22_scheduler.html">5.22. scheduler関数とmpmain関数</a>に書く。
+swtch関数については<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_22_scheduler.html">5.22. scheduler関数とmpmain関数</a>に書く。
 関数呼び出しのような要領でコンテキストスイッチを行う。<br />
 再び今のプロセスにコンテキストスイッチして戻ってきた際に、退避しておいたintenaフィールドの値を復元する。</p>
 <p>proc.c</p>
