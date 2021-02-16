@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ideinit関数 - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html" class="active"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#518-ideinit関数" id="518-ideinit関数">5.18. ideinit関数</a></h1>
+<p>この関数ではIDEの割り込みの有効化と、ディスク1の存在確認を行う。</p>
+<p>ide.cに宣言されている静的なint型の変数havedisk1が、ディスク1の有無を示すフラグとなっており、値が1場合にディスク1があることを示す。</p>
+<p>IDEからの割り込みを<a href="/chapter_05/05_09_consoleinit.html#ioapicenable%E9%96%A2%E6%95%B0">ioapicenable関数</a>で有効化する。
+IRQ番号は<a href="https://wiki.osdev.org/Interrupts">「OSDev Interrupt」（リンク29）</a>の表「Standard ISA IRQs」をによると、14番がPrimary ATA Hard Disk、と15番がSecondary ATA Hard Diskとなっている。
+ここでは14番（IRQ_IDE）からの割り込みを有効化する。
+割り込み先はcpuid（LAPIC ID）が最も大きいcpuに設定する。
+cpu数を示す大域変数ncpuは<a href="/chapter_05/05_04_mpinit.html">mpinit関数</a>で設定した。</p>
+<p><a href="/chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">idewait関数</a>でディスク0がビジーでもエラーでもなくなるまで待つ。<br />
+ディスク1の有無を確認するために、読み書きを行うディスクをディスク1に切り替える。
+<a href="https://wiki.osdev.org/ATA_PIO_Mode">「OSDev ATA PIO Mode」（リンク23）</a>によると、IDEコントローラのdrive/headレジスタ（0x1f6）の4bitを1にすることでディスク1に切り替えられる。
+また、5～7bitは101で固定のようだが、ここでは0xe0で全て1に設定している。<br />
+ディスク1のステータスレジスタ（0x1f7）から0以外の値が読み取れるまで、for文で1000回ループする。
+エラーになっていようがレディになっていようがとりあえず0以外が返ってくればディスク1が存在することは確認できる。<br />
+ディスク1の存在確認完了後、読み書きするディスクをディスク0に戻す。</p>
+<p>traps.h</p>
+<pre><code class="language-c">#define IRQ_IDE         14
+</code></pre>
+<p>ide.c</p>
+<pre><code class="language-c">static int havedisk1;
+
+/* 略 */
+
+void
+ideinit(void)
+{
+  int i;
+
+  initlock(&amp;idelock, &quot;ide&quot;);
+  ioapicenable(IRQ_IDE, ncpu - 1);
+  idewait(0);
+
+  // Check if disk 1 is present
+  outb(0x1f6, 0xe0 | (1&lt;&lt;4));
+  for(i=0; i&lt;1000; i++){
+    if(inb(0x1f7) != 0){
+      havedisk1 = 1;
+      break;
+    }
+  }
+
+  // Switch back to disk 0.
+  outb(0x1f6, 0xe0 | (0&lt;&lt;4));
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_05/05_17_fileinit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_05/05_19_startothers.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_05/05_17_fileinit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_05/05_19_startothers.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

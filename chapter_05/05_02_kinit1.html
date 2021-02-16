@@ -1,0 +1,380 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>kinit1関数 - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html" class="active"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#52-kinit1関数" id="52-kinit1関数">5.2. kinit1関数</a></h1>
+<p>この関数は、大域変数kmemのfreelistに、kernelの終わりから物理アドレス4MBまでを追加する。</p>
+<p>main関数からはkernelのendシンボルのアドレス（vstart）と、物理アドレス4MBの仮想アドレス（vend）を受け取る。</p>
+<p>main.c</p>
+<pre><code class="language-c">extern char end[]; // first address after kernel loaded from ELF file
+
+/* 略 */
+
+int
+main(void)
+{
+  kinit1(end, P2V(4*1024*1024)); // phys page allocator
+</code></pre>
+<p>endは<a href="/chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldによりbssセグメントの後ろ、elfの最後に作成されている。
+アドレスはreadelfで確認でき、ここでは0x80116528になっている。<br />
+物理アドレスにすると0x116528。</p>
+<p><code>readelf -s kernel | grep end</code></p>
+<pre><code>   257: 801035ae   196 FUNC    GLOBAL DEFAULT    1 end_op
+   331: 80116528     0 NOTYPE  GLOBAL DEFAULT    4 end
+   352: 8010b4ec     0 NOTYPE  GLOBAL DEFAULT    3 _binary_initcode_end
+   503: 8010b576     0 NOTYPE  GLOBAL DEFAULT    3 _binary_entryother_end
+</code></pre>
+<p>物理アドレスから仮想アドレスへの変換はP2Vマクロを使う。V2Pマクロと同様にカーネルベースアドレスを使って変換する。</p>
+<p>memlayout.h</p>
+<pre><code class="language-c">#define KERNBASE 0x80000000         // First kernel virtual address
+
+/* 略 */
+
+#define P2V(a) ((void *)(((char *) (a)) + KERNBASE))
+</code></pre>
+<p>main関数から与えられたアドレスの範囲は、物理アドレスだと0x116528（vstart）から0x400000（vend）。<br />
+freelistに加えるためにPGROUNDUPマクロで4kBにアラインメントするので、開始アドレスは0x117000となり0x400000と差を取ると0x2E9AD8 = 0x2E9000で約3MB。</p>
+<p>ページは大域変数kmemのfreelistフィールドに持っておく。
+freelistフィールドはrun構造体の線形リストになっており、ページが必要な時はこのリストから取得し、解放するときはこのリストに戻すことになる。
+kmem構造体はその他に2つのフィールドを持っており、lockフィールドは排他制御に使用し、use_lockフィールドは排他制御の必要性を示す。
+use_lockが0のときは排他制御が不要なので、freelistへアクセスする際にkmemのロックを取らない。use_lockはkinit2関数で初めて1に初期化される。<br />
+spinlock構造体等を用いた排他制御に関しては、consoleinit関数で見る。</p>
+<p>kalloc.c</p>
+<pre><code class="language-c">struct run {
+  struct run *next;
+};
+
+struct {
+  struct spinlock lock;
+  int use_lock;
+  struct run *freelist;
+} kmem;
+</code></pre>
+<p>kinit1関数は、大域変数kmemのロックを初期化し、freelistにアドレスend（vstart）の次のページから物理アドレス0x400000までを追加する。追加されるページは全て1埋めされる。</p>
+<p>kalloc.c</p>
+<pre><code class="language-c">void
+kinit1(void *vstart, void *vend)
+{
+  initlock(&amp;kmem.lock, &quot;kmem&quot;);
+  kmem.use_lock = 0;
+  freerange(vstart, vend);
+}
+</code></pre>
+<h2><a class="header" href="#freerange関数" id="freerange関数">freerange関数</a></h2>
+<p>この関数は、指定された仮想アドレスの範囲をkmemのfreelistに加える。</p>
+<p>freelistに加えられる範囲は、vstartの次の4kB境界から、vendの次の4kB境界までである。<br />
+PGROUNDUPマクロは引数として与えられたアドレスの次のページ境界のアドレスを計算する。</p>
+<p>mmu.h</p>
+<pre><code class="language-c">#define PGROUNDUP(sz)  (((sz)+PGSIZE-1) &amp; ~(PGSIZE-1))
+</code></pre>
+<p>kalloc.c</p>
+<pre><code class="language-c">void
+freerange(void *vstart, void *vend)
+{
+  char *p;
+  p = (char*)PGROUNDUP((uint)vstart);
+  for(; p + PGSIZE &lt;= (char*)vend; p += PGSIZE)
+    kfree(p);
+}
+</code></pre>
+<h2><a class="header" href="#kfree関数" id="kfree関数">kfree関数</a></h2>
+<p>この関数は、指定された仮想アドレスのページをkmemのfreelistに加える。ページサイズは4kBで内容は全て1で初期化される。</p>
+<p>ページの開始アドレス（v）はページサイズで割り切れ、end以上PHYSTOP未満でなければならない。PHYSTOP（0xE000000）はxv6での物理アドレスの上限。この条件を満たさない場合、panic関数を呼び出す。<br />
+panic関数はコンソールのロックを取り、パニックした理由とコールスタックをコンソールに出力し、panickedフラグを1にして無限ループに入る。
+コンソール出力にはcgaputc関数を使用する。</p>
+<p>ページの初期化はmemset関数で1で埋めすることで行う。<br />
+kmemのuse_lockフィールドが1のとき、APが起動しており排他制御が必要となるため、freelistにページを加える間、acquire関数とrelease関数でロックの取得と解放を行う。
+kinit1関数の呼び出しではuse_lockは0なので、排他制御は行わない。<br />
+初期化したページはfreelistの先頭に追加していく。</p>
+<p>kalloc.c</p>
+<pre><code class="language-c">void
+kfree(char *v)
+{
+  struct run *r;
+
+  if((uint)v % PGSIZE || v &lt; end || V2P(v) &gt;= PHYSTOP)
+    panic(&quot;kfree&quot;);
+
+  // Fill with junk to catch dangling refs.
+  memset(v, 1, PGSIZE);
+
+  if(kmem.use_lock)
+    acquire(&amp;kmem.lock);
+  r = (struct run*)v;
+  r-&gt;next = kmem.freelist;
+  kmem.freelist = r;
+  if(kmem.use_lock)
+    release(&amp;kmem.lock);
+}
+</code></pre>
+<p>memlayout.h</p>
+<pre><code class="language-c">#define PHYSTOP 0xE000000           // Top physical memory
+</code></pre>
+<h2><a class="header" href="#memset関数" id="memset関数">memset関数</a></h2>
+<p>この関数は指定したアドレスに値をnバイト分書き込む。</p>
+<p>書き込み先アドレス（dst）と書き込みサイズ（n）が4で割り切れる場合、stosl関数を使用して4バイトずつ書き込みを行う。
+割り切れない場合はstosb関数を使って1バイトずつ書き込む。<br />
+4バイトずつ書き込む場合は、書き込む値（c）から1バイト分取り出し、それをシフトして4バイト並べた値を書き込む。</p>
+<p>stosb関数とstosl関数は<a href="/chapter_03/03_02_bootmain.html#inb%E9%96%A2%E6%95%B0outb%E9%96%A2%E6%95%B0insl%E9%96%A2%E6%95%B0">「3.2. bootmain関数」</a>で見たinsl関数と同様にrepを使用したパターンになっている。</p>
+<p>string.c</p>
+<pre><code class="language-c">void*
+memset(void *dst, int c, uint n)
+{
+  if ((int)dst%4 == 0 &amp;&amp; n%4 == 0){
+    c &amp;= 0xFF;
+    stosl(dst, (c&lt;&lt;24)|(c&lt;&lt;16)|(c&lt;&lt;8)|c, n/4);
+  } else
+    stosb(dst, c, n);
+  return dst;
+}
+</code></pre>
+<p>x86.h</p>
+<pre><code class="language-c">static inline void
+stosb(void *addr, int data, int cnt)
+{
+  asm volatile(&quot;cld; rep stosb&quot; :
+               &quot;=D&quot; (addr), &quot;=c&quot; (cnt) :
+               &quot;0&quot; (addr), &quot;1&quot; (cnt), &quot;a&quot; (data) :
+               &quot;memory&quot;, &quot;cc&quot;);
+}
+
+static inline void
+stosl(void *addr, int data, int cnt)
+{
+  asm volatile(&quot;cld; rep stosl&quot; :
+               &quot;=D&quot; (addr), &quot;=c&quot; (cnt) :
+               &quot;0&quot; (addr), &quot;1&quot; (cnt), &quot;a&quot; (data) :
+               &quot;memory&quot;, &quot;cc&quot;);
+}
+</code></pre>
+<p>これで大域変数kmemのfreelistに約3MB分のページを追加できた。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_05/05_01_main.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_05/05_03_kvmalloc.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_05/05_01_main.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_05/05_03_kvmalloc.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

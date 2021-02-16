@@ -1,0 +1,395 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>bootasm.S - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html" class="active"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#31-bootasms" id="31-bootasms">3.1. bootasm.S</a></h1>
+<p>bootasm.SではGDTを作り、プロテクトモードへ切り替え、bootmain関数を呼び出す。</p>
+<h2><a class="header" href="#a20ラインの有効化" id="a20ラインの有効化">A20ラインの有効化</a></h2>
+<p>最初にBIOSが立ち上がり、xv6.imgの最初の510～511バイト目の0x55AAを見てブートセクタだと判断して物理アドレス0x7C00にディスクから1セクタ（512バイト）分読み込む。
+つまりxv6.imgのbootblockの部分が0x7C00に読み込まれる。<br />
+bootblockの頭の方はbootasm.Sなので、startから実行が開始される。<br />
+cli命令で割り込みを無効化する。<br />
+axレジスタを使い、各セグメントレジスタ（ds, es, ss）の値を0に初期化する。</p>
+<p>次に、キーボードコントローラを使ってアドレスバスのA20ライン以上を使えるように設定を行う。<br />
+このA20ラインや、セグメント機構、ページング、割り込み等については<a href="docs/ref_books.html">「はじめて読む486」（書籍2）</a>に詳しく記載されている。
+まだアドレスバスが0～19までしか無く、20bitで1MBのアドレスを使用していた時代、0xFFFFFの次0x100000へのアクセスで0x0にアクセスすることができたらしく、その性質を利用したプログラムも書かれていたらしい。その互換性を維持するために起動時はアドレスバスがA19までしか使用できないようになっているらしいので、この上限を開放する必要がある。
+A20ラインの有効化にはいくつかの方法があり、その内のひとつとしてキーボードコントローラを使用した方法がある。</p>
+<p>キーボードコントローラの仕様については<a href="https://www.win.tue.nl/%7Eaeb/linux/kbd/scancodes.html">「Keyboard scancodes」（リンク7）</a>の「The AT keyboard controller」に載っている。<br />
+上記リンクによると、ポート0x64からの読み込みはステータスレジスタの内容となり、書き込みはコマンドとして解釈される。
+また、ポート0x60への書き込みはコマンドのデータとして解釈される。</p>
+<p>ラベルsata20.1では、ポート0x64からステータス0x2以外が読み出せるまでループしている。
+ステータスは0bitがアウトプットバッファを示し、1bitがインプットバッファを示していて、0が空で1がフル。
+バッファが空だった場合、ポート0x64にコマンド0xd1を書き込む。0xd1はアウトプットポートにデータを書き込むコマンド。
+ラベルsata20.2のループでバッファが空であることを確認できるまで待ち、ポート0x60にデータ0xdfを書き込む。データ0xdfをアウトプットポートに書き込むと、A20ラインが有効になる。</p>
+<p>bootasm.S</p>
+<pre><code class="language-asm">.code16                       # Assemble for 16-bit mode
+.globl start
+start:
+  cli                         # BIOS enabled interrupts; disable
+
+  # Zero data segment registers DS, ES, and SS.
+  xorw    %ax,%ax             # Set %ax to zero
+  movw    %ax,%ds             # -&gt; Data Segment
+  movw    %ax,%es             # -&gt; Extra Segment
+  movw    %ax,%ss             # -&gt; Stack Segment
+
+  # Physical address line A20 is tied to zero so that the first PCs 
+  # with 2 MB would run software that assumed 1 MB.  Undo that.
+seta20.1:
+  inb     $0x64,%al               # Wait for not busy
+  testb   $0x2,%al
+  jnz     seta20.1
+
+  movb    $0xd1,%al               # 0xd1 -&gt; port 0x64
+  outb    %al,$0x64
+
+seta20.2:
+  inb     $0x64,%al               # Wait for not busy
+  testb   $0x2,%al
+  jnz     seta20.2
+
+  movb    $0xdf,%al               # 0xdf -&gt; port 0x60
+  outb    %al,$0x60
+</code></pre>
+<h2><a class="header" href="#gdtの作成とロード" id="gdtの作成とロード">GDTの作成とロード</a></h2>
+<p>プロテクトモードに切り替える準備をする。<br />
+プロテクトモードのセグメント機構ではセグメントディスクリプタを使うので、事前にGDTを作ってlgdt命令で設定する必要がある。GDTに関しても<a href="ref_books.html">「はじめて読む486」（書籍2）</a>に詳しく記載されている。<br />
+lgdt命令ではgdtrにGDTのサイズとアドレスをセットする。
+サイズは2バイトで、ラベル間の差を取って（gtddesc - gdt - 1）求める。
+アドレスにはgdtラベルのアドレスをセットする。<br />
+gdtラベルからGDTのエントリが書かれてる。全部で3エントリ。セグメントディスクリプタを作成するSEG_ASMマクロはasm.hに定義されている。
+p2align 2で2 * 2 = 4バイトでアラインメントする。<br />
+セグメントディスクリプタの構造はプロセッサのマニュアル<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「vol.3A 3.4.5 Segment Descriptors」に記載されてる。</p>
+<p>作成されるセグメントディスクリプタの内容は、ビルドで作成されたbootblockバイナリを見て、マニュアルの図と照らし合わせるとわかりやすい。
+SEG_ASMマクロと引数の一部を電卓で計算すると、コードセグメントディスクリプタの方に値0x9Aが入っているのが分かるので、bootblockをxxdで開いてlessにパイプして9aでサーチすると位置0x60にGDTを見つけることができる。<br />
+GDTに作成される3つのエントリは以下のようになっている。<br />
+エントリ1: NULL。8バイト全て0。<br />
+エントリ2: コードセグメントディスクリプタ。値は16進数で FF FF 00 00 00 9A CF 00。<br />
+エントリ3: データセグメントディスクリプタ。値は16進数で FF FF 00 00 00 92 CF 00。<br />
+コードセグメントディスクリプタの値はリミット値が0xFFFFF、セグメントベースが0x00000000、属性が0x9AC。属性は以下のようになってる。<br />
+type 1100<br />
+S    0<br />
+DPL  01<br />
+P    1<br />
+AVL  1<br />
+O    0<br />
+D    0<br />
+G    1<br />
+リミット値は0xFFFFFだけど、Gフラグが1だからページ単位になって4K倍されるので0xFFFFF * 4096 = 4GB。
+データセグメントディスクリプタの値もコードセグメントディスクリプタとだいたい同じになっている。属性は0x92C。</p>
+<p>bootasm.S</p>
+<pre><code class="language-asm"># Bootstrap GDT
+.p2align 2                                # force 4 byte alignment
+gdt:
+  SEG_NULLASM                             # null seg
+  SEG_ASM(STA_X|STA_R, 0x0, 0xffffffff)   # code seg
+  SEG_ASM(STA_W, 0x0, 0xffffffff)         # data seg
+
+gdtdesc:
+  .word   (gdtdesc - gdt - 1)             # sizeof(gdt) - 1
+  .long   gdt                             # address gdt
+</code></pre>
+<p>asm.h</p>
+<pre><code class="language-asm">#define SEG_NULLASM                                             \
+        .word 0, 0;                                             \
+        .byte 0, 0, 0, 0
+
+// The 0xC0 means the limit is in 4096-byte units
+// and (for executable segments) 32-bit mode.
+#define SEG_ASM(type,base,lim)                                  \
+        .word (((lim) &gt;&gt; 12) &amp; 0xffff), ((base) &amp; 0xffff);      \
+        .byte (((base) &gt;&gt; 16) &amp; 0xff), (0x90 | (type)),         \
+                (0xC0 | (((lim) &gt;&gt; 28) &amp; 0xf)), (((base) &gt;&gt; 24) &amp; 0xff)
+
+#define STA_X     0x8       // Executable segment
+#define STA_W     0x2       // Writeable (non-executable segments)
+#define STA_R     0x2       // Readable (executable segments)
+</code></pre>
+<h2><a class="header" href="#プロテクトモードへの切り替え" id="プロテクトモードへの切り替え">プロテクトモードへの切り替え</a></h2>
+<p>cr0のプロテクトモード有効フラグ（0bit）を立ててプロテクトモードに切り替える。
+GDTのコードセグメントディスクリプタを使ってプロテクトモードでの実行を開始するために、ファージャンプをする。csレジスタの値はファージャンプでなければ変更できないため。
+セグメントディスクリプタは1エントリ8バイトなので<code>ljmp $8, $start32</code>で、NULLの次のコードセグメントディスクリプタを指定する。</p>
+<p>bootasm.S</p>
+<pre><code class="language-asm">  # Switch from real to protected mode.  Use a bootstrap GDT that makes
+  # virtual addresses map directly to physical addresses so that the
+  # effective memory map doesn't change during the transition.
+  lgdt    gdtdesc
+  movl    %cr0, %eax
+  orl     $CR0_PE, %eax
+  movl    %eax, %cr0
+
+//PAGEBREAK!
+  # Complete the transition to 32-bit protected mode by using a long jmp
+  # to reload %cs and %eip.  The segment descriptors are set up with no
+  # translation, so that the mapping is still the identity mapping.
+  ljmp    $(SEG_KCODE&lt;&lt;3), $start32
+</code></pre>
+<p>mmu.h</p>
+<pre><code class="language-asm">#define SEG_KCODE 1  // kernel code
+#define SEG_KDATA 2  // kernel data+stack
+</code></pre>
+<p>start32ラベルから32bit命令で実行が始まる。<br />
+ds, es, ssにデータセグメントディスクリプタを設定する。<br />
+fs, gsに0を設定する。<br />
+espにstartのアドレスを設定する。startは0x7C00なのでそこから下に向かってスタックが伸びていくことになる。<br />
+bootmain関数を呼び出す。bootmain関数はbootmain.cに定義されいる。</p>
+<p>bootasm.S</p>
+<pre><code class="language-asm">.code32  # Tell assembler to generate 32-bit code now.
+start32:
+  # Set up the protected-mode data segment registers
+  movw    $(SEG_KDATA&lt;&lt;3), %ax    # Our data segment selector
+  movw    %ax, %ds                # -&gt; DS: Data Segment
+  movw    %ax, %es                # -&gt; ES: Extra Segment
+  movw    %ax, %ss                # -&gt; SS: Stack Segment
+  movw    $0, %ax                 # Zero segments not ready for use
+  movw    %ax, %fs                # -&gt; FS
+  movw    %ax, %gs                # -&gt; GS
+
+  # Set up the stack pointer and call into C.
+  movl    $start, %esp
+  call    bootmain
+</code></pre>
+<p>もしもbootmainがリターンした場合、ポート0x8a00にデータ0x8ae0を送る。<br />
+Bochsのマニュアル<a href="http://bochs.sourceforge.net/doc/docbook/development/index.html">「Bochs Developers Guide」（リンク9）</a>の「Chapter 3. Advanced debugger usage」から、ポート0x8A00はコマンドレジスタのサーバになっていて、コマンド0x8ae0はデバッガプロンプトに戻ることが分かる。そしてデバッガプロンプトに戻るということはCtrl-Cと同義であると書いてある。
+デバッガプロンプトに戻った後、無限ループする。</p>
+<p>bootasm.S</p>
+<pre><code class="language-asm">  # If bootmain returns (it shouldn't), trigger a Bochs
+  # breakpoint if running under Bochs, then loop.
+  movw    $0x8a00, %ax            # 0x8a00 -&gt; port 0x8a00
+  movw    %ax, %dx
+  outw    %ax, %dx
+  movw    $0x8ae0, %ax            # 0x8ae0 -&gt; port 0x8a00
+  outw    %ax, %dx
+spin:
+  jmp     spin
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_03/03_00_load_kernel.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_03/03_02_bootmain.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_03/03_00_load_kernel.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_03/03_02_bootmain.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

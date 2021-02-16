@@ -1,0 +1,487 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>mpinit関数 - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html" class="active"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#54-mpinit関数" id="54-mpinit関数">5.4. mpinit関数</a></h1>
+<p>この関数は大域変数lapicにLAPICへのアクセスアドレスを設定、各cpu構造体にLAPICのIDを設定、大域変数ioapicidにIOAPICのIDを設定する。</p>
+<p>この関数ではマルチプロセッサに関する情報を取得する。<br />
+xv6では使用できる最大CPU数をNCPUとして8に定義している。システムで実際に使用可能なCPU数は、大域変数ncpuに保持する。<br />
+また、CPUに関する情報を持つ構造体としてcpu構造体が定義されており、配列cpusとして保持している。</p>
+<p>param.h</p>
+<pre><code class="language-c">#define NCPU          8  // maximum number of CPUs
+</code></pre>
+<p>proc.h</p>
+<pre><code class="language-c">struct cpu {
+  uchar apicid;                // Local APIC ID
+  struct context *scheduler;   // swtch() here to enter scheduler
+  struct taskstate ts;         // Used by x86 to find stack for interrupt
+  struct segdesc gdt[NSEGS];   // x86 global descriptor table
+  volatile uint started;       // Has the CPU started?
+  int ncli;                    // Depth of pushcli nesting.
+  int intena;                  // Were interrupts enabled before pushcli?
+  struct proc *proc;           // The process running on this cpu or null
+};
+</code></pre>
+<p>mp.c</p>
+<pre><code class="language-c">struct cpu cpus[NCPU];
+int ncpu;
+</code></pre>
+<p>マルチプロセッサに関する構造体が定義されているmp.hの1行目に<a href="https://pdos.csail.mit.edu/6.828/2008/readings/ia32/MPspec.pdf">「MultiProcessor Specification Version 1.4」（リンク14）</a>を見るように書いてある。<br />
+このMP仕様書によると、プロセッサは1つのBSP（ブートストラッププロセッサ）とその他のAP（アプリケーションプロセッサ）とに分けられ、起動時はBSPが動いている。
+各プロセッサはLAPICを有しており、ICC（割り込みコントローラバス）を通してIOAPICと接続されている。
+LAPICに振られているIDでプロセッサを区別することが可能。
+起動時には全てのAPのLAPICと、全てのIOAPICが無効化されているため、それらを初期化しなければならない。<br />
+また、割り込みモードとして、PICモード、仮想配線モード、Symmetric I/Oモードの3つがある。
+システムはPICモードか仮想配線モードで開始され、マルチプロセッサでの割り込みを行うためにSymmetric I/Oモードに移行する必要がある。
+MP仕様書の「Table 4-1. MP Floating Pointer Structure Fields」にIMCRがない場合は仮想配線モードが実装されていると書いてある。
+IMCR（Interrupt Mode Configuration Register）はPICモードの時に使用されるレジスタ。
+Symmetric I/Oモードへの移行方法はMP仕様書の「3.6.2.3 Symmetric I/O Mode」によると、IMCRがある場合はそこに0x1を書き込み、IOAPICのリダイレクションテーブルのエントリを有効化することで行える。</p>
+<p>メモリ上には、マルチプロセッサに関する情報を取得するために、MPフローティングポインタ構造体と、MP設定テーブルが用意されている（後者はオプション）。<br />
+MPフローティングポインタ構造体はシステムのMPに関する基本的な情報を持っており、以下のいずれかの場所にある。</p>
+<ol type='a'>
+  <li>EBDA（拡張BIOSデータ領域）の最初の1キロバイト</li>
+  <li>システムベースメモリの最後の1キロバイト以内のどこか</li>
+  <li>0xF0000から0xFFFFFまでのBIOS ROMアドレスのどこか</li>
+</ol>
+<p>MP設定テーブルの開始アドレスは、MPフローティングポインタ構造体のPHYSICAL ADDRESS POINTERフィールド（4バイト目）が持っている。このフィールドの値が0の場合は、MP設定テーブルは存在しない。<br />
+MP設定テーブルはひとつのヘッダ部分と、複数のエントリ部分に分かれている。ヘッダにはMP設定テーブルの基本的な情報を持っている。<br />
+基本的なエントリとその構造はMP仕様書の「Table 4-3. Base MP Configuration Table Entry types」に定義されており、以下の5つのエントリがある。各エントリはタイプコード（0バイト目）で識別することが可能。</p>
+<ol>
+<li>Processor: 0（タイプコード）</li>
+<li>Bus: 1</li>
+<li>I/O APIC: 2</li>
+<li>I/O Interrupt Assignment: 3</li>
+<li>Local Interrupt Assignment: 4</li>
+</ol>
+<p>このエントリとタイプコードに合わせるようにmp.hに定義がある。</p>
+<p>mp.h</p>
+<pre><code class="language-c">#define MPPROC    0x00  // One per processor
+#define MPBUS     0x01  // One per bus
+#define MPIOAPIC  0x02  // One per I/O APIC
+#define MPIOINTR  0x03  // One per bus interrupt source
+#define MPLINTR   0x04  // One per system interrupt source
+</code></pre>
+<p>mpinit関数は、まずMPフローティングポインタ構造体と、MP設定テーブルを取得する。取得にはmpconfig関数を使う。<br />
+MP設定テーブルからLAPICへのアクセスアドレスを取得し、大域変数lapicに設定する。
+アドレスはADDRESS OF LOCAL APICフィールド（36バイト目）から取得可能。
+LAPICはプロセッサに内臓されているため、各プロセッサが個別に持っているが、MP仕様書によると、各プロセッサは自分のLAPICにアクセスするために同じアドレスにアクセスする。アドレスは同じでもアクセスは自分のLAPICへのものになる。</p>
+<p>for文でMP設定テーブルのエントリをポインタpで走査する。<br />
+エントリのタイプコード（1バイト目）により処理内容が分かれる。未知のエントリが検出された場合はpanic。</p>
+<p><strong>Processerの場合:</strong><br />
+大域変数cpus[ncpu]のapicidフィールドにLAPIC IDを設定する。LAPIC IDは、エントリのLOCAL APIC IDフィールド（1バイト目）にある。<br />
+次のプロセッサエントリのためにncpuをインクリメントする。<br />
+pにエントリのサイズを加えて、ループを継続する。</p>
+<p><strong>I/O APICの場合:</strong><br />
+大域変数ioapicidにIOAPIC IDを設定する。IOAPIC IDは、エントリのI/O APIC IDフィールド（1バイト目）にある。<br />
+pにエントリのサイズを加えて、ループを継続する。</p>
+<p><strong>Bus, I/O Interrupt Assignment, Local Interrupt Assignmentの場合:</strong><br />
+何もしない。<br />
+pにエントリのサイズを加えて、ループを継続する。</p>
+<p>全てのエントリの処理が終わった時点で、以下の大域変数が設定されている。<br />
+lapic: LAPICへのアクセスアドレスが設定されている。<br />
+ncpu: システムで使用できるCPU数が設定されている。<br />
+cpus配列: ncpu分のapicidフィールドに各LAPIC IDが設定されている。<br />
+ioapicid: IOAPIC IDが設定されている。</p>
+<p>mpinit関数の最後の処理、IMCR（Interrupt Mode Configuration Register）がシステムに実装されている場合、Symmetric I/Oモードへの移行準備として、そこに0x1を書き込む。<br />
+IMCRの有無は、MPフローティングポインタ構造体のMP FEATURE INFORMATION BYTE 2フィールド（12バイト目）の7bit目が1であればIMCR有り、0なら無しと判断できる。
+0から6bit目まではMP仕様で予約されている。
+MP仕様書の「3.6.2.1 PIC Mode」によると、IMCRへはポート0x22に0x70を書き込む事でアクセスできる。データの読み書きはポート0x23に行う。
+IMCRの内容をそのまま0bitを1にする。</p>
+<p>mp.c</p>
+<pre><code class="language-c">void
+mpinit(void)
+{
+  uchar *p, *e;
+  int ismp;
+  struct mp *mp;
+  struct mpconf *conf;
+  struct mpproc *proc;
+  struct mpioapic *ioapic;
+
+  if((conf = mpconfig(&amp;mp)) == 0)
+    panic(&quot;Expect to run on an SMP&quot;);
+  ismp = 1;
+  lapic = (uint*)conf-&gt;lapicaddr;
+  for(p=(uchar*)(conf+1), e=(uchar*)conf+conf-&gt;length; p&lt;e; ){
+    switch(*p){
+    case MPPROC:
+      proc = (struct mpproc*)p;
+      if(ncpu &lt; NCPU) {
+        cpus[ncpu].apicid = proc-&gt;apicid;  // apicid may differ from ncpu
+        ncpu++;
+      }
+      p += sizeof(struct mpproc);
+      continue;
+    case MPIOAPIC:
+      ioapic = (struct mpioapic*)p;
+      ioapicid = ioapic-&gt;apicno;
+      p += sizeof(struct mpioapic);
+      continue;
+    case MPBUS:
+    case MPIOINTR:
+    case MPLINTR:
+      p += 8;
+      continue;
+    default:
+      ismp = 0;
+      break;
+    }
+  }
+  if(!ismp)
+    panic(&quot;Didn't find a suitable machine&quot;);
+
+  if(mp-&gt;imcrp){
+    // Bochs doesn't support IMCR, so this doesn't run on Bochs.
+    // But it would on real hardware.
+    outb(0x22, 0x70);   // Select IMCR
+    outb(0x23, inb(0x23) | 1);  // Mask external interrupts.
+  }
+}
+</code></pre>
+<h2><a class="header" href="#mpconfig関数" id="mpconfig関数">mpconfig関数</a></h2>
+<p>この関数はメモリからMP設定テーブルを取得する。</p>
+<p>MPフローティングポインタ構造体をmpconfig関数で取得し、そのPHYSICAL ADDRESS POINTERフィールド（4バイト目）からMP設定テーブルのアドレスを取得する。<br />
+MP設定テーブルのSIGNATUREフィールド（0バイト目）が “PCMP” であることを確認し、M確かにMP設定テーブルであることを確認する。
+準拠しているMP仕様のバージョンを確認する。これはMP設定テーブルのSPEC_REVフィールド（9バイト目）から確認でき、<a href="https://pdos.csail.mit.edu/6.828/2008/readings/ia32/MPspec.pdf">「MultiProcessor Specification Version 1.4」（リンク14）</a>の「Table 4-1. MP Floating Pointer Structure Fields」によると0x1がバージョン1.1、0x4がバージョン1.4を示す。<br />
+チェックサムの計算を行う。MP設定テーブル全体の値を1バイト単位で合計し、結果が0となることでMP設定テーブルに誤りがないことを確認する。CHECKSUMフィールド（10バイト目）の値は結果が0になるような値が設定されている。<br />
+引数pmpにMPフローティングポインタ構造体を代入し、MP設定テーブルを呼び出し元に返す。</p>
+<p>mp.c</p>
+<pre><code class="language-c">static uchar
+sum(uchar *addr, int len)
+{
+  int i, sum;
+
+  sum = 0;
+  for(i=0; i&lt;len; i++)
+    sum += addr[i];
+  return sum;
+}
+
+/* 略 */
+
+static struct mpconf*
+mpconfig(struct mp **pmp)
+{
+  struct mpconf *conf;
+  struct mp *mp;
+
+  if((mp = mpsearch()) == 0 || mp-&gt;physaddr == 0)
+    return 0;
+  conf = (struct mpconf*) P2V((uint) mp-&gt;physaddr);
+  if(memcmp(conf, &quot;PCMP&quot;, 4) != 0)
+    return 0;
+  if(conf-&gt;version != 1 &amp;&amp; conf-&gt;version != 4)
+    return 0;
+  if(sum((uchar*)conf, conf-&gt;length) != 0)
+    return 0;
+  *pmp = mp;
+  return conf;
+}
+</code></pre>
+<h2><a class="header" href="#mpsearch関数" id="mpsearch関数">mpsearch関数</a></h2>
+<p>この関数はメモリからMPフローティングポインタ構造体を取得する。</p>
+<p><a href="https://pdos.csail.mit.edu/6.828/2008/readings/ia32/MPspec.pdf">「MultiProcessor Specification Version 1.4」（リンク14）</a>の「3.9 Support for Fault-resilient Booting」に記載されているaからcの方法を順に試し、MPフローティングポインタ構造体を探す。</p>
+<ol type='a'>
+  <li>EBDA（拡張BIOSデータ領域）の最初の1キロバイト</li>
+  <li>システムベースメモリの最後の1キロバイト以内のどこか</li>
+  <li>0xF0000から0xFFFFFまでのBIOS ROMアドレスのどこか</li>
+</ol>
+<p>各範囲の走査にはmpsearch1関数を使用する。</p>
+<p>まず最初のif文で方法aを試す。<br />
+BIOSからブートローダに移る際のx86のメモリマップは<a href="https://wiki.osdev.org/Memory_Map_(x86)">「OSDev Memory Map (x86)」（リンク15）</a>に記載されている。
+それによると、BDAは0x0400から始まり、0x040Eから2バイト分には、4bit右シフトされたEBDAの物理アドレスが入っている。
+なので、0x40Fの内容を上位8bit、0x40Eの内容を下位8bitとして、4bit左シフトすると、EBDAの物理アドレスが求められる。</p>
+<p>次にelse文で方法bを試す。<br />
+システムベースメモリというのはmpsearch関数を読む限りではEBDAの開始アドレスまでを指す。
+BDA内、0x0413から2バイト分には、EBDAまでのキロバイト数が記してある。
+なので、0x414の内容を上位8bit、0x413の内容を下位8bitとして、1024掛けるとEBDAまでのバイト数になる。
+EBDAの手前1キロバイト以内を探す。</p>
+<p>最後にreturn文で方法cを試す。</p>
+<p>mp.c</p>
+<pre><code class="language-c">static struct mp*
+mpsearch(void)
+{
+  uchar *bda;
+  uint p;
+  struct mp *mp;
+
+  bda = (uchar *) P2V(0x400);
+  if((p = ((bda[0x0F]&lt;&lt;8)| bda[0x0E]) &lt;&lt; 4)){
+    if((mp = mpsearch1(p, 1024)))
+      return mp;
+  } else {
+    p = ((bda[0x14]&lt;&lt;8)|bda[0x13])*1024;
+    if((mp = mpsearch1(p-1024, 1024)))
+      return mp;
+  }
+  return mpsearch1(0xF0000, 0x10000);
+}
+</code></pre>
+<p>mpsearch1関数では与えられた物理アドレスと長さ分の範囲を走査し、MPフローティングポインタ構造体を探す。<br />
+MP仕様書の「Table 4-1. MP Floating Pointer Structure Fields」によると、SIGNATUREフィールド（0バイト目）に  ”_MP_” が入っているため、それを頼りに同構造体を探すことができる。
+また、CHECKSUMフィールド（10バイト目）により、見つけた領域がMPフローティングポインタ構造体であるか否かを断定できる。
+チェックサムの計算方法は<a href="/chapter_05/05_04_mpinit.html#mpconfig%E9%96%A2%E6%95%B0">「mpconfig関数」</a>のときと同様。</p>
+<p>mp.c</p>
+<pre><code class="language-c">// Look for an MP structure in the len bytes at addr.
+static struct mp*
+mpsearch1(uint a, int len)
+{
+  uchar *e, *p, *addr;
+
+  addr = P2V(a);
+  e = addr+len;
+  for(p = addr; p &lt; e; p += sizeof(struct mp))
+    if(memcmp(p, &quot;_MP_&quot;, 4) == 0 &amp;&amp; sum(p, sizeof(struct mp)) == 0)
+      return (struct mp*)p;
+  return 0;
+}
+</code></pre>
+<h2><a class="header" href="#memcmp関数" id="memcmp関数">memcmp関数</a></h2>
+<p>引数v1と引数v2の値をnバイトまで比較し、等しい場合は0を、等しくない場合は一致しなかった値のv1 - v2の値を返す。</p>
+<p>string.c</p>
+<pre><code class="language-c">int
+memcmp(const void *v1, const void *v2, uint n)
+{
+  const uchar *s1, *s2;
+
+  s1 = v1;
+  s2 = v2;
+  while(n-- &gt; 0){
+    if(*s1 != *s2)
+      return *s1 - *s2;
+    s1++, s2++;
+  }
+
+  return 0;
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_05/05_03_kvmalloc.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_05/05_05_lapicinit.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_05/05_03_kvmalloc.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_05/05_05_lapicinit.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

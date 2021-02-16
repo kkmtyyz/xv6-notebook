@@ -1,0 +1,629 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>iノード - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html" class="active"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#511-iノード" id="511-iノード">5.11. iノード</a></h1>
+<p>スケジューラの実行までに使用するiノード周りの操作について書く。</p>
+<ul>
+<li><a href="/chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93">inode構造体</a></li>
+<li><a href="/chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">inode構造体の作成（iget関数）</a></li>
+<li><a href="/chapter_05/05_11_inode.html#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">ロック（ilock/iunlock関数）</a></li>
+<li><a href="/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">参照カウンタのインクリメント（idup数）</a></li>
+<li><a href="/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%83%87%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88iput%E9%96%A2%E6%95%B0">参照カウンタのデクリメント（iput関数）</a></li>
+<li><a href="/chapter_05/05_11_inode.html#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E5%BE%97readi%E9%96%A2%E6%95%B0">ファイルデータの取得（readi関数）</a></li>
+<li><a href="/chapter_05/05_11_inode.html#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">ブロックの割り当て（bmap関数）</a></li>
+<li><a href="/chapter_05/05_11_inode.html#%E5%89%8A%E9%99%A4itrunc%E9%96%A2%E6%95%B0">削除（itrunc関数）</a></li>
+<li><a href="/chapter_05/05_11_inode.html#%E6%9B%B4%E6%96%B0iupdate%E9%96%A2%E6%95%B0">更新（iupdate関数）</a></li>
+</ul>
+<h2><a class="header" href="#inode構造体" id="inode構造体">inode構造体</a></h2>
+<p>inodeについては、<a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」（リンク1）</a>の6章「File system」を読むとよい。</p>
+<p>dinode構造体とinode構造体の2つがある。</p>
+<p><strong>dinode構造体</strong><br />
+ディスク上のiノードブロックにその情報が格納されてる。
+typeフィールドは次の4つの状態を表す。</p>
+<ul>
+<li>0: 未使用</li>
+<li>1: ファイル</li>
+<li>2: ディレクトリ</li>
+<li>3: デバイスファイル</li>
+</ul>
+<p>addrs配列はファイルの存在しているディスク上のブロック番号を持ち、「xv6 a simple, Unix-like teaching operating system」（リンク1）の図6-3「The representation of a file on disk」で分かりやすく図解されている。
+要素数は13で、12番目（NDIRECT）までは直接ブロック番号が入っており、13番目はindirect blockのブロック番号が入っている。
+ブロックサイズは512バイトで、ブロック番号は4バイトなので、indirect blockは128個のブロックを指すことができる。
+つまりinode構造体は全部で140個（128+12）のブロックを指すことができる。
+逆に言えば71680バイト（140*512）がファイルの最大サイズとなる。</p>
+<p>にあるように、前12エントリがそのままデータブロックを指しており、13エントリ目は128エントリまで保持できる別のテーブルを参照している。
+ブロックサイズが512バイトなので、dinode構造体から直接参照できるのは<code>12 * 512 = 6kB</code>まで。</p>
+<p>fs.h</p>
+<pre><code class="language-c">#define NDIRECT 12
+
+/* 略 */
+
+struct dinode {
+  short type;           // File type
+  short major;          // Major device number (T_DEV only)
+  short minor;          // Minor device number (T_DEV only)
+  short nlink;          // Number of links to inode in file system
+  uint size;            // Size of file (bytes)
+  uint addrs[NDIRECT+1];   // Data block addresses
+};
+</code></pre>
+<p><strong>inode構造体</strong><br />
+後半はdinode構造体のコピーになっている。<br />
+validフィールドは既にディスクからdinodeの情報を読み出したか否かを示すフラグ。</p>
+<p>file.h</p>
+<pre><code class="language-c">struct inode {
+  uint dev;           // Device number
+  uint inum;          // Inode number
+  int ref;            // Reference count
+  struct sleeplock lock; // protects everything below here
+  int valid;          // inode has been read from disk?
+
+  short type;         // copy of disk inode
+  short major;
+  short minor;
+  short nlink;
+  uint size;
+  uint addrs[NDIRECT+1];
+};
+</code></pre>
+<p>inode構造体はicache構造体に持っておく。<br />
+全部で50個持てる。逆に言えば50個以上開けない。</p>
+<p>param.h</p>
+<pre><code class="language-c">#define NINODE       50  // maximum number of active i-nodes
+</code></pre>
+<p>fs.c</p>
+<pre><code class="language-c">struct {
+  struct spinlock lock;
+  struct inode inode[NINODE];
+} icache;
+</code></pre>
+<h2><a class="header" href="#inode構造体の作成iget関数" id="inode構造体の作成iget関数">inode構造体の作成（iget関数）</a></h2>
+<p>iノードキャッシュからinode構造体を返す。<br />
+探しているiノードがキャッシュにある場合は参照カウンタをインクリメントしてそれを返し、無い場合はキャッシュ内の未使用エントリを初期化して返す。
+ディスクからのデータ読み出しは行わないので、dinode構造体の持つ内容のコピーは行わない。
+キャッシュからはデバイス番号とiノード番号を頼りにエントリを検索する。</p>
+<p>fs.c</p>
+<pre><code class="language-c">static struct inode*
+iget(uint dev, uint inum)
+{
+  struct inode *ip, *empty;
+
+  acquire(&amp;icache.lock);
+
+  // Is the inode already cached?
+  empty = 0;
+  for(ip = &amp;icache.inode[0]; ip &lt; &amp;icache.inode[NINODE]; ip++){
+    if(ip-&gt;ref &gt; 0 &amp;&amp; ip-&gt;dev == dev &amp;&amp; ip-&gt;inum == inum){
+      ip-&gt;ref++;
+      release(&amp;icache.lock);
+      return ip;
+    }
+    if(empty == 0 &amp;&amp; ip-&gt;ref == 0)    // Remember empty slot.
+      empty = ip;
+  }
+
+  // Recycle an inode cache entry.
+  if(empty == 0)
+    panic(&quot;iget: no inodes&quot;);
+
+  ip = empty;
+  ip-&gt;dev = dev;
+  ip-&gt;inum = inum;
+  ip-&gt;ref = 1;
+  ip-&gt;valid = 0;
+  release(&amp;icache.lock);
+
+  return ip;
+}
+</code></pre>
+<h2><a class="header" href="#ロックilockiunlock関数" id="ロックilockiunlock関数">ロック（ilock/iunlock関数）</a></h2>
+<p>iノードを使用する処理はファイルシステムを扱う処理なのでディスクにアクセスする可能性があり、長時間ロックを取得する可能性が高いためスリープロックを使用する。</p>
+<p>ilock関数はinode構造体のロックを取り、dinode構造体のデータをまだ持っていない場合にバッファキャッシュやディスクからそれを読み込む。</p>
+<p>dinode構造体のデータはbread関数で取得する。
+bread関数はデータをデバイス番号とブロック番号を基にバッファキャッシュから探し、そこに無ければディスクからデータを読み込んでバッファキャッシュに加える。
+ブロック番号はIBLOCKマクロを使用して、iノード番号とsuperblock構造体から求める。
+superblock構造体は、大域変数sbがiinit関数で定義される。
+スーパーブロックは<a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」（リンク1）</a>の図6-2における1番目のブロックで、ファイルシステムのサイズやデータブロック数等の情報を持っている。
+IBLOCKマクロはinode番号をブロック当たりのiノード数で割り、それにiノード領域の開始ブロック番号を加算することで目的のiノードが含まれるブロック番号を求める。
+ブロック当たりのiノード数はIPBとして定義されており、ブロックサイズをdinode構造体のサイズで割ったもの。</p>
+<p>buf構造体のdataフィールドにはdinode構造体のデータがiノード番号順に並んでいるため、iノード番号をIPBで割った余り番目からデータを取り出す。<br />
+その後dinode構造体の全フィールドをinode構造体にコピーし、最後にバッファキャッシュを始末する。</p>
+<p>fs.h</p>
+<pre><code class="language-c">#define IPB           (BSIZE / sizeof(struct dinode))
+
+// Block containing inode i
+#define IBLOCK(i, sb)     ((i) / IPB + sb.inodestart)
+</code></pre>
+<p>fs.c</p>
+<pre><code class="language-c">struct superblock sb;
+
+/* 略 */
+
+void
+ilock(struct inode *ip)
+{
+  struct buf *bp;
+  struct dinode *dip;
+
+  if(ip == 0 || ip-&gt;ref &lt; 1)
+    panic(&quot;ilock&quot;);
+
+  acquiresleep(&amp;ip-&gt;lock);
+
+  if(ip-&gt;valid == 0){
+    bp = bread(ip-&gt;dev, IBLOCK(ip-&gt;inum, sb));
+    dip = (struct dinode*)bp-&gt;data + ip-&gt;inum%IPB;
+    ip-&gt;type = dip-&gt;type;
+    ip-&gt;major = dip-&gt;major;
+    ip-&gt;minor = dip-&gt;minor;
+    ip-&gt;nlink = dip-&gt;nlink;
+    ip-&gt;size = dip-&gt;size;
+    memmove(ip-&gt;addrs, dip-&gt;addrs, sizeof(ip-&gt;addrs));
+    brelse(bp);
+    ip-&gt;valid = 1;
+    if(ip-&gt;type == 0)
+      panic(&quot;ilock: no type&quot;);
+  }
+}
+</code></pre>
+<p>ロックはiunlock関数で解放する。</p>
+<p>fs.c</p>
+<pre><code class="language-c">void
+iunlock(struct inode *ip)
+{
+  if(ip == 0 || !holdingsleep(&amp;ip-&gt;lock) || ip-&gt;ref &lt; 1)
+    panic(&quot;iunlock&quot;);
+
+  releasesleep(&amp;ip-&gt;lock);
+}
+</code></pre>
+<h2><a class="header" href="#参照カウンタのインクリメントidup関数" id="参照カウンタのインクリメントidup関数">参照カウンタのインクリメント（idup関数）</a></h2>
+<p>inode構造体の参照カウンタをインクリメントする。</p>
+<p>fs.c</p>
+<pre><code class="language-c">struct inode*
+idup(struct inode *ip)
+{
+  acquire(&amp;icache.lock);
+  ip-&gt;ref++;
+  release(&amp;icache.lock);
+  return ip;
+}
+</code></pre>
+<h2><a class="header" href="#参照カウンタのデクリメントiput関数" id="参照カウンタのデクリメントiput関数">参照カウンタのデクリメント（iput関数）</a></h2>
+<p>この関数は引数のinode構造体ipの参照カウンタをデクリメントする。
+また、ファイルデータをディスクから取得済みかつ他のファイル（ディレクトリエントリ）がリンクされておらず、誰からも参照されていない場合にiノードを解放する。
+ここで言う解放は、addrsをバッファキャッシュごと全て解放しディスクに書き出すことでファイルを削除することを指す。
+参照カウンタの値は誰からも参照されていない場合は1。</p>
+<p>iunlockput関数はinode構造体のロックを解放し、iput関数を呼び出す。</p>
+<p>fs.c</p>
+<pre><code class="language-c">void
+iput(struct inode *ip)
+{
+  acquiresleep(&amp;ip-&gt;lock);
+  if(ip-&gt;valid &amp;&amp; ip-&gt;nlink == 0){
+    acquire(&amp;icache.lock);
+    int r = ip-&gt;ref;
+    release(&amp;icache.lock);
+    if(r == 1){
+      // inode has no links and no other references: truncate and free.
+      itrunc(ip);
+      ip-&gt;type = 0;
+      iupdate(ip);
+      ip-&gt;valid = 0;
+    }
+  }
+  releasesleep(&amp;ip-&gt;lock);
+
+  acquire(&amp;icache.lock);
+  ip-&gt;ref--;
+  release(&amp;icache.lock);
+}
+
+/* 略 */
+
+void
+iunlockput(struct inode *ip)
+{
+  iunlock(ip);
+  iput(ip);
+}
+</code></pre>
+<h2><a class="header" href="#ファイルデータの取得readi関数" id="ファイルデータの取得readi関数">ファイルデータの取得（readi関数）</a></h2>
+<p>この関数はファイルからデータを最大nバイト分dstに読み込む。</p>
+<p>iノードがデバイスファイルの場合とそれ以外（ファイルあるいはディレクトリ）とで処理が分かれる。</p>
+<p><strong>デバイスファイルの場合:</strong><br />
+読み込みにはデバイス番号を頼りに<a href="/chapter_05/05_09_consoleinit.html">devsw配列</a>の該当するread関数を使う。<br />
+例えばコンソールならdevsw[1].readなので、consoleinit関数で設定した<a href="/chapter_05/05_09_consoleinit.html#consoleread%E9%96%A2%E6%95%B0">consoleread関数</a>が実行される。</p>
+<p><strong>ファイルあるいはディレクトリの場合:</strong><br />
+ファイルのデータをoffバイト目から読み込み始める。<br />
+ファイルサイズよりも読み込みサイズ（off+n）大きい場合は調整する。<br />
+読み込むデータ（nバイト）がブロックを跨いでいる可能性があるため、ループで読み込む。<br />
+mがループ毎にdstにコピーするバイト数を示し、totにはコピーした総バイト数を持つ。<br />
+読み込みにはbread関数を使う。
+この関数にはデバイス番号とブロック番号を渡す必要がある。
+<a href="/chapter_05/05_11_inode.html#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">bmap関数</a>では第一引数のinode構造体のaddrsフィールドから、第二引数で指定されたバイト目があるブロック番号を得ることができる。<br />
+基本的にはoffからそのブロックの終わりまでずつコピーしていく。<br />
+例えばoffが600の場合、1ブロック512バイトなので、offは2ブロック目の88バイト目から始まる。
+なので <code>512-88=424</code> バイトずつコピーしていく。
+そして読み込みバイト数nがコピーしていく単位で割り切れない場合は、最後のループでnからコピー済みバイト数totの差だけコピーする。<br />
+他の例として、nが1000の場合、3回目のループで残りコピーバイト数が <code>1000-424*2=152</code> なので、152バイトだけコピーする。
+変数mにはこの動きをするために、minマクロを使用して残りコピーバイト数（n-tot）と基本的なコピー単位のどちらか小さい方を代入する。<br />
+コピーバイト数mが決まると、<a href="/chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>でdstにブロックのデータ（bs-&gt;data）のオフセットの位置からその分だけコピーする。<br />
+バッファキャッシュbpは読み込み後不要となるのでループ毎に解放する。
+1ブロック分ずつコピーするわけではないので、次のループでも同じブロックをバッファキャッシュに読み込む可能性がある。
+しかしここで解放しなければ、バッファキャッシュのサイズが30なのでコピー対象のデータが30ブロック以上の時にキャッシュが足りなくなりpanicしてしまう。</p>
+<p>fs.c</p>
+<pre><code class="language-c">#define min(a, b) ((a) &lt; (b) ? (a) : (b))
+
+/* 略 */
+
+int
+readi(struct inode *ip, char *dst, uint off, uint n)
+{
+  uint tot, m;
+  struct buf *bp;
+
+  if(ip-&gt;type == T_DEV){
+    if(ip-&gt;major &lt; 0 || ip-&gt;major &gt;= NDEV || !devsw[ip-&gt;major].read)
+      return -1;
+    return devsw[ip-&gt;major].read(ip, dst, n);
+  }
+
+  if(off &gt; ip-&gt;size || off + n &lt; off)
+    return -1;
+  if(off + n &gt; ip-&gt;size)
+    n = ip-&gt;size - off;
+
+  for(tot=0; tot&lt;n; tot+=m, off+=m, dst+=m){
+    bp = bread(ip-&gt;dev, bmap(ip, off/BSIZE));
+    m = min(n - tot, BSIZE - off%BSIZE);
+    memmove(dst, bp-&gt;data + off%BSIZE, m);
+    brelse(bp);
+  }
+  return n;
+}
+</code></pre>
+<h2><a class="header" href="#ブロックの割り当てbmap関数" id="ブロックの割り当てbmap関数">ブロックの割り当て（bmap関数）</a></h2>
+<p>この関数はaddrsフィールドのbn番目のブロック番号を返す。
+もしもbn番目が0でブロックが割り当てられていない場合、ディスクのdata領域から1ブロック割り当てる。</p>
+<p>2つのif文に分かれており、前半はbnがaddrsの12番目までの処理を行い、後半はindirect block（13番目）の処理を行う。</p>
+<p><strong>12番目まで:</strong><br />
+addrsフィールドのbn番目からブロック番号を取り出す。
+もしもbn番目が0でブロックが割り当てられていない場合、balloc関数でファイルシステムのdata領域から1ブロック割り当て、そのブロック番号をbn番目に入れる。</p>
+<p><strong>indirect block:</strong><br />
+bnをそのままindirect block内でのインデックスとするため、12減算する。<br />
+NINDIRECTはindirect blockのエントリ数。<br />
+indirect blockのブロック番号を取り出し、0の場合はballoc関数で1ブロック割り当てる。<br />
+変数bpにbread関数でindirect blockを読み出し、そこからさらにbn番目のブロック番号を取り出す。
+bn番目が0の場合も同様にブロックを割り当てる。
+このとき、新たにブロックの割り当てを行うとindirect blockの内容を更新することになるため、log_write関数で変更をディスクに反映する。
+log_write関数ではバッファキャッシュのB_DIRTYを立て、後々呼び出されるwrite_log関数でディスクに書き込みを行う。<br />
+bpをbrelse関数で解放し、呼び出し元にブロック番号addrを返して終了。</p>
+<p>fs.h</p>
+<pre><code class="language-c">#define NDIRECT 12
+#define NINDIRECT (BSIZE / sizeof(uint))
+</code></pre>
+<p>fs.c</p>
+<pre><code class="language-c">static uint
+bmap(struct inode *ip, uint bn)
+{
+  uint addr, *a;
+  struct buf *bp;
+
+  if(bn &lt; NDIRECT){
+    if((addr = ip-&gt;addrs[bn]) == 0)
+      ip-&gt;addrs[bn] = addr = balloc(ip-&gt;dev);
+    return addr;
+  }
+  bn -= NDIRECT;
+
+  if(bn &lt; NINDIRECT){
+    // Load indirect block, allocating if necessary.
+    if((addr = ip-&gt;addrs[NDIRECT]) == 0)
+      ip-&gt;addrs[NDIRECT] = addr = balloc(ip-&gt;dev);
+    bp = bread(ip-&gt;dev, addr);
+    a = (uint*)bp-&gt;data;
+    if((addr = a[bn]) == 0){
+      a[bn] = addr = balloc(ip-&gt;dev);
+      log_write(bp);
+    }
+    brelse(bp);
+    return addr;
+  }
+
+  panic(&quot;bmap: out of range&quot;);
+}
+</code></pre>
+<h2><a class="header" href="#削除itrunc関数" id="削除itrunc関数">削除（itrunc関数）</a></h2>
+<p>この関数はiノードのデータを解放する。
+ここで言う解放は、addrsをバッファキャッシュごと全て解放しディスクに書き出すことでファイルを削除することを指す。</p>
+<p>ファイルシステム上のブロックを未使用にマークする。<br />
+動作はbmap関数とほぼ同様で、addrsフィールドを走査してbfree関数でブロックを解放しつつ0を代入していく。<br />
+その後ファイルサイズも0とし、iupdate関数を呼び出してdinode構造体に変更を反映する。</p>
+<p>fs.c</p>
+<pre><code class="language-c">static void
+itrunc(struct inode *ip)
+{
+  int i, j;
+  struct buf *bp;
+  uint *a;
+
+  for(i = 0; i &lt; NDIRECT; i++){
+    if(ip-&gt;addrs[i]){
+      bfree(ip-&gt;dev, ip-&gt;addrs[i]);
+      ip-&gt;addrs[i] = 0;
+    }
+  }
+
+  if(ip-&gt;addrs[NDIRECT]){
+    bp = bread(ip-&gt;dev, ip-&gt;addrs[NDIRECT]);
+    a = (uint*)bp-&gt;data;
+    for(j = 0; j &lt; NINDIRECT; j++){
+      if(a[j])
+        bfree(ip-&gt;dev, a[j]);
+    }
+    brelse(bp);
+    bfree(ip-&gt;dev, ip-&gt;addrs[NDIRECT]);
+    ip-&gt;addrs[NDIRECT] = 0;
+  }
+
+  ip-&gt;size = 0;
+  iupdate(ip);
+}
+</code></pre>
+<h2><a class="header" href="#更新iupdate関数" id="更新iupdate関数">更新（iupdate関数）</a></h2>
+<p>この関数はinode構造体の内容をdinode構造体にコピーし、その変更をディスクに反映する。</p>
+<p>ディスク上にあるdinode構造体はbread関数で取得する。
+その際のブロック番号は<a href="/chapter_05/05_11_inode.html#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">IBLOCKマクロ</a>で算出する。<br />
+log_write関数で変更をディスクに反映する。
+この関数ではバッファキャッシュのB_DIRTYを立て、後々呼び出されるwrite_log関数でディスクに書き込みを行う。</p>
+<p>fs.c</p>
+<pre><code class="language-c">void
+iupdate(struct inode *ip)
+{
+  struct buf *bp;
+  struct dinode *dip;
+
+  bp = bread(ip-&gt;dev, IBLOCK(ip-&gt;inum, sb));
+  dip = (struct dinode*)bp-&gt;data + ip-&gt;inum%IPB;
+  dip-&gt;type = ip-&gt;type;
+  dip-&gt;major = ip-&gt;major;
+  dip-&gt;minor = ip-&gt;minor;
+  dip-&gt;nlink = ip-&gt;nlink;
+  dip-&gt;size = ip-&gt;size;
+  memmove(dip-&gt;addrs, ip-&gt;addrs, sizeof(ip-&gt;addrs));
+  log_write(bp);
+  brelse(bp);
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_05/05_10_lock.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_05/05_12_bcache.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_05/05_10_lock.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_05/05_12_bcache.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

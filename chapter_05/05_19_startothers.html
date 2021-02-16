@@ -1,0 +1,680 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>startothers関数とmpmain関数 - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html" class="active"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#519-startothers関数" id="519-startothers関数">5.19. startothers関数</a></h1>
+<p>各APを起動し、GDT、ページング、IDT等の設定を行い、スケジューラを実行する。</p>
+<p>APをスタートさせ、設定を済ませて一気にスケジューラの起動まで行う。
+なのでmain関数の最後に呼ばれるmpmain関数もここで先に呼ばれる。
+APで行う設定はほとんどBSPと同じように行う。</p>
+<p>startothers関数を見る前に、APのエントリポイントとなるentryother.Sを見る。<br />
+Makefileのターゲットentryotherを見ると、まずgccでentryother.Sからentryother.oを作成する。</p>
+<p>各コマンドのオプションについては<a href="/chapter_02/02_00_xv6_img_build.html">「2. xv6.imgのビルド」</a>で見た。<br />
+ldのTtextオプションでTEXTセグメントの開始アドレスを0x7000とし、entryother.oからbootblockother.oを作成する。
+objcopyでbootblockother.oからTEXTセクションのみをentryotherとしてコピーする。
+出力にバイナリを指定しているため、entryotherに次の3つのシンボルが作成される。</p>
+<ul>
+<li>_binary_entryother_start</li>
+<li>_binary_entryother_end</li>
+<li>_binary_entryother_size</li>
+</ul>
+<p>最後にobjdumpでbootblockother.oを逆アセンブルし、entryother.asmを作成している。
+カーネルには作成したバイナリのentryotherがリンクされる。</p>
+<p>Makefile</p>
+<pre><code class="language-makefile">entryother: entryother.S
+  $(CC) $(CFLAGS) -fno-pic -nostdinc -I. -c entryother.S
+  $(LD) $(LDFLAGS) -N -e start -Ttext 0x7000 -o bootblockother.o entryother.o
+  $(OBJCOPY) -S -O binary -j .text bootblockother.o entryother
+  $(OBJDUMP) -S bootblockother.o &gt; entryother.asm
+</code></pre>
+<p><a href="/chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>を使用してentryother.Sのコードを物理アドレス0x7000にコピーする。
+APではページングがまだ有効化されていないので、P2Vマクロを使用して仮想アドレスを求める必要がある。</p>
+<p>forループで<a href="/chapter_05/05_04_mpinit.html">大域変数cpus</a>を走査し、APをひとつずつ起動する。
+BSPの場合はcontinue。
+このループはBSPで実行されているため、mycpu関数はBSPのcpu構造体を返す。</p>
+<p>APの起動時に使用するカーネルスタックとして変数stackに1ページ分のメモリを割り当てる。
+割り当てには<a href="/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>を用いる。
+大域変数kmemのuse_lockフィールドは依然として0なので排他制御は行わない（kinit2関数で初めて1になる）。</p>
+<p>entryotherを実行する際に渡す引数をスタックにセットする。</p>
+<ul>
+<li><strong>第一引数:</strong> スタックの底のアドレス。
+スタックのアドレスにカーネルスタックサイズ（4kB）を加算して求める。</li>
+<li><strong>第二引数:</strong> main.cに定義されているmpenter関数のアドレス。関数ポインタとしてキャストして代入する。</li>
+<li><strong>第三引数:</strong> main.cに定義されている<a href="/chapter_04/04_01_entry.html">変数entrypgdir</a>のアドレス。
+ラージページのページディレクトリで、0番と512番の2つのエントリが0ページ目（物理アドレス0から4MB分）を指している。</li>
+</ul>
+<p>BSPはAPのcpu構造体のstartedフィールドが0でなくなるまでwhileループする。
+startedフィールドが1になるまでの大まかな流れは次の通り。</p>
+<ol>
+<li>lapicstartap関数でAPを起動</li>
+<li>codeとして渡したentryother.Sの実行</li>
+<li>entryother.Sに第二引数として渡したmpenter関数の実行</li>
+<li>mpmain関数でAPのcpu構造体のstartedフィールドに1を設定</li>
+</ol>
+<p>main.c</p>
+<pre><code class="language-c">static void
+startothers(void)
+{
+  extern uchar _binary_entryother_start[], _binary_entryother_size[];
+  uchar *code;
+  struct cpu *c;
+  char *stack;
+
+  // Write entry code to unused memory at 0x7000.
+  // The linker has placed the image of entryother.S in
+  // _binary_entryother_start.
+  code = P2V(0x7000);
+  memmove(code, _binary_entryother_start, (uint)_binary_entryother_size);
+
+  for(c = cpus; c &lt; cpus+ncpu; c++){
+    if(c == mycpu())  // We've started already.
+      continue;
+
+    // Tell entryother.S what stack to use, where to enter, and what
+    // pgdir to use. We cannot use kpgdir yet, because the AP processor
+    // is running in low  memory, so we use entrypgdir for the APs too.
+    stack = kalloc();
+    *(void**)(code-4) = stack + KSTACKSIZE;
+    *(void(**)(void))(code-8) = mpenter;
+    *(int**)(code-12) = (void *) V2P(entrypgdir);
+
+    lapicstartap(c-&gt;apicid, V2P(code));
+
+    // wait for cpu to finish mpmain()
+    while(c-&gt;started == 0)
+      ;
+  }
+}
+
+/* 略 */
+
+__attribute__((__aligned__(PGSIZE)))
+pde_t entrypgdir[NPDENTRIES] = {
+  // Map VA's [0, 4MB) to PA's [0, 4MB)
+  [0] = (0) | PTE_P | PTE_W | PTE_PS,
+  // Map VA's [KERNBASE, KERNBASE+4MB) to PA's [0, 4MB)
+  [KERNBASE&gt;&gt;PDXSHIFT] = (0) | PTE_P | PTE_W | PTE_PS,
+};
+</code></pre>
+<h2><a class="header" href="#lapicstartap関数" id="lapicstartap関数">lapicstartap関数</a></h2>
+<p>この関数ではAPを起動し、entryother.Sを実行する。</p>
+<p>APの起動方法は<a href="https://pdos.csail.mit.edu/6.828/2008/readings/ia32/MPspec.pdf">「MultiProcessor Specification Version 1.4」（リンク14）</a>のB.4「Application Processor Startup」に記載されている。<br />
+起動の流れは次のようになる。</p>
+<ol>
+<li>BSPのBIOSシャットダウンコードを0x0Aに初期化し、warm reset vectorにAPリセット時に実行させるコードのアドレスを設定する。
+BIOSシャットダウンコード（0x0A）は、リセット時にBIOSの初期化処理を行わず、EOI（End Of Interrupt割り込み終了の信号）なしで40:67（CS:IP）に格納されている4バイトのアドレスにジャンプする。</li>
+<li>BSPから起動したいAPにINIT IPIを送る。</li>
+<li>IPIの処理が終わるまで10ms待つ。</li>
+<li>BSPから起動したいAPにSTARTUP IPIを送る。このとき、Vectorフィールドに実行開始アドレスを入れる。</li>
+<li>IPIの処理が終わるまで200μs待つ。</li>
+<li>手順4と5をもう一度行う。INIT IPIとSTARTUP IPIは自動で再試行せず、OSはそれを正常に行う必要があるため2回呼び出す。
+lapicstartap関数のコメントによると、2回目のSTARTUP IPIでのみAPを起動させるアーキテクチャも存在するらしい。</li>
+</ol>
+<p>INIT IPIの使用方法は<a href="/chapter_05/05_05_lapicinit.html#icr%E3%81%AE%E8%A8%AD%E5%AE%9A">lapicinit関数</a>で見た。<br />
+STARTUP IPIの使用方法は「MultiProcessor Specification Version 1.4」（リンク14）のB.4.2「USING STARTUP IPI」に記載されている。
+このIPIは送信先のプロセッサをリアルモードで物理アドレス0x000VV000から実行する。
+VVの部分は、ICRのVectorフィールドに設定された値が入る。</p>
+<p>起動手順をlapicstartap関数に沿って読んでいく。
+完全に上記手順に従っているわけではないため、行っていることがやや異なる。</p>
+<p><strong>手順1:</strong><br />
+BIOSのシャットダウンコードを0x0Aに初期化する。<br />
+BIOSの設定を行うCMOSのポートは<a href="http://bochs.sourceforge.net/doc/docbook/development/index.html">「Bochs Developers Guide」（リンク9）</a>によると、0x70～0x7Fであり0x70がCMOSのインデックスレジスタとなっている。
+シャットダウンコードの設定はシャットダウンステータスバイト（0x0F）から行うことができ、0x0Aの場合は、リセット時に40:67（CS:IP）に格納されている4バイトのアドレスにジャンプする設定となる。<br />
+リセット時にentryother.Sが実行されるよう、物理アドレス0x467にcode（引数addr）のアドレスを代入する。
+リアルモードのセグメント機構ではセグメントレジスタが16bit、アドレスバスが20bitであるため、セグメントのアクセスではアドレスの下位4bitを0とする。
+そのため0x7000（entryotherの開始アドレス）を4bit右シフトしている。
+この辺りのことは<a href="/ref_books.html">「初めて読む486」（書籍2）</a>に書いてある。</p>
+<p><strong>手順2:</strong><br />
+APにINIT IPIを2回送る。<br />
+INIT IPIはlapicinit関数で使用したが、ここではLevelがAssertになっているため、もう一度見る。<br />
+IPIについては<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>のVol.3A「10.6.1 Interrupt Command Register (ICR)」に記載されている。</p>
+<p>1回目:<br />
+LAPICのICR（Interrupt Command Register）（LAPICのインデックス0x310）に書き込みを行うことでIPIを送信する。
+上半分（56bit目）にLAPIC IDを設定し、下半分にはINIT（0x500）、LEVEL（0x8000）、ASSERT（0x4000）を設定する（0b1100 0101 0000 0000）。<br />
+8～10bitが0b101なので、Delivery ModeはINIT。<br />
+11bitが0なのでDestination ModeはPhysical。<br />
+14bitが1なのでLevelはAssert。<br />
+15bitが1なのでTrigger ModeはLevel。<br />
+Levelフラグが1（Assert）かつ、Delivery ModeのINITがLevel De-assertでないことから、INITリクエストを特定のプロセッサに送信することがわかる。
+送信先はDestination ModeがPhysicalであることから、ICRの56～59bitで指定されたLAPICIDのプロセッサとなる。</p>
+<p>INIT IPIの処理が終わるまで200μs待つ（<a href="/chapter_05/05_13_uartinit.html#uartputc%E9%96%A2%E6%95%B0">microdelay関数</a>）。</p>
+<p>2回目:<br />
+Levelフラグを0（De-assert）でINIT IPIを送信する。
+Delivery ModeがDe-assertなので送信先は全てのプロセッサとなる。</p>
+<p><strong>手順3:</strong><br />
+100μs待つ。<br />
+「MultiProcessor Specification Version 1.4」（リンク14）には10msとあるが、lapicstartap関数のコメントにBochsでは遅すぎると記載がある。</p>
+<p><strong>手順4:</strong><br />
+STARTUP IPIを2回送る。<br />
+ICRの56～59bitに送信先APのLAPIC IDを設定し、8～10bit目に0b110（Start-Up）を設定して、Vectorにentryother.Sのアドレス（0x7）を設定（実行を開始するアドレスVVの部分）する。</p>
+<p><strong>手順5:</strong><br />
+200μs待つ。</p>
+<p>関数内のAP起動手順は以上。
+第一引数apicidで指定されたAPはSTARTUP IPIで起動され、entryother.Sが実行される。</p>
+<p>lapic.c</p>
+<pre><code class="language-c">#define ICRLO   (0x0300/4)   // Interrupt Command
+  #define INIT       0x00000500   // INIT/RESET
+  #define STARTUP    0x00000600   // Startup IPI
+  #define DELIVS     0x00001000   // Delivery status
+  #define ASSERT     0x00004000   // Assert interrupt (vs deassert)
+  #define DEASSERT   0x00000000
+  #define LEVEL      0x00008000   // Level triggered
+  #define BCAST      0x00080000   // Send to all APICs, including self.
+  #define BUSY       0x00001000
+  #define FIXED      0x00000000
+#define ICRHI   (0x0310/4)   // Interrupt Command [63:32]
+
+/* 略 */
+
+#define CMOS_PORT    0x70
+#define CMOS_RETURN  0x71
+
+/* 略 */
+
+void
+lapicstartap(uchar apicid, uint addr)
+{
+  int i;
+  ushort *wrv;
+
+  // &quot;The BSP must initialize CMOS shutdown code to 0AH
+  // and the warm reset vector (DWORD based at 40:67) to point at
+  // the AP startup code prior to the [universal startup algorithm].&quot;
+  outb(CMOS_PORT, 0xF);  // offset 0xF is shutdown code
+  outb(CMOS_PORT+1, 0x0A);
+  wrv = (ushort*)P2V((0x40&lt;&lt;4 | 0x67));  // Warm reset vector
+  wrv[0] = 0;
+  wrv[1] = addr &gt;&gt; 4;
+
+  // &quot;Universal startup algorithm.&quot;
+  // Send INIT (level-triggered) interrupt to reset other CPU.
+  lapicw(ICRHI, apicid&lt;&lt;24);
+  lapicw(ICRLO, INIT | LEVEL | ASSERT);
+  microdelay(200);
+  lapicw(ICRLO, INIT | LEVEL);
+  microdelay(100);    // should be 10ms, but too slow in Bochs!
+
+  // Send startup IPI (twice!) to enter code.
+  // Regular hardware is supposed to only accept a STARTUP
+  // when it is in the halted state due to an INIT.  So the second
+  // should be ignored, but it is part of the official Intel algorithm.
+  // Bochs complains about the second one.  Too bad for Bochs.
+  for(i = 0; i &lt; 2; i++){
+    lapicw(ICRHI, apicid&lt;&lt;24);
+    lapicw(ICRLO, STARTUP | (addr&gt;&gt;12));
+    microdelay(200);
+  }
+}
+</code></pre>
+<h2><a class="header" href="#entryothers" id="entryothers">entryother.S</a></h2>
+<p>この関数はSTARTUP IPIによりAPで実行される。<br />
+概ね<a href="/chapter_03/03_01_bootasm.html">bootasm.S</a>、<a href="/chapter_04/04_01_entry.html">entry.S</a>と同様。<br />
+GDTをロードし、プロテクトモードへ移行、ページングを有効化する。<br />
+最後にスタックポインタをセットし、mpenter関数を呼び出す。</p>
+<p>ラージページの設定まではbootasm.Sとentry.Sのコードと同じ。<br />
+ページディレクトリの設定から見る。<br />
+entryother.Sはobjcopyコマンドで作成されたバイナリとしてリンクされているため、main.cで定義されているentrypgdir変数が見えない。
+そのため、startothers関数内であらかじめ第3引数の位置（start-12）にセットしておいたentrypgdirのアドレスを使用する。<br />
+同様に、スタックポインタに設定するスタックのアドレスはstartothers関数にてkalloc関数で割り当てた1ページ分の領域を設定する。
+これは第一引数の位置にセットしたので、 start-4 になる。<br />
+最後にmpenter関数のアドレスは、startothers関数で第二引数の位置にセットしたので、start-8 になる。</p>
+<p>entryother.S</p>
+<pre><code class="language-asm">.code16           
+.globl start
+start:
+  cli            
+
+  # Zero data segment registers DS, ES, and SS.
+  xorw    %ax,%ax
+  movw    %ax,%ds
+  movw    %ax,%es
+  movw    %ax,%ss
+
+  # Switch from real to protected mode.  Use a bootstrap GDT that makes
+  # virtual addresses map directly to physical addresses so that the
+  # effective memory map doesn't change during the transition.
+  lgdt    gdtdesc
+  movl    %cr0, %eax
+  orl     $CR0_PE, %eax
+  movl    %eax, %cr0
+
+  # Complete the transition to 32-bit protected mode by using a long jmp
+  # to reload %cs and %eip.  The segment descriptors are set up with no
+  # translation, so that the mapping is still the identity mapping.
+  ljmpl    $(SEG_KCODE&lt;&lt;3), $(start32)
+
+//PAGEBREAK!
+.code32  # Tell assembler to generate 32-bit code now.
+start32:
+  # Set up the protected-mode data segment registers
+  movw    $(SEG_KDATA&lt;&lt;3), %ax    # Our data segment selector
+  movw    %ax, %ds                # -&gt; DS: Data Segment
+  movw    %ax, %es                # -&gt; ES: Extra Segment
+  movw    %ax, %ss                # -&gt; SS: Stack Segment
+  movw    $0, %ax                 # Zero segments not ready for use
+  movw    %ax, %fs                # -&gt; FS
+  movw    %ax, %gs                # -&gt; GS
+
+  # Turn on page size extension for 4Mbyte pages
+  movl    %cr4, %eax
+  orl     $(CR4_PSE), %eax
+  movl    %eax, %cr4
+  # Use entrypgdir as our initial page table
+  movl    (start-12), %eax
+  movl    %eax, %cr3
+  # Turn on paging.
+  movl    %cr0, %eax
+  orl     $(CR0_PE|CR0_PG|CR0_WP), %eax
+  movl    %eax, %cr0
+
+  # Switch to the stack allocated by startothers()
+  movl    (start-4), %esp
+  # Call mpenter()
+  call	 *(start-8)
+
+  movw    $0x8a00, %ax
+  movw    %ax, %dx
+  outw    %ax, %dx
+  movw    $0x8ae0, %ax
+  outw    %ax, %dx
+spin:
+  jmp     spin
+
+.p2align 2
+gdt:
+  SEG_NULLASM
+  SEG_ASM(STA_X|STA_R, 0, 0xffffffff)
+  SEG_ASM(STA_W, 0, 0xffffffff)
+
+
+gdtdesc:
+  .word   (gdtdesc - gdt - 1)
+  .long   gdt
+</code></pre>
+<h2><a class="header" href="#mpenter関数" id="mpenter関数">mpenter関数</a></h2>
+<p>BSPで行った設定を同様にAPにも行う。<br />
+<a href="/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でcr3にカーネル用のページディレクトリkpgdirのアドレスをセットする。
+kpgdirはBSPと同じものが使用される。
+<a href="/chapter_05/05_03_kvmalloc.html#walkpgdir%E9%96%A2%E6%95%B0">4kBページングとなる</a>のも同様。<br />
+<a href="/chapter_05/05_06_seginit.html">seginit関数</a>でGDTの作成とロード、<a href="/chapter_05/05_05_lapicinit.html">lapicinit関数</a>でLAPICの設定を行う。</p>
+<p>main.c</p>
+<pre><code class="language-c">static void
+mpenter(void)
+{
+  switchkvm();
+  seginit();
+  lapicinit();
+  mpmain();
+}
+</code></pre>
+<h2><a class="header" href="#mpmain関数" id="mpmain関数">mpmain関数</a></h2>
+<p>この関数はコンソールに「cpu1: starting 1」と表示し、IDTをロードしてcpu構造体のstartedフィールドの値を1にした後、スケジューラを呼び出す。
+コンソールの文字列はLAPIC IDによって変わる。<br />
+cpu構造体のstartedフィールドを<a href="/chapter_05/05_10_lock.html#xchg%E9%96%A2%E6%95%B0">xchg関数</a>で1にする。
+ここでxchg命令を使ってアトミックにstartedフィールドの値を更新する理由はわからない。<br />
+この関数はBSPからmain関数の最後でも呼び出される。
+scheduler関数はその時に見ることにする。</p>
+<p>main.c</p>
+<pre><code class="language-c">static void
+mpmain(void)
+{
+  cprintf(&quot;cpu%d: starting %d\n&quot;, cpuid(), cpuid());
+  idtinit();       // load idt register
+  xchg(&amp;(mycpu()-&gt;started), 1); // tell startothers() we're up
+  scheduler();     // start running processes
+}
+</code></pre>
+<h2><a class="header" href="#cprintf関数" id="cprintf関数">cprintf関数</a></h2>
+<p>この関数は与えられたフォーマットでコンソールに文字を出力する。
+フォーマットにはエスケープシーケンスを使用することが可能であり、第二引数以降の可変個の文字をフォーマットして挿入できる。</p>
+<p>変数argpに可変長引数の先頭アドレスを代入する。
+第一引数fmtのアドレスをuint分加算し、スタックの低い位置（高いアドレス）に有る第二引数を得る。<br />
+fmtを1バイトずつ操作し、場合分けしながらコンソールに出力する。</p>
+<ul>
+<li><strong>%以外:</strong> <a href="/chapter_05/05_09_consoleinit.html#consolewrite%E9%96%A2%E6%95%B0">consputc関数</a>でコンソールに出力する。</li>
+<li><strong>0:</strong> ループをbreak。</li>
+<li><strong>d:</strong> printint関数で可変長引数から10進数符号ありでコンソールに出力する。</li>
+<li><strong>x, p:</strong> printint関数で可変長引数から16進数符号なしでコンソールに出力する。</li>
+<li><strong>s:</strong> 可変長引数から文字列を出力する。
+1文字ずつ取り出し、値が0になるまでconsputc関数で1バイトずつコンソールに出力する。
+1文字目が0の場合のみ文字列 &quot;(null)&quot; を出力する。</li>
+<li><strong>%:</strong> consputc関数でコンソールに '%' を出力する。</li>
+</ul>
+<p>console.c</p>
+<pre><code class="language-c">void
+cprintf(char *fmt, ...)
+{
+  int i, c, locking;
+  uint *argp;
+  char *s;
+
+  locking = cons.locking;
+  if(locking)
+    acquire(&amp;cons.lock);
+
+  if (fmt == 0)
+    panic(&quot;null fmt&quot;);
+
+  argp = (uint*)(void*)(&amp;fmt + 1);
+  for(i = 0; (c = fmt[i] &amp; 0xff) != 0; i++){
+    if(c != '%'){
+      consputc(c);
+      continue;
+    }
+    c = fmt[++i] &amp; 0xff;
+    if(c == 0)
+      break;
+    switch(c){
+    case 'd':
+      printint(*argp++, 10, 1);
+      break;
+    case 'x':
+    case 'p':
+      printint(*argp++, 16, 0);
+      break;
+    case 's':
+      if((s = (char*)*argp++) == 0)
+        s = &quot;(null)&quot;;
+      for(; *s; s++)
+        consputc(*s);
+      break;
+    case '%':
+      consputc('%');
+      break;
+    default:
+      // Print unknown % sequence to draw attention.
+      consputc('%');
+      consputc(c);
+      break;
+    }
+  }
+
+  if(locking)
+    release(&amp;cons.lock);
+}
+</code></pre>
+<h2><a class="header" href="#printint関数" id="printint関数">printint関数</a></h2>
+<p>この関数は整数xxを、基数baseとしてコンソールに出力する。
+また、第三引数signが0以外の場合符号ありで出力する。</p>
+<p>配列digitsを使用して整数xxを文字コードに変換し、配列bufに持つ。
+bufは頭から詰めていき、お尻から出力する。</p>
+<p>console.c</p>
+<pre><code class="language-c">static void
+printint(int xx, int base, int sign)
+{
+  static char digits[] = &quot;0123456789abcdef&quot;;
+  char buf[16];
+  int i;
+  uint x;
+
+  if(sign &amp;&amp; (sign = xx &lt; 0))
+    x = -xx;
+  else
+    x = xx;
+
+  i = 0;
+  do{
+    buf[i++] = digits[x % base];
+  }while((x /= base) != 0);
+
+  if(sign)
+    buf[i++] = '-';
+
+  while(--i &gt;= 0)
+    consputc(buf[i]);
+}
+</code></pre>
+<h2><a class="header" href="#idtinit関数" id="idtinit関数">idtinit関数</a></h2>
+<p>この関数は<a href="/chapter_05/05_15_tvinit.html">tvinit関数</a>で作成したIDTをlidt関数を通してlidt命令でロードする。</p>
+<p>trap.c</p>
+<pre><code class="language-c">void
+idtinit(void)
+{
+  lidt(idt, sizeof(idt));
+}
+</code></pre>
+<p>x86.h</p>
+<pre><code class="language-asm">struct gatedesc;
+
+static inline void
+lidt(struct gatedesc *p, int size)
+{
+  volatile ushort pd[3];
+
+  pd[0] = size-1;
+  pd[1] = (uint)p;
+  pd[2] = (uint)p &gt;&gt; 16;
+
+  asm volatile(&quot;lidt (%0)&quot; : : &quot;r&quot; (pd));
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_05/05_18_ideinit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_05/05_20_kinit2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_05/05_18_ideinit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_05/05_20_kinit2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

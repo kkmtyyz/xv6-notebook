@@ -1,0 +1,692 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>consoleinit関数 - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html" class="active"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#59-consoleinit関数" id="59-consoleinit関数">5.9. consoleinit関数</a></h1>
+<p>この関数はdevsw配列の1番にコンソール読み書き用の関数を設定し、IOAPICのキーボードコントローラからの割込みのリダイレクト（IRQ1からIRQ33へのリダイレクト）を有効化する。</p>
+<p>デバイスの読み書きにはdevsw構造体を使用する。
+この構造体は関数ポインタreadとwriteを持っており、そこにデバイス毎の読み書き用の関数を持っておく。<br />
+file.cでdevsw構造体の配列devswが定義されており、デバイス10個分の構造体を持つことができる。
+この配列の1番目をコンソールのために使用する。残りの9個は使用しない。
+ディスクの読み書きにはdevsw構造体を使用せず、ide.cに定義されているiderw関数を使用する。</p>
+<p>file.h</p>
+<pre><code class="language-c">struct devsw {
+  int (*read)(struct inode*, char*, int);
+  int (*write)(struct inode*, char*, int);
+};
+</code></pre>
+<p>file.c</p>
+<pre><code class="language-c">struct devsw devsw[NDEV];
+</code></pre>
+<p>param.h</p>
+<pre><code class="language-c">#define NDEV         10  // maximum major device number
+</code></pre>
+<p>コンソールの排他制御にはconsole.cの静的変数consを使用する。
+consはspinlock構造体のlockフィールドと、int型のlockingフィールドを持っている。
+lockフィールドはコンソールを使用する際のロックに使われる。
+ロックについては<a href="/chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。
+lockingフィールドの値は通常1で、panic関数が呼ばれると0になり、その後1に戻ることはない。
+このフィールドはcprintf関数内で使用されており、値が1の場合はコンソールのロックを取り、0の場合は取らない。
+おそらくpanic関数が呼ばれた際に、既にコンソールのロックが取られている可能性があるため、panic関数でlockingを0にするのだと思う。</p>
+<p>console.c</p>
+<pre><code class="language-c">static struct {
+  struct spinlock lock;
+  int locking;
+} cons;
+</code></pre>
+<p>consoleinit関数ではまずconsのlockフィールドを初期化する。<br />
+devsw配列のコンソール（1番）のwriteフィールドにconsolewrite関数を設定し、readフィールドにconsoleread関数を設定する。<br />
+次にconsのlockingフィールドを1で初期化する。
+この値は上述したように、panicが呼ばれるまで0にならない。<br />
+最後に、ioapicenable関数でキーボードコントローラからの割込みを有効化する。</p>
+<p>file.h</p>
+<pre><code class="language-c">#define CONSOLE 1
+</code></pre>
+<p>traps.h</p>
+<pre><code class="language-c">#define IRQ_KBD          1
+</code></pre>
+<p>console.c</p>
+<pre><code class="language-c">void
+consoleinit(void)
+{
+  initlock(&amp;cons.lock, &quot;console&quot;);
+
+  devsw[CONSOLE].write = consolewrite;
+  devsw[CONSOLE].read = consoleread;
+  cons.locking = 1;
+
+  ioapicenable(IRQ_KBD, 0);
+}
+</code></pre>
+<h2><a class="header" href="#consolewrite関数" id="consolewrite関数">consolewrite関数</a></h2>
+<p>この関数はコンソールに文字を出力する。</p>
+<p>inodeのロックを解放し、コンソールのロックを取ってbufからn文字分出力する。
+出力が終わったらコンソールのロックを解放し、inodeのロックを再び取得する。
+コンソール出力中はinodeのロックが不要なのでロックを解放する。
+inodeについては<a href="chapter_05/05_11_ilock.html">「5.11. iノードのロック」</a>に書く。<br />
+出力はconsputc関数で行う。
+consputc関数の引数はint型だが、アスキーコードの範囲で渡したいので、0xffで論理積を取って1バイトだけ渡す。</p>
+<p>console.c</p>
+<pre><code class="language-c">int
+consolewrite(struct inode *ip, char *buf, int n)
+{
+  int i;
+
+  iunlock(ip);
+  acquire(&amp;cons.lock);
+  for(i = 0; i &lt; n; i++)
+    consputc(buf[i] &amp; 0xff);
+  release(&amp;cons.lock);
+  ilock(ip);
+
+  return n;
+}
+</code></pre>
+<p>consputc関数はシリアルポートが有ればそちらに書き込みを行い、無ければメモリにマップされているビデオメモリに書き込む。
+シリアルポートへの書き込みはuartputc関数で行い、ビデオメモリへの書き込みはcgaputc関数で行う。
+シリアルポートの有無はmain関数から呼ばれるuartinit関数で確認する。
+また、シリアルポートにバックスペースを書き込む際には、'\b'でカーソル位置を1文字戻し、空白を印字し、再びカーソル位置を1文字戻す。<br />
+console.cにはint型の静的変数panickedが定義されており、この値はpanic関数が呼ばれると1になる。
+consputc関数は、panic関数が呼ばれている場合は、割り込みを無効化し、無限ループする。</p>
+<p>console.c</p>
+<pre><code class="language-c">static int panicked = 0;
+
+/* 略 */
+
+void
+consputc(int c)
+{
+  if(panicked){
+    cli();
+    for(;;)
+      ;
+  }
+
+  if(c == BACKSPACE){
+    uartputc('\b'); uartputc(' '); uartputc('\b');
+  } else
+    uartputc(c);
+  cgaputc(c);
+}
+</code></pre>
+<p>uartputc関数は<a href="/chapter_05/05_13_uartinit.html">「5.13. uartinit」</a>に書くとして、cgaputc関数を見る。
+cgaputc関数はメモリ上のビデオメモリ領域に書き込むことで画面出力を行う。</p>
+<p>カーソル位置はCRTコントローラを使用して読み書きする。
+<a href="http://web.stanford.edu/class/cs140/projects/pintos/specs/freevga/vga/crtcreg.htm">「Hardware Level VGA and SVGA Video Programming Information Page CRT Controller Registers」（リンク19）</a>
+によると、CRTCレジスタにはアドレスレジスタとデータレジスタがあり、それぞれポート0x3d4とポート0x3d5からアクセスできる。
+リンク先の「Cursor Location High Register (Index 0Eh)」と「Cursor Location Low Register (Index 0Fh)」に、アドレスレジスタに14（0xE）と15（0xF）を書き込むことで、データレジスタからカーソル位置を取得することができると記載がある。
+カーソル位置は画面左上を0として、1行80文字、25行までで連続して増加していく。</p>
+<p>プロテクトモード時のビデオモードに関しては<a href="https://wiki.osdev.org/Drawing_In_Protected_Mode">「OSDev Drawing In Protected Mode」（リンク20）</a>に記載されており、ここではCGAモードなので物理アドレス0xb8000からビデオメモリ領域になっている。<br />
+ビデオメモリへは2バイトずつ書き込みを行い、書き込む値は<a href="https://wiki.osdev.org/Text_UI">「OSDev Text UI」（リンク21）</a>によると、上位1バイトで色を指定し、下位1バイトでASCIIコードを指定する。
+色の指定方法はリンク先の「Colours」で図解されており、上位4bitで背景色、下位4bitで文字色を指定する。
+また、3, 7bit目がそれぞれbright bitとなっており、立てると明るい色になる。
+cgaputc関数では0x0700で論理和を取り文字色をライトグレイにしているが、例えば0xb200で論理和を取ると背景色がライトシアンとなり、文字色が緑色となる。</p>
+<p>cgaputc関数ではint型の変数posでカーソル位置を操作する。<br />
+引数が改行コードの場合、posが次の行の先頭になるように、80 - 現在位置%80だけ加算する。<br />
+引数がバックスペースかつposが0より大きい場合、posをデクリメントする。<br />
+それ以外の場合は現在位置の次の位置に引数の文字（1バイト）を文字色ライトグレイ、背景色黒で描画する。<br />
+変数crtはメモリ上のビデオメモリ領域の開始アドレス（0xb8000）を持っている。<br />
+カーソル位置が0未満或いは25行80列より大きいところを指している場合、panicする。<br />
+25行目を指している場合、memmove関数を使用して全体を1行分前方に動かし、カーソル位置も1行分減らす。
+全体を1行分前にコピーするので、最終行に値が残っている。それをmemset関数で0にリセットする。<br />
+最後に画面上の現在の位置にスペースを書き込む。</p>
+<p>console.c</p>
+<pre><code class="language-c">#define BACKSPACE 0x100
+#define CRTPORT 0x3d4
+static ushort *crt = (ushort*)P2V(0xb8000);  // CGA memory
+
+static void
+cgaputc(int c)
+{
+  int pos;
+
+  // Cursor position: col + 80*row.
+  outb(CRTPORT, 14);
+  pos = inb(CRTPORT+1) &lt;&lt; 8;
+  outb(CRTPORT, 15);
+  pos |= inb(CRTPORT+1);
+
+  if(c == '\n')
+    pos += 80 - pos%80;
+  else if(c == BACKSPACE){
+    if(pos &gt; 0) --pos;
+  } else
+    crt[pos++] = (c&amp;0xff) | 0x0700;  // black on white
+
+  if(pos &lt; 0 || pos &gt; 25*80)
+    panic(&quot;pos under/overflow&quot;);
+
+  if((pos/80) &gt;= 24){  // Scroll up.
+    memmove(crt, crt+80, sizeof(crt[0])*23*80);
+    pos -= 80;
+    memset(crt+pos, 0, sizeof(crt[0])*(24*80 - pos));
+  }
+
+  outb(CRTPORT, 14);
+  outb(CRTPORT+1, pos&gt;&gt;8);
+  outb(CRTPORT, 15);
+  outb(CRTPORT+1, pos);
+  crt[pos] = ' ' | 0x0700;
+}
+</code></pre>
+<h2><a class="header" href="#memmove関数" id="memmove関数">memmove関数</a></h2>
+<p>この関数は第二引数のアドレス（ソース）から第三引数のサイズ分、第一引数のアドレス（移動先）にコピーする。
+このとき、ソースが移動先より手前で開始し、移動先がコピーサイズ分に被るとき、頭からコピーしていくとソースの一部が上書きされ失われるので、末尾からコピーしていく。</p>
+<p>string.c</p>
+<pre><code class="language-c">void*
+memmove(void *dst, const void *src, uint n)
+{
+  const char *s;
+  char *d;
+
+  s = src;
+  d = dst;
+  if(s &lt; d &amp;&amp; s + n &gt; d){
+    s += n;
+    d += n;
+    while(n-- &gt; 0)
+      *--d = *--s;
+  } else
+    while(n-- &gt; 0)
+      *d++ = *s++;
+
+  return dst;
+}
+</code></pre>
+<h2><a class="header" href="#consoleread関数" id="consoleread関数">consoleread関数</a></h2>
+<p>この関数はコンソールからnバイト読み込む。</p>
+<p>コンソールへの入力に起因する割り込みから順に書くことにする。
+なお、割り込み時の動作については<a href="">「」</a>に書く。<br />
+キーボードあるいはシリアルポートから入力が行われると、割込みが生じ最終的にkbdintr関数かuartintr関数が呼ばれる。
+それらはいずれもconsoleintr関数を呼び出しており、引数としてkbdgetc関数あるいはuartgetc関数を渡す。
+uartgetc関数については<a href="/chapter_05/05_13_uartinit.html">「5.13. uartinit関数」</a>に書く。</p>
+<p>kbd.c</p>
+<pre><code class="language-c">void
+kbdintr(void)
+{
+  consoleintr(kbdgetc);
+}
+</code></pre>
+<p>uart.c</p>
+<pre><code class="language-c">void
+uartintr(void)
+{
+  consoleintr(uartgetc);
+}
+</code></pre>
+<h3><a class="header" href="#kbdgetc関数" id="kbdgetc関数">kbdgetc関数</a></h3>
+<p>この関数はキーボードコントローラからの入力信号（スキャンコード）を解析し、キーボードに入力された文字コードを返す。<br />
+<a href="http://bochs.sourceforge.net/doc/docbook/development/index.html">「Bochs Developers Guide」（リンク9）</a>によると、ポート0x60（アウトプットバッファ）から、スキャンコードを取得できる。
+スキャンコードに関しては<a href="https://www.win.tue.nl/%7Eaeb/linux/kbd/scancodes.html">「Keyboard scancodes Andries Brouwer」（リンク7）</a>で解説されており、キーが押されるときmakeコードが入力され、離されるときにbreakコードが入力される。
+breakコードはmakeコードに0x80が加算された値になっている。
+例えば、aキーが押されると0x1eが入力され、キーが離されて0x9eが入力される。
+また、コード0xe0と0xe1はエスケープシーケンスになっており、プリフィクスとして使用される。
+あるキーを押すと、0xe0が入力され、続けて入力される特定のスキャンコードと共に解釈することになる。
+例えば、方向キー上が押されると0xe0が入力され、続けて0x48が入力され、離された後に0xc8が入力される。
+なので、gdbで確認する際はキーが押されたときと、離されたときを別々に観測するとよい。</p>
+<p>xv6では、スキャンコードから文字コードへの変換にkbd.hに定義されている3つの配列normalmap、shiftmap、ctlmapを使用する。<br />
+各配列は名前の通り、普通の入力、シフトキーを使用した入力、コントロールキーを使用した入力で使用される。
+参照する配列の切り替えには、shiftcodeとtogglecodeの2つの配列を使用する。
+そこにはCTRLキーやALTキー、CAPSLOCKキー等が定義されている。<br />
+kbdget関数では配列charcodeに変換に使用する3つの配列を持っておく。
+4番目のctlmapはシフトキーとコントロールキーが同時に入力された場合に使用される。</p>
+<p>ctlmap配列ではCマクロが使用されており、このマクロは与えられた文字コードを制御コードに変換する。
+各制御コードは<a href="https://www.ascii-code.com/">「ASCII Code - The extended ASCII table」（リンク27）</a>で確認できる。
+例えば<code>C('C')</code>の場合、
+<code>'C' - '@' = 0x43 - 0x40 = 0x03</code>
+なので、End of Text（0x03）となる。</p>
+<p>kbd.h</p>
+<pre><code class="language-c">// C('A') == Control-A
+#define C(x) (x - '@')
+</code></pre>
+<p>エスケープシーケンス（0xe0）や、シフトキー、コントロールキー、CAPSLOCKのオンオフは変数shiftの各bitで表現する。
+各bitの役割は以下。</p>
+<p>kbd.h</p>
+<pre><code class="language-c">&gt;  9 #define SHIFT           (1&lt;&lt;0)
+&gt; 10 #define CTL             (1&lt;&lt;1)
+&gt; 11 #define ALT             (1&lt;&lt;2)
+&gt; 12 
+&gt; 13 #define CAPSLOCK        (1&lt;&lt;3)
+&gt; 14 #define NUMLOCK         (1&lt;&lt;4)
+&gt; 15 #define SCROLLLOCK      (1&lt;&lt;5)
+&gt; 16 
+&gt; 17 #define E0ESC           (1&lt;&lt;6)
+</code></pre>
+<p>変数shiftのSHIFTビットもCTLビットも設定されていれば4エントリ目のctlmapテーブルが使用される。</p>
+<p>kbdgetc関数ははじめに、キーボードコントローラのステータス（0x64）を取得する。
+ステータスの0bitからインプットバッファの状態を確認でき、1のときフル、0のとき空を示す。<br />
+アウトプットバッファ（0x60）から1つ分のスキャンコードを取得し、次のように分岐する。</p>
+<ul>
+<li>エスケープシーケンス（0xE0）の場合、変数shiftのE0ESCビットを立てる。</li>
+<li>breakコードの場合、つまりキーが離された場合、変数shiftのE0ESCビット、SHIFTビット、CTLビット、ALTビットを0にする。
+CAPSLOCKビットやNUMLOCKビット、SCROLLLOCKビットは入力を跨いで有効となるため変更しない。
+エスケープシーケンス以外の場合、0x7fとの論理積によりmakeコードを取得している。</li>
+<li>変数shiftのE0ESCビットが1の場合、変数dataにbreakコード（0x80を論理和）を代入し、E0ESCビットを0にする。エスケープシーケンス（0xE0）が使用される場合breakコードが入力されないので、続くスキャンコードをbreakコードに変換する必要がある。</li>
+</ul>
+<p>次に、スキャンコードの変換に用いる配列を決定するため、変数shiftを設定する。
+shiftcode配列はそのままビットを設定するが、togglecode配列はCAPSLOCKやNUMLOCK等を扱うため排他的論理和でビットを更新する。<br />
+最後に配列から文字コードを取得するが、変数shiftのCAPSLOCKビットが1の場合、アルファベットの大文字と小文字を変換する。</p>
+<p>kbd.c</p>
+<pre><code class="language-c">int
+kbdgetc(void)
+{
+  static uint shift;
+  static uchar *charcode[4] = {
+    normalmap, shiftmap, ctlmap, ctlmap
+  };
+  uint st, data, c;
+
+  st = inb(KBSTATP);
+  if((st &amp; KBS_DIB) == 0)
+    return -1;
+  data = inb(KBDATAP);
+
+  if(data == 0xE0){
+    shift |= E0ESC;
+    return 0;
+  } else if(data &amp; 0x80){
+    // Key released
+    data = (shift &amp; E0ESC ? data : data &amp; 0x7F);
+    shift &amp;= ~(shiftcode[data] | E0ESC);
+    return 0;
+  } else if(shift &amp; E0ESC){
+    // Last character was an E0 escape; or with 0x80
+    data |= 0x80;
+    shift &amp;= ~E0ESC;
+  }
+
+  shift |= shiftcode[data];
+  shift ^= togglecode[data];
+  c = charcode[shift &amp; (CTL | SHIFT)][data];
+  if(shift &amp; CAPSLOCK){
+    if('a' &lt;= c &amp;&amp; c &lt;= 'z')
+      c += 'A' - 'a';
+    else if('A' &lt;= c &amp;&amp; c &lt;= 'Z')
+      c += 'a' - 'A';
+  }
+  return c;
+}
+</code></pre>
+<h3><a class="header" href="#consoleintr関数" id="consoleintr関数">consoleintr関数</a></h3>
+<p>この関数はキーボードやシリアルポートから入力された値を読み取り、それをコンソールに出力する。
+また、入力を待っているプロセスを起床させ、値を渡す。</p>
+<p>入力を待っているプロセスはconsoleread関数でスリープしており、input構造体を通して値を渡す。<br />
+input構造体は次の4つのフィールドで構成される。</p>
+<ul>
+<li>buf: 入力された直近128文字を持つ</li>
+<li>r: bufフィールドからプロセスが読み出した位置を示すとともに、コンソールへの出力を待っているプロセスを起床させるチャネルとしても使用される。</li>
+<li>w: bufフィールドからコンソールに出力した位置を示す</li>
+<li>e: bufフィールドの現在位置を表す</li>
+</ul>
+<p>bufは要素127まで来たら要素0から上書きするため、読み書きする際は要素数で割った余りをインデックスとして使用する。
+r、w、eの各フィールドは0から開始する。
+文字が入力される度にeがインクリメントされbufに文字が入る。
+それをコンソールに出力するとwがeで更新され、追いつく。
+コンソールへの文字出力後、consoleread関数でスリープしているプロセスが起床され、そこでrからwの位置までbufの中身を読み取る。
+r、w、eは明示的に初期化されることはなく、uintの最大値2の32乗-1まで増加し続ける。</p>
+<p>console.c</p>
+<pre><code class="language-c">#define INPUT_BUF 128
+struct {
+  char buf[INPUT_BUF];
+  uint r;  // Read index
+  uint w;  // Write index
+  uint e;  // Edit index
+} input;
+</code></pre>
+<p>while文で1文字ずつ読み、switch文で次のように分岐する。</p>
+<ul>
+<li>Ctrl + Pの場合、procdump関数を実行する。この関数はプロセスの一覧を出力し、スリープ状態のプロセスの場合はコールスタックも出力する。</li>
+<li>Ctrl + Uの場合、コンソールの現在の行の文字を全て消す。
+現在位置eを行頭まで戻しつつ、文字を1文字ずつ消していく。</li>
+<li>Ctrl + H、あるいはバックスペース（0x7f）の場合、1文字消す。
+バックスペースが入力されると、キーボードの場合はkbdgetc関数からバックスペース（0x08）が返ってきてCtrl + Hのケースに一致し、シリアルポートの場合はuartgetc関数からデリート（0x7f）が返ってきてこのケースに一致する。
+コンソールの現在位置eと前回の最終出力位置wが等しくない場合、つまり消せる入力がある場合はeをデクリメントし、consputc関数を使ってバックスペースを出力する。</li>
+<li>上記以外の場合、文字をコンソールに出力する。
+キャリッジリターン（0x0d）は改行（0x0a）に変換する。</li>
+</ul>
+<p>次の場合、出力済み位置wに現在位置eを代入し、rのアドレスをチャネルとしてスリープしているプロセスを起床させる。</p>
+<ul>
+<li>入力が終了する（Enter）</li>
+<li>Ctrl + Dが入力される（EOT）</li>
+<li>読み込む必要がある文字列がbufの容量と等しくなった場合</li>
+</ul>
+<p>スリープしているプロセスはコンソールへ入力された文字列（bufの中身）を読み取り、解釈する。</p>
+<p>console.c</p>
+<pre><code class="language-c">void
+consoleintr(int (*getc)(void))
+{
+  int c, doprocdump = 0;
+
+  acquire(&amp;cons.lock);
+  while((c = getc()) &gt;= 0){
+    switch(c){
+    case C('P'):  // Process listing.
+      // procdump() locks cons.lock indirectly; invoke later
+      doprocdump = 1;
+      break;
+    case C('U'):  // Kill line.
+      while(input.e != input.w &amp;&amp;
+            input.buf[(input.e-1) % INPUT_BUF] != '\n'){
+        input.e--;
+        consputc(BACKSPACE);
+      }
+      break;
+    case C('H'): case '\x7f':  // Backspace
+      if(input.e != input.w){
+        input.e--;
+        consputc(BACKSPACE);
+      }
+      break;
+    default:
+      if(c != 0 &amp;&amp; input.e-input.r &lt; INPUT_BUF){
+        c = (c == '\r') ? '\n' : c;
+        input.buf[input.e++ % INPUT_BUF] = c;
+        consputc(c);
+        if(c == '\n' || c == C('D') || input.e == input.r+INPUT_BUF){
+          input.w = input.e;
+          wakeup(&amp;input.r);
+        }
+      }
+      break;
+    }
+  }
+  release(&amp;cons.lock);
+  if(doprocdump) {
+    procdump();  // now call procdump() wo. cons.lock held
+  }
+}
+</code></pre>
+<p>consoleread関数はinput構造体のbufフィールドを読み込む。<br />
+コンソールの読み込み位置（r）が出力済み位置（w）に追いついている場合、入力待ちのために現在のプロセスをスリープ状態にする。
+このため第一引数で与えられたiノードのロックを開放する。
+スリープについては<a href="/chapter_05/05_10_lock.html">「5.10. ロック（spinlock, sleeplock）」</a>に書く。<br />
+プロセスが起床し、出力済み位置（w）が読み込み位置（r）よりも先に進んだ場合、rをインクリメントしbufから文字コードを取り出す。
+文字コードがCtrl + D（EOT）の場合、読み込みのwhileループから抜ける。
+このとき、既に何文字か読み込んでいた場合はrをデクリメントする。
+これにより、次回実行時にはwhileループに入らず、そのまま同じEOTを読み込むことになり、直ぐにbreakでループを抜けることになる。
+呼び出し元にreturnで返される読み込んだ文字数は0になり、第二引数dstには何も書き込まれず、呼び出し元は読み込みたい文字列がEOTで終了されたことを知ることができる。</p>
+<p>console.c</p>
+<pre><code class="language-c">int
+consoleread(struct inode *ip, char *dst, int n)
+{
+  uint target;
+  int c;
+
+  iunlock(ip);
+  target = n;
+  acquire(&amp;cons.lock);
+  while(n &gt; 0){
+    while(input.r == input.w){
+      if(myproc()-&gt;killed){
+        release(&amp;cons.lock);
+        ilock(ip);
+        return -1;
+      }
+      sleep(&amp;input.r, &amp;cons.lock);
+    }
+    c = input.buf[input.r++ % INPUT_BUF];
+    if(c == C('D')){  // EOF
+      if(n &lt; target){
+        // Save ^D for next time, to make sure
+        // caller gets a 0-byte result.
+        input.r--;
+      }
+      break;
+    }
+    *dst++ = c;
+    --n;
+    if(c == '\n')
+      break;
+  }
+  release(&amp;cons.lock);
+  ilock(ip);
+
+  return target - n;
+}
+</code></pre>
+<h2><a class="header" href="#ioapicenable関数" id="ioapicenable関数">ioapicenable関数</a></h2>
+<p>この関数は指定されたIRQのリダイレクトを有効化し、リダイレクト先LAPICを設定する。</p>
+<p>IOリダイレクションテーブルの設定は<a href="/chapter_05/05_08_ioapicinit.html">「5.8. ioapicinit関数」</a>で行った。
+ここではそこでも使用したioapicwrite関数にて、エントリのDestination Field（56bit（32+24））にLAPIC IDを設定する。
+また、同時にInterrupt Mask（16bit）が0に設定されることにより割り込みのリダイレクトを有効化している。</p>
+<p>ioapic.c</p>
+<pre><code class="language-c">void
+ioapicenable(int irq, int cpunum)
+{
+  // Mark interrupt edge-triggered, active high,
+  // enabled, and routed to the given cpunum,
+  // which happens to be that cpu's APIC ID.
+  ioapicwrite(REG_TABLE+2*irq, T_IRQ0 + irq);
+  ioapicwrite(REG_TABLE+2*irq+1, cpunum &lt;&lt; 24);
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_05/05_08_ioapicinit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_05/05_10_lock.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_05/05_08_ioapicinit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_05/05_10_lock.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

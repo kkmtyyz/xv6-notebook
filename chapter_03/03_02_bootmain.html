@@ -1,0 +1,533 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>bootmain関数 - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html" class="active"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#32-bootmain関数" id="32-bootmain関数">3.2. bootmain関数</a></h1>
+<p>この関数はディスクからカーネル（elfバイナリ）を物理アドレス0x100000にロードし、entry関数を実行する。</p>
+<p><a href="/chapter_02/02_01_xv6_img.html">「2.1. ターゲットxv6.img」</a>で見たように、kernelは1セクタ目から存在している。<br />
+readseg関数で1セクタ目から4096バイト分をelfhdrポインタに読み込む。
+ここでは読み込みを開始するオフセットに0を渡しているが、readseg関数は読み込みを1セクタ目から開始するので問題ない。<br />
+マジックナンバーを確認し、読み込んだデータが少なくともelfヘッダを持っていることを確認する。</p>
+<p>elfの構造に関しては<a href="/ref_books.html">「リンカ・ローダ 実践開発テクニック」（書籍1）</a>に詳しく記載されている。<br />
+読み込んだデータ（カーネル）から、プログラムヘッダを取得する。elfヘッダのアドレス（0x10000）にelfhdr構造体のphoffフィールド（プログラムヘッダのオフセット）を加算することでプログラムヘッダが始まるアドレスが求められる。<br />
+プログラムヘッダの個数はelfhdr構造体のphnumフィールドから得られる。<br />
+プログラムヘッダの開始アドレスと個数が分かったので、for文で各プログラムヘッダをproghdr構造体に取り出し、以下のようにセグメントをディスクから読み込む。</p>
+<ol>
+<li>プログラムヘッダからロード先物理アドレス（paddrフィールド）を取得する。</li>
+<li>readseg関数でロード先物理アドレスに、ディスク上のセグメント開始位置（offフィールド）からセグメントサイズ（fileszフィールド）の分だけ読み込む。</li>
+<li>もしも、セグメントがメモリ上に展開されるサイズ（memszフィールド）が、セグメントサイズ（fileszフィールド）よりも大きい場合、stosb関数でセグメントの後ろをメモリ上に展開されるサイズまで0埋めする。</li>
+</ol>
+<p>これでカーネルの全てのセグメントがメモリ上の適切な位置にロードされた。<br />
+elfバイナリ（カーネル）のエントリーポイントをelfヘッダのentryフィールドから取得する。関数として呼び出すため、関数ポインタにキャストして取得している。ここではエントリーポイントはentry.Sの_startラベル。</p>
+<p>最後にエントリーポイントを関数として呼び出し、カーネルの実行を開始する。</p>
+<p>elf.h</p>
+<pre><code class="language-c">#define ELF_MAGIC 0x464C457FU  // &quot;\x7FELF&quot; in little endian
+
+// File header
+struct elfhdr {
+  uint magic;  // must equal ELF_MAGIC
+  uchar elf[12];
+  ushort type;
+  ushort machine;
+  uint version;
+  uint entry;
+  uint phoff;
+  uint shoff;
+  uint flags;
+  ushort ehsize;
+  ushort phentsize;
+  ushort phnum;
+  ushort shentsize;
+  ushort shnum;
+  ushort shstrndx;
+};
+
+// Program section header
+struct proghdr {
+  uint type;
+  uint off;
+  uint vaddr;
+  uint paddr;
+  uint filesz;
+  uint memsz;
+  uint flags;
+  uint align;
+};
+</code></pre>
+<p>bootmain.c</p>
+<pre><code class="language-c">void
+bootmain(void)
+{
+  struct elfhdr *elf;
+  struct proghdr *ph, *eph;
+  void (*entry)(void);
+  uchar* pa;
+
+  elf = (struct elfhdr*)0x10000;  // scratch space
+
+  // Read 1st page off disk
+  readseg((uchar*)elf, 4096, 0);
+
+  // Is this an ELF executable?
+  if(elf-&gt;magic != ELF_MAGIC)
+    return;  // let bootasm.S handle error
+
+  // Load each program segment (ignores ph flags).
+  ph = (struct proghdr*)((uchar*)elf + elf-&gt;phoff);
+  eph = ph + elf-&gt;phnum;
+  for(; ph &lt; eph; ph++){
+    pa = (uchar*)ph-&gt;paddr;
+    readseg(pa, ph-&gt;filesz, ph-&gt;off);
+    if(ph-&gt;memsz &gt; ph-&gt;filesz)
+      stosb(pa + ph-&gt;filesz, 0, ph-&gt;memsz - ph-&gt;filesz);
+  }
+
+  // Call the entry point from the ELF header.
+  // Does not return!
+  entry = (void(*)(void))(elf-&gt;entry);
+  entry();
+}
+</code></pre>
+<p>プログラムヘッダとセクションヘッダの情報はobjdumpで確認できるので、以下のようにここで処理されているプログラムヘッダの値を確認できる。<br />
+プログラムヘッダは次の3エントリ。仮想アドレスと物理アドレスは<a href="/chapter_02/02_04_kernel.html">「2.4. ターゲットkernel」</a>で見たリンカスクリプトkernel.ldにより設定されている。</p>
+<ol>
+<li>textセクション。物理アドレス0x100000にロードする。</li>
+<li>dataセクション。物理アドレス0x108000にロードする。</li>
+<li>スタック。サイズが0。</li>
+</ol>
+<p><code>objdump -ph kernel | less</code>の出力結果</p>
+<pre><code>kernel:     file format elf32-i386
+
+Program Header:
+    LOAD off    0x00001000 vaddr 0x80100000 paddr 0x00100000 align 2**12
+         filesz 0x0000788c memsz 0x0000788c flags r-x
+    LOAD off    0x00009000 vaddr 0x80108000 paddr 0x00108000 align 2**12
+         filesz 0x00002516 memsz 0x0000d4a8 flags rw-
+   STACK off    0x00000000 vaddr 0x00000000 paddr 0x00000000 align 2**4
+         filesz 0x00000000 memsz 0x00000000 flags rwx
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00006e92  80100000  00100000  00001000  2**4
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .rodata       000009ec  80106ea0  00106ea0  00007ea0  2**5
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  2 .data         00002516  80108000  00108000  00009000  2**12
+                  CONTENTS, ALLOC, LOAD, DATA
+  3 .bss          0000af88  8010a520  0010a520  0000b516  2**5
+                  ALLOC
+  4 .debug_line   00002694  00000000  00000000  0000b516  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000104e2  00000000  00000000  0000dbaa  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000390e  00000000  00000000  0001e08c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_aranges 000003a8  00000000  00000000  000219a0  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    00005239  00000000  00000000  00021d48  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 00000748  00000000  00000000  00026f81  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000e48  00000000  00000000  000276c9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .comment      0000002d  00000000  00000000  00028511  2**0
+                  CONTENTS, READONLY
+</code></pre>
+<p>また、elfヘッダのentryフィールドが示すエントリーポイントのアドレスはreadelfで確認できる。
+textセクション開始位置の少し後ろ0x10000cにエントリーポイントがある。</p>
+<p><code>readelf -h kernel</code></p>
+<pre><code>ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           Intel 80386
+  Version:                           0x1
+  Entry point address:               0x10000c
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          149308 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         4
+  Size of section headers:           40 (bytes)
+  Number of section headers:         16
+  Section header string table index: 15
+</code></pre>
+<h2><a class="header" href="#readseg関数" id="readseg関数">readseg関数</a></h2>
+<p>この関数はサイズを指定してディスクからデータを読み込む。</p>
+<p>データの読み込み先物理アドレス（pa）と、読み込むバイト数（count）、読み込みを開始するディスクのオフセットバイト数（offset）を引数として受けとる。<br />
+ディスクからの読み込みは1セクタ（512バイト）ずつだが、読み込みたいデータがセクタの途中から開始される場合がある。offsetが512で割り切れない場合がそう。
+その場合のために、読み込み先アドレスをセクタ内の読み込み開始位置までの分だけ（offset % 512）下げておく。これで引数で与えられた読み込み先アドレスに丁度offsetバイト目のデータが入る。<br />
+また、読み込みはセクタ番号を指定して行い、offsetをその番号の指定に使用するため、セクタサイズで割っておく。このとき、1加算することでブートセクタを含まないようにしている。
+つまりoffsetの値が0でも、データの読み込みは1セクタ目から開始される。<br />
+データの読み込みにはreadsect関数を用いる。</p>
+<p>bootmain.c</p>
+<pre><code class="language-c">#define SECTSIZE  512
+
+/* 略 */
+
+void
+readseg(uchar* pa, uint count, uint offset)
+{
+  uchar* epa;
+
+  epa = pa + count;
+
+  // Round down to sector boundary.
+  pa -= offset % SECTSIZE;
+
+  // Translate from bytes to sectors; kernel starts at sector 1.
+  offset = (offset / SECTSIZE) + 1;
+
+  // If this is too slow, we could read lots of sectors at a time.
+  // We'd write more to memory than asked, but it doesn't matter --
+  // we load in increasing order.
+  for(; pa &lt; epa; pa += SECTSIZE, offset++)
+    readsect(pa, offset);
+}
+</code></pre>
+<h2><a class="header" href="#readsect関数" id="readsect関数">readsect関数</a></h2>
+<p>この関数はセクタを指定してディスクからデータを読み込む。</p>
+<p>IOポートの読み書きにはinb関数やoutb関数を使用する。
+ポート番号の意味は<a href="https://wiki.osdev.org/I/O_Ports">「OSDev I/O Ports」（リンク10）</a>にリストされている。
+また、個々のポートの働きに関しては<a href="http://bochs.sourceforge.net/techspec/PORTS.LST">「XT, AT and PS/2	 I/O port addresses」（リンク11）</a>に詳しく載っている。<br />
+ディスクコントローラの読み書きを行う前に、waitdisk関数を使用してディスクの準備ができるまで待機する。
+waitdisk関数はwhileループを使い、ディスクコントローラのステータスレジスタ（0x1F7）の6, 7bitが1, 0でなくなるまで待つ。6bitはディスクのreadyを示し、7bitはコントローラがコマンドを実行中かどうかを示している。つまり状態がreadyかつ、コマンド実行中でなくなるまで待機する。<br />
+ポート0x1F7は読み込み時にはステータスレジスタ、書き込み時にはコマンドレジスタへのアクセスとなる。</p>
+<p>readsect関数は読み込み先アドレス（dst）とセクタ番号（offset）を引数として受け取る。<br />
+ポート0x1F2から0x1F7に書き込みを行い、以下の内容のコマンドを発行する。<br />
+0x1F2: 1セクタ分<br />
+0x1F3: offset番目のセクタ<br />
+0x1F4, 0x1F5: offsetの3バイト目 + offsetの2バイト目で表されるシリンダー<br />
+0x1F6: offsetの4バイト目のビットで示されるヘッド<br />
+0x1F7: セクタをリードする（再試行ありで）<br />
+コマンド実行終了までwaitdisk関数で待機し、insl関数でデータレジスタ（0x1f0）からdstに512 / 4 = 128 * 4バイト = 512バイト読み込む。</p>
+<p>bootmain.c</p>
+<pre><code class="language-c">void
+waitdisk(void)
+{
+  // Wait for disk ready.
+  while((inb(0x1F7) &amp; 0xC0) != 0x40)
+    ;
+}
+
+// Read a single sector at offset into dst.
+void
+readsect(void *dst, uint offset)
+{
+  // Issue command.
+  waitdisk();
+  outb(0x1F2, 1);   // count = 1
+  outb(0x1F3, offset);
+  outb(0x1F4, offset &gt;&gt; 8);
+  outb(0x1F5, offset &gt;&gt; 16);
+  outb(0x1F6, (offset &gt;&gt; 24) | 0xE0);
+  outb(0x1F7, 0x20);  // cmd 0x20 - read sectors
+
+  // Read data.
+  waitdisk();
+  insl(0x1F0, dst, SECTSIZE/4);
+}
+</code></pre>
+<h2><a class="header" href="#inb関数outb関数insl関数" id="inb関数outb関数insl関数">inb関数、outb関数、insl関数</a></h2>
+<p>inb関数はポートから1バイト読み込む。<br />
+outb関数はポートに1バイト書き込む。<br />
+insl関数はポートから指定回数分だけ4バイトずつ読み込む。</p>
+<p>これらの関数ではインラインアセンブリを使用する。GCCのインラインアセンブリについては<a href="https://gcc.gnu.org/onlinedocs/gcc-6.5.0/gcc/">「Using the GNU Compiler Collection (GCC)」（リンク3）</a>の<a href="https://gcc.gnu.org/onlinedocs/gcc-6.5.0/gcc/Using-Assembly-Language-with-C.html#Using-Assembly-Language-with-C">「6.44 How to Use Inline Assembly Language in C Code」</a>で説明されている。<br />
+また、x86の命令については<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.2 Instruction Set Reference, A-Z」で確認できる。</p>
+<p>x86.h</p>
+<pre><code class="language-c">static inline uchar
+inb(ushort port)
+{
+  uchar data;
+
+  asm volatile(&quot;in %1,%0&quot; : &quot;=a&quot; (data) : &quot;d&quot; (port));
+  return data;
+}
+
+static inline void
+insl(int port, void *addr, int cnt)
+{
+  asm volatile(&quot;cld; rep insl&quot; :
+               &quot;=D&quot; (addr), &quot;=c&quot; (cnt) :
+               &quot;d&quot; (port), &quot;0&quot; (addr), &quot;1&quot; (cnt) :
+               &quot;memory&quot;, &quot;cc&quot;);
+}
+
+static inline void
+outb(ushort port, uchar data)
+{
+  asm volatile(&quot;out %0,%1&quot; : : &quot;a&quot; (data), &quot;d&quot; (port));
+}
+</code></pre>
+<p>insl関数の動きを見ると、以下のようになっている。<br />
+cld命令でEFLAGSのDFフラグを0にすることで、文字列操作が行われるとesiとediがインクリメントされるようになる。このため出力先edi(addr)が毎回4バイトずつずれてくれる。<br />
+拡張インラインアセンブリの入力にある数字（ここでは0と1）は、番号と一致するオペランドを使うことを示している。
+つまりここでは出力が「”=D(addr), “=c”(cnt)」なので、入力は「”d”(port), “D”(addr), “c”(cnt)」と書き直せる。ediとecx
+が入力としても出力としても使用される。<br />
+insl命令はedxの示すポートから4バイトをediに読み込む。
+また、命令にrepがつくと、文字列操作の実行毎にカウントレジスタ（ecx）がデクリメントされ、指定された回数だけ命令をリピートするようになる。
+ここで、一度出力と入力を整理する。<br />
+出力: edi(addr), ecx(cnt)<br />
+入力: edx(port), edi(addr), ecx(cnt)<br />
+insl命令では出力: edi(addr)と入力: edx(port)を使う。rep命令はecxを使う。<br />
+一見入力のedi(addr)とecx(cnt)が不要に見える。ディスアセンブリされたbootblock.asmを見ると、この部分は次のようになっていて、入力としてのediとecxはますます不要に思える。</p>
+<p>bootblock.asm</p>
+<pre><code class="language-asm">  asm volatile(&quot;cld; rep insl&quot; :
+    7ce4:	8b 7d 08             	mov    0x8(%ebp),%edi
+    7ce7:	b9 80 00 00 00       	mov    $0x80,%ecx
+    7cec:	ba f0 01 00 00       	mov    $0x1f0,%edx
+    7cf1:	fc                   	cld    
+    7cf2:	f3 6d                	rep insl (%dx),%es:(%edi)
+  insl(0x1F0, dst, SECTSIZE/4);
+</code></pre>
+<p>しかし、<a href="https://programmersought.com/article/74671233226/">「ProgrammerSought Gnu embedded assembly, inline assembly detailed introduction」（リンク12）</a>によると、repでループする過程において、ループ毎のedi(addr)とecx(cnt)が同一のものであるということをコンパイラに伝えるために必要らしい。<br />
+このrepを使用したパターンは今後も出てくる。</p>
+<h2><a class="header" href="#stosb関数" id="stosb関数">stosb関数</a></h2>
+<p>この関数は値（data）を指定バイト分（cnt）だけアドレス（addr）に書き込む。</p>
+<p>repを使用したパターンなので、insl関数と同様の動きになる。</p>
+<p>x86.h</p>
+<pre><code class="language-c">&gt; 42 static inline void
+&gt; 43 stosb(void *addr, int data, int cnt)
+&gt; 44 {
+&gt; 45   asm volatile(&quot;cld; rep stosb&quot; :
+&gt; 46                &quot;=D&quot; (addr), &quot;=c&quot; (cnt) :
+&gt; 47                &quot;0&quot; (addr), &quot;1&quot; (cnt), &quot;a&quot; (data) :
+&gt; 48                &quot;memory&quot;, &quot;cc&quot;);
+&gt; 49 }
+</code></pre>
+<p>これで物理アドレス0x100000にカーネルをロードすることができた。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_03/03_01_bootasm.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_04/04_00_paging.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_03/03_01_bootasm.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_04/04_00_paging.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

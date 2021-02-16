@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>seginit関数 - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html" class="active"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#56-seginit関数" id="56-seginit関数">5.6. seginit関数</a></h1>
+<p>この関数はGDTを作成し、ロードする。</p>
+<p>ここまでは<a href="/chapter_03/03_01_bootasm.html">「3.1. bootasm.S」</a>で作成した3つのエントリを持つGDTを使用してきた。<br />
+ここではユーザ空間用のセグメントディスクリプタを持った新しいGDTを作成する。</p>
+<p>セグメントディスクリプタの構造は<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.3 3.4.5 Segment Descriptors」に書いてある。</p>
+<p>関数を実行しているcpu構造体のgdtフィールドに以下の4つのセグメントディスクリプタを作成する。0番目はNULLディスクリプタなので初期化は不要。</p>
+<p>  1番目: カーネル用のコードセグメントディスクリプタ<br />
+  2番目: カーネル用のデータセグメントディスクリプタ<br />
+  3番目: ユーザ用のコードセグメントディスクリプタ<br />
+  4番目: ユーザ用のデータセグメントディスクリプタ</p>
+<p>4つともベースアドレスは0x0、セグメントリミットは0xFFFFF。<br />
+Gフラグが1なので、セグメントリミットはページサイズ倍（4kB)され0xFFFFF000（4GB）となる。<br />
+タイプは4つとも読み書き可能、コードセグメントディスクリプタのみ実行可能にもなっている。<br />
+DPL（Descriptor Privilege Level）はカーネル用は0、ユーザ用は3。</p>
+<p>全てのセグメントの範囲が0から4GBまでで重なっている。
+メモリ管理にはページング機構を使用するが、セグメント機構は無効化できないため、こうして4GBまでをセグメント機構的になんにでも使えるようにしている。<br />
+cpu構造体のgdtフィールドは要素数が6（定数NSEGS）に定義されているため、GDTにはエントリが6つあることになる。
+0から4番目まではここで作成するが、5番目はプロセスのコンテキストスイッチを行う際にTSS（タスク状態セグメント）ディスクリプタとして作成することになる。</p>
+<p>作成したGDTをlgdt関数でgdtレジスタにロードする。<br />
+このとき、ecsレジスタの値は更新不要。
+<a href="/chapter_03/03_01_bootasm.html#%E3%83%97%E3%83%AD%E3%83%86%E3%82%AF%E3%83%88%E3%83%A2%E3%83%BC%E3%83%89%E3%81%B8%E3%81%AE%E5%88%87%E3%82%8A%E6%9B%BF%E3%81%88">「3.1. bootasm.S」</a>ではファージャンプを行うことでecsの設定を行っているが、コードセグメントディスクリプタのインデックスがここで作成したGDTでも変わらず1番目（8バイト目）であるため、再設定が不要。</p>
+<p>mmu.h</p>
+<pre><code class="language-c">#define SEG_KCODE 1  // kernel code
+#define SEG_KDATA 2  // kernel data+stack
+#define SEG_UCODE 3  // user code
+#define SEG_UDATA 4  // user data+stack
+#define SEG_TSS   5  // this process's task state
+
+/* 略 */
+
+#define SEG(type, base, lim, dpl) (struct segdesc)    \
+{ ((lim) &gt;&gt; 12) &amp; 0xffff, (uint)(base) &amp; 0xffff,      \
+  ((uint)(base) &gt;&gt; 16) &amp; 0xff, type, 1, dpl, 1,       \
+  (uint)(lim) &gt;&gt; 28, 0, 0, 1, 1, (uint)(base) &gt;&gt; 24 }
+
+/* 略 */
+
+#define STA_X       0x8     // Executable segment
+#define STA_W       0x2     // Writeable (non-executable segments)
+#define STA_R       0x2     // Readable (executable segments)
+</code></pre>
+<p>vm.c</p>
+<pre><code class="language-c">void
+seginit(void)
+{
+  struct cpu *c;
+
+  // Map &quot;logical&quot; addresses to virtual addresses using identity map.
+  // Cannot share a CODE descriptor for both kernel and user
+  // because it would have to have DPL_USR, but the CPU forbids
+  // an interrupt from CPL=0 to DPL=3.
+  c = &amp;cpus[cpuid()];
+  c-&gt;gdt[SEG_KCODE] = SEG(STA_X|STA_R, 0, 0xffffffff, 0);
+  c-&gt;gdt[SEG_KDATA] = SEG(STA_W, 0, 0xffffffff, 0);
+  c-&gt;gdt[SEG_UCODE] = SEG(STA_X|STA_R, 0, 0xffffffff, DPL_USER);
+  c-&gt;gdt[SEG_UDATA] = SEG(STA_W, 0, 0xffffffff, DPL_USER);
+  lgdt(c-&gt;gdt, sizeof(c-&gt;gdt));
+}
+</code></pre>
+<p>作成されたセグメントディスクリプタをgdbで確認すると以下のようになっている。</p>
+<pre><code>$1 = {lim_15_0 = 0x0, base_15_0 = 0x0, base_23_16 = 0x0, type = 0x0, s = 0x0, dpl = 0x0, p = 0x0, lim_19_16 = 0x0, avl = 0x0, rsv1 = 0x0, db = 0x0, g = 0x0, base_31_24 = 0x0}
+$2 = {lim_15_0 = 0xffff, base_15_0 = 0x0, base_23_16 = 0x0, type = 0xa, s = 0x1, dpl = 0x0, p = 0x1, lim_19_16 = 0xf, avl = 0x0, rsv1 = 0x0, db = 0x1, g = 0x1, base_31_24 = 0x0}
+$3 = {lim_15_0 = 0xffff, base_15_0 = 0x0, base_23_16 = 0x0, type = 0x2, s = 0x1, dpl = 0x0, p = 0x1, lim_19_16 = 0xf, avl = 0x0, rsv1 = 0x0, db = 0x1, g = 0x1, base_31_24 = 0x0}
+$4 = {lim_15_0 = 0xffff, base_15_0 = 0x0, base_23_16 = 0x0, type = 0xa, s = 0x1, dpl = 0x3, p = 0x1, lim_19_16 = 0xf, avl = 0x0, rsv1 = 0x0, db = 0x1, g = 0x1, base_31_24 = 0x0}
+$5 = {lim_15_0 = 0xffff, base_15_0 = 0x0, base_23_16 = 0x0, type = 0x2, s = 0x1, dpl = 0x3, p = 0x1, lim_19_16 = 0xf, avl = 0x0, rsv1 = 0x0, db = 0x1, g = 0x1, base_31_24 = 0x0}
+</code></pre>
+<h2><a class="header" href="#cpuid関数" id="cpuid関数">cpuid関数</a></h2>
+<p>この関数は、この関数を実行しているプロセッサのcpuidを返す。</p>
+<p>ここで言うcpuidとは、cpus配列のインデックスのこと。<br />
+各プロセッサのcpu構造体はcpus配列のエントリとして保持しており、mycpu関数はそれを実行しているプロセッサのエントリを返してくれる。<br />
+そのエントリのアドレスからcpus配列の先頭アドレスを引けば、cpus配列内でのインデックスになる。</p>
+<p>proc.c</p>
+<pre><code class="language-c">&gt; 30 int
+&gt; 31 cpuid() {
+&gt; 32   return mycpu()-cpus;
+&gt; 33 }
+</code></pre>
+<h2><a class="header" href="#mycpu関数" id="mycpu関数">mycpu関数</a></h2>
+<p>この関数は、この関数を実行しているプロセッサのcpu構造体をcpus配列から探して返す。</p>
+<p>eflagsレジスタの値を取得し、Interrupt enableビット（9bit）を確認して、割り込みが無効になっていることを確認する。
+0が無効で1が有効。
+eflagsレジスタの各bitの役割は<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.3 2.3 SYSTEM FLAGS AND FIELDS IN THE EFLAGS REGISTER」に書いてある。</p>
+<p>cpus配列をfor文で走査し、apicidフィールドの値が関数を実行しているプロセッサのLAPIC IDと等しいエントリを探す。
+各cpu構造体のapicidフィールドは<a href="/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>で設定済み。</p>
+<p>mmu.h</p>
+<pre><code class="language-c">#define FL_IF           0x00000200      // Interrupt Enable
+</code></pre>
+<p>proc.c</p>
+<pre><code class="language-c">struct cpu*
+mycpu(void)
+{
+  int apicid, i;
+  
+  if(readeflags()&amp;FL_IF)
+    panic(&quot;mycpu called with interrupts enabled\n&quot;);
+  
+  apicid = lapicid();
+  // APIC IDs are not guaranteed to be contiguous. Maybe we should have
+  // a reverse map, or reserve a register to store &amp;cpus[i].
+  for (i = 0; i &lt; ncpu; ++i) {
+    if (cpus[i].apicid == apicid)
+      return &amp;cpus[i];
+  }
+  panic(&quot;unknown apicid\n&quot;);
+}
+</code></pre>
+<h2><a class="header" href="#readeflags関数" id="readeflags関数">readeflags関数</a></h2>
+<p>この関数はeflagsレジスタの値を取得する。<br />
+pushfl命令はeflagsレジスタの内容をスタックに積む命令。</p>
+<p>x86.h</p>
+<pre><code class="language-c">static inline uint
+readeflags(void)
+{
+  uint eflags;
+  asm volatile(&quot;pushfl; popl %0&quot; : &quot;=r&quot; (eflags));
+  return eflags;
+}
+</code></pre>
+<h2><a class="header" href="#lapic関数" id="lapic関数">lapic関数</a></h2>
+<p>この関数は、この関数を実行しているプロセッサのLAPIC IDを取得する。</p>
+<p>LAPIC IDは <a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>の「Vol.3 10.4.6 Local APIC ID」によると、Local APIC ID Register（0x20）の24～31bitから得られる。<br />
+LAPICへのアクセスについては<a href="/chapter_05/05_04_mpinit.html">「5.4. mpinit関数」</a>に書いた。</p>
+<p>lapic.c</p>
+<pre><code class="language-c">int
+lapicid(void)
+{
+  if (!lapic)
+    return 0;
+  return lapic[ID] &gt;&gt; 24;
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_05/05_05_lapicinit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_05/05_07_picinit.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_05/05_05_lapicinit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_05/05_07_picinit.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>スケジューラとコンテキストスイッチ - xv6ノート</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../top.html">XV6ノート</a></li><li class="chapter-item expanded affix "><a href="../00_env.html">環境</a></li><li class="chapter-item expanded "><a href="../chapter_01/01_build.html"><strong aria-hidden="true">1.</strong> ビルドと実行</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_00_xv6_img_build.html"><strong aria-hidden="true">2.</strong> xv6.imgのビルド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_02/02_01_xv6_img.html"><strong aria-hidden="true">2.1.</strong> ターゲットxv6.img</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_02_makefile_val.html"><strong aria-hidden="true">2.2.</strong> Makefile内の変数</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_03_bootblock.html"><strong aria-hidden="true">2.3.</strong> ターゲットbootblock</a></li><li class="chapter-item expanded "><a href="../chapter_02/02_04_kernel.html"><strong aria-hidden="true">2.4.</strong> ターゲットkernel</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_03/03_00_load_kernel.html"><strong aria-hidden="true">3.</strong> カーネルのロード</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_03/03_01_bootasm.html"><strong aria-hidden="true">3.1.</strong> bootasm.S</a></li><li class="chapter-item expanded "><a href="../chapter_03/03_02_bootmain.html"><strong aria-hidden="true">3.2.</strong> bootmain関数</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_04/04_00_paging.html"><strong aria-hidden="true">4.</strong> ページング機構の有効化</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_04/04_01_entry.html"><strong aria-hidden="true">4.1.</strong> entry.S</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_05/05_00_exec_kernel.html"><strong aria-hidden="true">5.</strong> カーネルの実行</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_05/05_01_main.html"><strong aria-hidden="true">5.1.</strong> main関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_02_kinit1.html"><strong aria-hidden="true">5.2.</strong> kinit1関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_03_kvmalloc.html"><strong aria-hidden="true">5.3.</strong> kvmalloc関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_04_mpinit.html"><strong aria-hidden="true">5.4.</strong> mpinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_05_lapicinit.html"><strong aria-hidden="true">5.5.</strong> lapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_06_seginit.html"><strong aria-hidden="true">5.6.</strong> seginit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_07_picinit.html"><strong aria-hidden="true">5.7.</strong> picinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_08_ioapicinit.html"><strong aria-hidden="true">5.8.</strong> ioapicinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_09_consoleinit.html"><strong aria-hidden="true">5.9.</strong> consoleinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_10_lock.html"><strong aria-hidden="true">5.10.</strong> ロック（spinlock, sleeplock）</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_11_inode.html"><strong aria-hidden="true">5.11.</strong> iノード</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_12_bcache.html"><strong aria-hidden="true">5.12.</strong> バッファキャッシュとディスクの読み書き</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_13_uartinit.html"><strong aria-hidden="true">5.13.</strong> uartinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_14_pinit.html"><strong aria-hidden="true">5.14.</strong> pinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_15_tvinit.html"><strong aria-hidden="true">5.15.</strong> tvinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_16_binit.html"><strong aria-hidden="true">5.16.</strong> binit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_17_fileinit.html"><strong aria-hidden="true">5.17.</strong> fileinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_18_ideinit.html"><strong aria-hidden="true">5.18.</strong> ideinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_19_startothers.html"><strong aria-hidden="true">5.19.</strong> startothers関数とmpmain関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_20_kinit2.html"><strong aria-hidden="true">5.20.</strong> kinit2関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_21_userinit.html"><strong aria-hidden="true">5.21.</strong> userinit関数</a></li><li class="chapter-item expanded "><a href="../chapter_05/05_22_scheduler.html" class="active"><strong aria-hidden="true">5.22.</strong> スケジューラとコンテキストスイッチ</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_06/06_00_fs_img.html"><strong aria-hidden="true">6.</strong> fs.imgの作成</a></li><li class="chapter-item expanded "><a href="../chapter_07/07_00_init.html"><strong aria-hidden="true">7.</strong> initの実行</a></li><li class="chapter-item expanded "><a href="../chapter_08/08_00_sh.html"><strong aria-hidden="true">8.</strong> shの実行</a></li><li class="chapter-item expanded "><a href="../ref_links.html"><strong aria-hidden="true">9.</strong> 参考リンク</a></li><li class="chapter-item expanded "><a href="../ref_books.html"><strong aria-hidden="true">10.</strong> 参考書籍</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">xv6ノート</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#522-スケジューラとコンテキストスイッチ" id="522-スケジューラとコンテキストスイッチ">5.22. スケジューラとコンテキストスイッチ</a></h1>
+<p>scheduler関数は無限ループで次の2つを繰り返す。</p>
+<ol>
+<li>sti関数で割り込みを有効化する</li>
+<li>プロセステーブルを走査して実行可能状態（RUNNABLE）のプロセスにコンテキストスイッチする</li>
+</ol>
+<p>最初にschedulerが実行されるとき、プロセステーブルの64個のプロセスの内、状態がRUNNABLEになっているのは<a href="/chapter_05/05_21_userinit.html">userinit関数</a>で作成されたinitcode.Sのプロセスのみなので、それが実行されることになる。<br />
+全てのプロセッサでschedulerが実行されており、プロセステーブルを触る可能性があるため、forループの前後でプロセステーブルのロックの取得と解放を行う。<br />
+実行可能状態のプロセスを見つけた場合、switchuvm関数でコンテキストスイッチの準備を行う。<br />
+準備ができたらプロセスを実行状態とし、swtch関数でコンテキストスイッチする。
+コンテキストスイッチはTSSを用いたx86の機能を使うのではなく、スタックフレームの切り替えによって行う。<br />
+その後再びプロセスからスケジューラにコンテキストスイッチされたとき、<a href="/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でページディレクトリをカーネルのものに切り替え、cpu構造体のprocフィールドに0を代入する。</p>
+<p>proc.c</p>
+<pre><code class="language-c">void
+scheduler(void)
+{
+  struct proc *p;
+  struct cpu *c = mycpu();
+  c-&gt;proc = 0;
+  
+  for(;;){
+    // Enable interrupts on this processor.
+    sti();
+
+    // Loop over process table looking for process to run.
+    acquire(&amp;ptable.lock);
+    for(p = ptable.proc; p &lt; &amp;ptable.proc[NPROC]; p++){
+      if(p-&gt;state != RUNNABLE)
+        continue;
+
+      // Switch to chosen process.  It is the process's job
+      // to release ptable.lock and then reacquire it
+      // before jumping back to us.
+      c-&gt;proc = p;
+      switchuvm(p);
+      p-&gt;state = RUNNING;
+
+      swtch(&amp;(c-&gt;scheduler), p-&gt;context);
+      switchkvm();
+
+      // Process is done running for now.
+      // It should have changed its p-&gt;state before coming back.
+      c-&gt;proc = 0;
+    }
+    release(&amp;ptable.lock);
+
+  }
+}
+</code></pre>
+<h2><a class="header" href="#コンテキストスイッチ" id="コンテキストスイッチ">コンテキストスイッチ</a></h2>
+<p>x86にはTSSディスクリプタを使用してコンテキストスイッチを行う機能があり、<a href="/ref_books.html">「初めて読む486」（書籍2）</a>の8章「タスク」や、<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>のVol.3 CHAPTER7「TASK MANAGEMENT」に記載があるが、xv6ではそれをフルに使わない。
+TSSディスクリプタ自体はカーネルモードのスタックの情報とプロセスのIOMAPのために使用する。
+これはLinuxカーネルも同様で、「詳解LINUXカーネル 第3版」（書籍3）の3.3.2「タスク状態セグメント」に記載がある。
+xv6はタスク切り替えをスタックとret命令を使用して行う。</p>
+<h2><a class="header" href="#switchuvm関数" id="switchuvm関数">switchuvm関数</a></h2>
+<p>この関数はコンテキストスイッチするプロセスのTSS構造体とそのディスクリプタを作成し、ltr命令でそれをロードする。<br />
+また、<a href="/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">lcr3関数</a>でプロセスのページディレクトリをcr3にロードする。</p>
+<p>TSSディスクリプタはcpuの<a href="/chapter_05/05_06_seginit.html">GDT</a>の5番目にセットする。
+x86のコンテキストスイッチ機能を使用する場合はプロセス切り替え時に、切り替え前のプロセスと切り替え後のプロセスの2つのTSSディスクリプタがGDTに必要だが、その機能を使用しないので毎回GDTの5番目にTSSディスクリプタを格納する。
+TSSとTSSディスクリプタの構造はIntel-SDM（リンク8）のVol.3 Figure 7-2「32-Bit Task-State Segment (TSS)」とVol.3 Figure 7-3「TSS Descriptor」に書いてある。
+TSSディスクリプタはmmu.hに定義されているSEG16マクロを使用して作成する。<br />
+Intel-SDMのFigure 7-3によるとtypeフィールドの次のbit（segdesc構造体のsフィールド）は常に0。
+segdesc構造体のコメントを見ると、このbitは0がシステム、1がアプリケーションを表すことがわかる。<br />
+SEG16マクロの第二引数baseには、cpu構造体のtsフィールドのアドレスを渡す。
+tsフィールドはtaskstate構造体で、Intel-SDMのFigure 7-2と同じ構造をしている。<br />
+TSSではカーネルモードで使用するスタックセグメント（ss）とスタックポインタ（esp）、IOMAP（iomb）のみを使用する。
+iombフィールドにはプロセスからin命令やout命令でアクセスを許可するポートを設定する。
+bitが0のときにアクセスの許可を示し、ここでは0xFFFFで全てのbitを1に設定しているため、プロセスはどのポートへもアクセスできない。<br />
+ltr命令でTSSディスクリプタをtrレジスタにロードする。
+GDTは1エントリ8バイトなので、5を3bit左シフト（5*2^3）することでTSSディスクリプタを指定する。<br />
+プロセスのページディレクトリをcr3にロードし、仮想アドレス空間を切り替える。<br />
+これでswitchuvm関数は終わりだが、まだeipやespの値は切り替わっていないため、scheduler関数に処理が戻る。</p>
+<p>mmu.h</p>
+<pre><code class="language-c">#define SEG_TSS   5  // this process's task state
+
+/* 略 */
+
+#define SEG16(type, base, lim, dpl) (struct segdesc)  \
+{ (lim) &amp; 0xffff, (uint)(base) &amp; 0xffff,              \
+  ((uint)(base) &gt;&gt; 16) &amp; 0xff, type, 1, dpl, 1,       \
+  (uint)(lim) &gt;&gt; 16, 0, 0, 1, 0, (uint)(base) &gt;&gt; 24 }
+</code></pre>
+<p>vm.c</p>
+<pre><code class="language-c">void
+switchuvm(struct proc *p)
+{
+  if(p == 0)
+    panic(&quot;switchuvm: no process&quot;);
+  if(p-&gt;kstack == 0)
+    panic(&quot;switchuvm: no kstack&quot;);
+  if(p-&gt;pgdir == 0)
+    panic(&quot;switchuvm: no pgdir&quot;);
+
+  pushcli();
+  mycpu()-&gt;gdt[SEG_TSS] = SEG16(STS_T32A, &amp;mycpu()-&gt;ts,
+                                sizeof(mycpu()-&gt;ts)-1, 0);
+  mycpu()-&gt;gdt[SEG_TSS].s = 0;
+  mycpu()-&gt;ts.ss0 = SEG_KDATA &lt;&lt; 3;
+  mycpu()-&gt;ts.esp0 = (uint)p-&gt;kstack + KSTACKSIZE;
+  // setting IOPL=0 in eflags *and* iomb beyond the tss segment limit
+  // forbids I/O instructions (e.g., inb and outb) from user space
+  mycpu()-&gt;ts.iomb = (ushort) 0xFFFF;
+  ltr(SEG_TSS &lt;&lt; 3);
+  lcr3(V2P(p-&gt;pgdir));  // switch to process's address space
+  popcli();
+}
+</code></pre>
+<h2><a class="header" href="#swtch関数" id="swtch関数">swtch関数</a></h2>
+<p>この関数はスタックフレームの切り替えを行い、ret命令を使用してeipを切り替え先プロセスのリターンアドレスに移動させる。</p>
+<p>この関数の動作を知るためにはGCCの関数呼び出し規約を知っている必要がある。
+呼び出し規約は<a href="http://www.delorie.com/djgpp/doc/ug/asm/calling.html">「Guide: Function Calling Conventions」（リンク22）</a>でいくつかの具体例とともに解説されている。
+関数呼び出し時にはスタックに引数が右から左に順にpushされ、次にリターンアドレスがpushされる。
+つまり引数が2つある場合は、第二引数がスタックにpushされ、次に第一引数がpushされ、最後にリターンアドレスがpushされる。
+また、関数に入るときと出るときとでebx、esi、edi、ebpの値が変更されてはいけない。</p>
+<p>swtch関数の動きとしては、espを切り替え先プロセスのスタックに切り替え、そこに積まれているリターンアドレスにret命令でeipを移動する。<br />
+初めてのschedulerが呼ばれてから、プロセスへの切り替えの流れは以下のようになる。</p>
+<ol>
+<li>swtch関数の第一引数にはスケジューラのコンテキスト（まだ0x0）、第二引数には<a href="chapter_05/05_21_userinit.html">userinit関数</a>で作成されたproc構造体のcontextフィールドが渡される。
+この時点でスタックには次のように値が積まれている。
+添え字は積まれている順番で、括弧内は入っている値。
+popすると2番目（リターンアドレス）が取り出されることになる。<br />
+  0: 第二引数（proc構造体のcontextフィールド）<br />
+  1: 第一引数（スケジューラのコンテキスト0x0）<br />
+  2: リターンアドレス（scheduler関数のswitchkvm関数を呼び出すアドレス）<br />
+このとき、contextフィールドはcontext構造体だが、スタックと捉えることができる。
+contextフィールドには次のように値が積まれている。<br />
+  0: eip（forkret関数のアドレス）<br />
+  1: ebp（0）<br />
+  2: ebx（0）<br />
+  3: esi（0）<br />
+  4: edi（0）</li>
+<li>スタックにebx、esi、edi、ebpの値を保存する。
+スタックは次のようになる。<br />
+  0: 第二引数（proc構造体のcontextフィールド）<br />
+  1: 第一引数（スケジューラのコンテキスト0x0）<br />
+  2: リターンアドレス（scheduler関数のswitchkvm関数を呼び出すアドレス）<br />
+  3: ebp<br />
+  4: ebx<br />
+  5: esi<br />
+  6: edi</li>
+<li>スケジューラのcontext構造体がスタックを指すようにする（context構造体が完成する）。</li>
+<li>espにproc構造体のcontextフィールドのアドレスを代入し、プロセスのスタックに切り替える。</li>
+<li>プロセスのスタックからebx、esi、edi、ebpの値を復帰する。
+スタックはeip（forkret関数のアドレス）のみが積まれた状態となる。</li>
+<li>ret命令でforkret関数に移動し、プロセスの切り替えが終了する。</li>
+</ol>
+<p>proc.h</p>
+<pre><code class="language-c">struct context {
+  uint edi;
+  uint esi;
+  uint ebx;
+  uint ebp;
+  uint eip;
+};
+</code></pre>
+<p>swtch.S</p>
+<pre><code class="language-asm">.globl swtch
+swtch:
+  movl 4(%esp), %eax
+  movl 8(%esp), %edx
+
+  # Save old callee-saved registers
+  pushl %ebp
+  pushl %ebx
+  pushl %esi
+  pushl %edi
+
+  # Switch stacks
+  movl %esp, (%eax)
+  movl %edx, %esp
+
+  # Load new callee-saved registers
+  popl %edi
+  popl %esi
+  popl %ebx
+  popl %ebp
+  ret
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../chapter_05/05_21_userinit.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../chapter_06/06_00_fs_img.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../chapter_05/05_21_userinit.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../chapter_06/06_00_fs_img.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
