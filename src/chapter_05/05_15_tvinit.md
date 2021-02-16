@@ -64,7 +64,7 @@ struct gatedesc {
 割り込みベクタテーブルはvectors.Sに定義されている256個の関数のアドレスが、同ファイル内のvectorsラベル以下に列挙されている。
 関数はvector0からvector255まであり、スタックに0とIRQ番号をプッシュし、alltraps関数に跳んでいる。
 alltraps関数はtrapasm.Sで定義されている。
-vectors.Sは[make時](/chapter_02/02_04_kernel.md)にvectors.plを実行することで作られる。  
+vectors.Sは[make時](https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_04_kernel.html)にvectors.plを実行することで作られる。  
 trap.cで、extern宣言として符号なし整数型の配列vectorsで割り込みベクタテーブルを参照している。
 
 vectors.S
@@ -170,7 +170,7 @@ ticksがインクリメントされる部分だけ合わせて見ることにす
 trap関数はIRQ番号によって分岐する。  
 ticksはタイマー割り込みかつcpu0からの割り込みである場合にのみインクリメントされる。  
 その後ticksのアドレスをチャネルとしてスリープ状態のプロセスを起床させる。  
-LAPICタイマの設定は[lapicinit](/chapter_05/05_05_lapicinit.md#LAPICタイマの設定)で見た。  
+LAPICタイマの設定は[lapicinit](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_05_lapicinit.html#LAPICタイマの設定)で見た。  
 
 trap.c
 ```c

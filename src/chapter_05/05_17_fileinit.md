@@ -45,7 +45,7 @@ struct file {
 dataフィールドはパイプで流すデータを保持する。  
 他のフィールドはコメントの通り。  
 
-data, nread, nwriteフィールドは、[consoleintr関数とconsoleread関数](/chapter_05/05_09_consoleinit.md#consoleintr関数)で使用されるinput構造体のbuf, r, wフィールドと同様の使い方をする。
+data, nread, nwriteフィールドは、[consoleintr関数とconsoleread関数](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#consoleintr関数)で使用されるinput構造体のbuf, r, wフィールドと同様の使い方をする。
 つまりnreadとnwriteは増加し続け、dataにはnreadとnwriteをPIPESIZEで割った余りをインデックスとしてアクセスする。
 
 pipe.c

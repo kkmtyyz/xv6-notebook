@@ -1,12 +1,12 @@
 # 5.12. バッファキャッシュとディスクの読み書き
 スケジューラの実行までに使用するバッファキャッシュ周りの操作について書く。
 
-- [buf構造体](/chapter_05/05_12_bcache.md#buf構造体)
-- [buf構造体の取得（bread関数）](/chapter_05/05_12_bcache.md#buf構造体の取得bread関数)
-- [buf構造体の書き込み（bwrite関数）](/chapter_05/05_12_bcache.md#buf構造体の書き込みbwrite関数)
-- [ディスクの読み書き（iderw関数）](/chapter_05/05_12_bcache.md#ディスクの読み書きiderw関数)
-- [データブロックの割り当て（balloc関数）]()
-- [データブロックの解放（bfree関数）]()
+- [buf構造体](#buf構造体)
+- [buf構造体の取得（bread関数）](#buf構造体の取得bread関数)
+- [buf構造体の書き込み（bwrite関数）](#buf構造体の書き込みbwrite関数)
+- [ディスクの読み書き（iderw関数）](#ディスクの読み書きiderw関数)
+- [データブロックの割り当て（balloc関数）](#データブロックの割り当てballoc関数)
+- [データブロックの解放（bfree関数）](#データブロックの解放bfree関数)
 
 
 ## buf構造体
@@ -58,7 +58,7 @@ struct buf {
 
 bread関数を使用して、欲しいブロックのbuf構造体を取得する。  
 ブロックがバッファキャッシュに存在しない場合は、空のエントリにディスクからブロックを読み込む。
-バッファキャッシュからの取得はbget関数で行い、ディスクからの読み込みは[iderw関数](/chapter_05/05_12_bcache.md#ディスクの読み書きiderw関数)で行う。
+バッファキャッシュからの取得はbget関数で行い、ディスクからの読み込みは[iderw関数](#ディスクの読み書きiderw関数)で行う。
 
 bio.c
 ```c
@@ -231,7 +231,7 @@ ideにコマンドを発行する。
 buf構造体のflagsフィールドの変更済みフラグ（B\_DIRTY）が立っている場合は書き込み、そうでなければ読み込みを行う。  
 
 **書き込みの場合:**  
-コマンドレジスタ（0x1f7）に書き込みコマンド（write\_cmd）を書き込み、データレジスタ（0x1f0）に[outsl関数](/chapter_05/05_02_kinit2.md#memset関数)でbuf構造体のdataフィールドの内容を128回に分けて4バイトずつ書き込む。  
+コマンドレジスタ（0x1f7）に書き込みコマンド（write\_cmd）を書き込み、データレジスタ（0x1f0）に[outsl関数](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_02_kinit2.html#memset関数)でbuf構造体のdataフィールドの内容を128回に分けて4バイトずつ書き込む。  
 
 **読み込みの場合:**  
 コマンドレジスタ（0x1f0）に読み込みコマンド（read\_cmd）を書き込む。  
@@ -303,7 +303,7 @@ idewait(int checkerr)
 ideintr関数はidequeueの先頭のbuf構造体のflagsフィールドに応じてディスクから読み込みを行う。  
 
 もしもbuf構造体のflagsフィールドの変更済みフラグ（B\_DIRTY）が0で、かつidewait関数でドライブの準備ができている場合、ディスクから読み出しを行う。
-読み出しは[insl関数](/chapter_03/03_02_bootmain.md#inb関数outb関数insl関数)でコントロールレジスタ（0x1f0）からbuf構造体のdataフィールドにブロックサイズ分読み込む。
+読み出しは[insl関数](https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_02_bootmain.html#inb関数outb関数insl関数)でコントロールレジスタ（0x1f0）からbuf構造体のdataフィールドにブロックサイズ分読み込む。
 次に、buf構造体のflagsフィールドの読み込み済みフラグ（B\_VALID）を1にし、変更済みフラグ（B\_DIRTY）をビット反転して論理積を取って0にする。
 
 読み込みを待っているプロセスを起床し、idequeueにエントリがまだ残っている場合は次のエントリを引数としてidestart関数を呼び出す。

@@ -34,7 +34,7 @@ UARTチップは一般的に115.2kHzで動作するクロックを持ってお�
 シリアルポートが使用できる場合、割り込みの設定を行う。  
 割り込み識別レジスタ（+2）を読み、以前の割り込みに関する情報をクリアする。  
 レシーバーバッファレジスタ（+0, DLABは0）を読み、バッファ内のデータをクリアする。  
-[ioapicenable関数](/chapter_05/05_09_consoleinit.md#ioapicenable関数)でシリアルポート（COM1）からの割り込みの設定と有効化をする。
+[ioapicenable関数](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#ioapicenable関数)でシリアルポート（COM1）からの割り込みの設定と有効化をする。
 IOAPICのリダイレクトテーブルにIRQ4番からの割り込みをIRQ36番としてBSP（cpu0）のLAPICにリダイレクトするよう設定する。
 
 最後に「xv6...」という文字列をuartputc関数を使用して1文字ずつ画面に表示する。

@@ -2,14 +2,14 @@
 スケジューラの実行までに使用するiノード周りの操作について書く。
 
 - [inode構造体](#inode構造体)
-- [inode構造体の作成（iget関数）](/chapter_05/05_11_inode.md#inode構造体の作成iget関数)
-- [ロック（ilock/iunlock関数）](/chapter_05/05_11_inode.md#ロックilockiunlock関数)
-- [参照カウンタのインクリメント（idup数）](/chapter_05/05_11_inode.md#参照カウンタのインクリメントidup関数)
-- [参照カウンタのデクリメント（iput関数）](/chapter_05/05_11_inode.md#参照カウンタのデクリメントiput関数)
-- [ファイルデータの取得（readi関数）](/chapter_05/05_11_inode.md#ファイルデータの取得readi関数)
-- [ブロックの割り当て（bmap関数）](/chapter_05/05_11_inode.md#ブロックの割り当てbmap関数)
-- [削除（itrunc関数）](/chapter_05/05_11_inode.md#削除itrunc関数)
-- [更新（iupdate関数）](/chapter_05/05_11_inode.md#更新iupdate関数)
+- [inode構造体の作成（iget関数）](#inode構造体の作成iget関数)
+- [ロック（ilock/iunlock関数）](#ロックilockiunlock関数)
+- [参照カウンタのインクリメント（idup数）](#参照カウンタのインクリメントidup関数)
+- [参照カウンタのデクリメント（iput関数）](#参照カウンタのデクリメントiput関数)
+- [ファイルデータの取得（readi関数）](#ファイルデータの取得readi関数)
+- [ブロックの割り当て（bmap関数）](#ブロックの割り当てbmap関数)
+- [削除（itrunc関数）](#削除itrunc関数)
+- [更新（iupdate関数）](#更新iupdate関数)
 
 
 ## inode構造体
@@ -272,8 +272,8 @@ iunlockput(struct inode *ip)
 iノードがデバイスファイルの場合とそれ以外（ファイルあるいはディレクトリ）とで処理が分かれる。
 
 **デバイスファイルの場合:**  
-読み込みにはデバイス番号を頼りに[devsw配列](/chapter_05/05_09_consoleinit.md)の該当するread関数を使う。  
-例えばコンソールならdevsw[1].readなので、consoleinit関数で設定した[consoleread関数](/chapter_05/05_09_consoleinit.md#consoleread関数)が実行される。
+読み込みにはデバイス番号を頼りに[devsw配列](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html)の該当するread関数を使う。  
+例えばコンソールならdevsw[1].readなので、consoleinit関数で設定した[consoleread関数](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#consoleread関数)が実行される。
 
 **ファイルあるいはディレクトリの場合:**  
 ファイルのデータをoffバイト目から読み込み始める。  
@@ -282,14 +282,14 @@ iノードがデバイスファイルの場合とそれ以外（ファイルあ�
 mがループ毎にdstにコピーするバイト数を示し、totにはコピーした総バイト数を持つ。  
 読み込みにはbread関数を使う。
 この関数にはデバイス番号とブロック番号を渡す必要がある。
-[bmap関数](/chapter_05/05_11_inode.md#ブロックの割り当てbmap関数)では第一引数のinode構造体のaddrsフィールドから、第二引数で指定されたバイト目があるブロック番号を得ることができる。  
+[bmap関数](#ブロックの割り当てbmap関数)では第一引数のinode構造体のaddrsフィールドから、第二引数で指定されたバイト目があるブロック番号を得ることができる。  
 基本的にはoffからそのブロックの終わりまでずつコピーしていく。  
 例えばoffが600の場合、1ブロック512バイトなので、offは2ブロック目の88バイト目から始まる。
 なので `512-88=424` バイトずつコピーしていく。
 そして読み込みバイト数nがコピーしていく単位で割り切れない場合は、最後のループでnからコピー済みバイト数totの差だけコピーする。  
 他の例として、nが1000の場合、3回目のループで残りコピーバイト数が `1000-424*2=152` なので、152バイトだけコピーする。
 変数mにはこの動きをするために、minマクロを使用して残りコピーバイト数（n-tot）と基本的なコピー単位のどちらか小さい方を代入する。  
-コピーバイト数mが決まると、[memmove関数](/chapter_05/05_09_consoleinit.md#memmove関数)でdstにブロックのデータ（bs-\>data）のオフセットの位置からその分だけコピーする。  
+コピーバイト数mが決まると、[memmove関数](https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#memmove関数)でdstにブロックのデータ（bs-\>data）のオフセットの位置からその分だけコピーする。  
 バッファキャッシュbpは読み込み後不要となるのでループ毎に解放する。
 1ブロック分ずつコピーするわけではないので、次のループでも同じブロックをバッファキャッシュに読み込む可能性がある。
 しかしここで解放しなければ、バッファキャッシュのサイズが30なのでコピー対象のデータが30ブロック以上の時にキャッシュが足りなくなりpanicしてしまう。
@@ -434,7 +434,7 @@ itrunc(struct inode *ip)
 この関数はinode構造体の内容をdinode構造体にコピーし、その変更をディスクに反映する。
 
 ディスク上にあるdinode構造体はbread関数で取得する。
-その際のブロック番号は[IBLOCKマクロ](/chapter_05/05_11_inode.md#ロックilockiunlock関数)で算出する。  
+その際のブロック番号は[IBLOCKマクロ](#ロックilockiunlock関数)で算出する。  
 log\_write関数で変更をディスクに反映する。
 この関数ではバッファキャッシュのB\_DIRTYを立て、後々呼び出されるwrite\_log関数でディスクに書き込みを行う。  
 
