@@ -167,7 +167,7 @@
 <p>initcode.Sのプロセスを作成し、プロセステーブルに追加する。</p>
 <p>userinit関数を見る前に、initプロセスを実行するinitcode.Sと、プロセステーブルのエントリをプロセスとして割り当てるallocproc関数を見る。</p>
 <h2><a class="header" href="#initcodes" id="initcodes">initcode.S</a></h2>
-<p><a href="/chapter_05/05_19_startothers.html">entryother.S</a>と同様。
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_19_startothers.html">entryother.S</a>と同様。
 TEXTセグメントの開始アドレスは0x0。
 以下のシンボルが作成され、バイナリがカーネルにリンクされる。</p>
 <ul>
@@ -184,9 +184,9 @@ TEXTセグメントの開始アドレスは0x0。
 </code></pre>
 <h2><a class="header" href="#allocproc関数" id="allocproc関数">allocproc関数</a></h2>
 <p>この関数はプロセステーブルから未使用のエントリを取得し、初期化して返す。</p>
-<p><a href="/chapter_05/05_14_pinit.html">プロセステーブル</a>を走査し、stateフィールドがUNUSEDのエントリを取得してfoundラベルにジャンプする。</p>
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_14_pinit.html">プロセステーブル</a>を走査し、stateフィールドがUNUSEDのエントリを取得してfoundラベルにジャンプする。</p>
 <p>foundラベル以降ではproc構造体の各フィールドと、カーネルスタックを初期化する。<br />
-<a href="/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>で1ページ分のをカーネルスタックとして割り当てる。
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>で1ページ分のをカーネルスタックとして割り当てる。
 カーネルスタックの底（p-&gt;state + KSTACKSIZE）から順に以下3つを設定する。</p>
 <ul>
 <li>プロセスの状態を保存するために使用するトラップフレームの領域を確保する。</li>
@@ -251,7 +251,7 @@ found:
 このプロセスは最初initcode.Sを実行するために使用されるが、後からexecシステムコールによりinit.cを実行するプロセスに変わる。
 そのため、initプロセスを持つためのproc.cの変数initprocに代入しておく。<br />
 プロセスのpgdirフィールドにカーネル空間のページディレクトリエントリを持ったページディレクトリを作成する。
-作成は<a href="/chapter_05/05_03_kvmalloc.html#setupkvm%E9%96%A2%E6%95%B0">setupkvm関数</a>でvm.cのkmap配列を基に行われる。
+作成は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#setupkvm%E9%96%A2%E6%95%B0">setupkvm関数</a>でvm.cのkmap配列を基に行われる。
 inituvm関数で、initcode.Sを配置するためのページを割り当て、ページディレクトリにPDEとPTEを作成する。
 initcode.SのTEXTセクションは仮想アドレス0から始まるので、0番目のPDEから変換するように作る。</p>
 <p>initプロセスのトラップフレームの設定を行う。<br />
@@ -259,7 +259,7 @@ initcode.SのTEXTセクションは仮想アドレス0から始まるので、0�
 さらにforkret関数からiret命令によりtrapret関数が実行され、トラップフレームの内容にしたがってプログラムが実行される。
 ここではその準備をする。</p>
 <ul>
-<li><strong>cs:</strong> <a href="/chapter_05/05_06_seginit.html">ユーザコードセグメントディスクリプタ</a>のエントリ番号（3）と、DPL3を設定する。</li>
+<li><strong>cs:</strong> <a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_06_seginit.html">ユーザコードセグメントディスクリプタ</a>のエントリ番号（3）と、DPL3を設定する。</li>
 <li><strong>ds:</strong> 同様にユーザデータセグメントディスクリプタのエントリ番号（4）と、DPL3を設定する。</li>
 <li><strong>es, ss:</strong> データセグメントディスクリプタを設定する。
 特に使用しないので、とりあえずデータセグメントディスクリプタを設定しているんだと思う。</li>
@@ -271,7 +271,7 @@ initcode.Sには1ページ分の領域しか割り当てないので、その中
 <li><strong>eip:</strong> initcode.Sは仮想アドレス0から開始するようにリンクされているため0を設定する。</li>
 </ul>
 <p>プロセスの名前に「initcode」を設定する。
-<a href="/chapter_05/05_21_userinit.html#safestrcpy%E9%96%A2%E6%95%B0">safestrcpy関数</a>で即値 &quot;initcode&quot; をコピーしている。<br />
+<a href="#safestrcpy%E9%96%A2%E6%95%B0">safestrcpy関数</a>で即値 &quot;initcode&quot; をコピーしている。<br />
 cwdフィールドにルートディレクトリのinode構造体を設定する。
 namei関数はinode構造体を取得する。<br />
 プロセスを実行する準備が整ったので、状態を実行可能状態とする。<br />
@@ -320,9 +320,9 @@ userinit(void)
 まずszがページサイズ以上だった場合にpanicする。
 理由は定かではないけど、恐らく、ページングが有効になっている都合上、initcode.Sが複数ページにわたるとkallocでも複数ページ確保しなければならず、initcode.Sを適切に分割して各ページに配置することが手間になるからだと思う。<br />
 pgdirに仮想アドレス0から1ページ分の領域を、memの物理アドレスを参照するようにPDEとPTEを作成する。
-作成には<a href="/chapter_05/05_03_kvmalloc.html#mappages%E9%96%A2%E6%95%B0">mappages関数</a>を使用し、PTEの属性は書き込みフラグとユーザフラグを立てる。<br />
+作成には<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#mappages%E9%96%A2%E6%95%B0">mappages関数</a>を使用し、PTEの属性は書き込みフラグとユーザフラグを立てる。<br />
 最後にinitcode.Sをmemmove関数でmemにコピーする。
-memは<a href="/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>で割り当てる1ページ分の領域しか持っていないため、initプロセスは4kBに収まる必要がある。</p>
+memは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>で割り当てる1ページ分の領域しか持っていないため、initプロセスは4kBに収まる必要がある。</p>
 <p>vm.c</p>
 <pre><code class="language-c">void
 inituvm(pde_t *pgdir, char *init, uint sz)
@@ -371,7 +371,7 @@ namei(char *path)
 また、引数nameにファイル名を代入してくれる。<br />
 引数nameiparentが0以外の場合は、pathの親ファイルのinode構造体を返す。</p>
 <p>変数ipに、ルートディレクトリのinode構造体か、現在のプロセスのカレントディレクトリのinode構造体を代入する。
-<a href="/chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">iget</a>と<a href="/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">idup</a>はiノードのところで見た。</p>
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">iget</a>と<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">idup</a>はiノードのところで見た。</p>
 <p>whileループでpathのiノードを順に辿り、目的のiノードを探す。
 条件式でskipelem関数を実行し、pathのファイル名をひとつずつ消化して、nameにその時のファイル名を代入し、pathを残りのパスで更新する。
 つまり、namex関数の引数pathが単一のファイル名だった場合、whileループは行われない。</p>
@@ -385,7 +385,7 @@ ipを更新するため、変数nextにipのディレクトリエントリでフ
 この関数は第一引数のinode構造体のデータをバッファキャッシュから取得し、ディレクトリエントリから第二引数のnameとファイル名が等しいエントリのinodeを返してくれる。
 第三引数は目的のディレクトリエントリが何番目だったかを返してくれるが、使用しないのでここでは0。</p>
 <p>whileループが終わったとき、nameには引数pathの最後のファイル名が入っており、そのinode構造体がipに入っている。
-引数nameiparentが真のときにwhileループ終了後まで来る場合は不正なので、<a href="/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%83%87%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88iput%E9%96%A2%E6%95%B0">iput関数</a>でipの参照カウンタをデクリメントし、必要であれば解放する。
+引数nameiparentが真のときにwhileループ終了後まで来る場合は不正なので、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%83%87%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88iput%E9%96%A2%E6%95%B0">iput関数</a>でipの参照カウンタをデクリメントし、必要であれば解放する。
 pathが単一のファイル名だけだった場合がこれにあたる。</p>
 <p>fs.c</p>
 <pre><code class="language-c">static struct inode*
@@ -463,7 +463,7 @@ skipelem(char *path, char *name)
 <p>この関数はディレクトリdpから引数nameと同名のディレクトリエントリを返す。
 また、引数poffにディレクトリエントリが何番目だったかを返してくれる。</p>
 <p>forループでディレクトリエントリを走査する。
-dirent構造体の取得は<a href="/chapter_05/05_11_inode.html#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E5%BE%97read%E9%96%A2%E6%95%B0">readi</a>で行う。</p>
+dirent構造体の取得は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_inode.html#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E5%BE%97read%E9%96%A2%E6%95%B0">readi</a>で行う。</p>
 <p>fs.h</p>
 <pre><code class="language-c">#define DIRSIZ 14
 

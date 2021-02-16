@@ -222,7 +222,7 @@ Intel SDMの図で確認すると3bitがDになり、ゲートディスクリプ
 <p>割り込みベクタテーブルはvectors.Sに定義されている256個の関数のアドレスが、同ファイル内のvectorsラベル以下に列挙されている。
 関数はvector0からvector255まであり、スタックに0とIRQ番号をプッシュし、alltraps関数に跳んでいる。
 alltraps関数はtrapasm.Sで定義されている。
-vectors.Sは<a href="/chapter_02/02_04_kernel.html">make時</a>にvectors.plを実行することで作られる。<br />
+vectors.Sは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_04_kernel.html">make時</a>にvectors.plを実行することで作られる。<br />
 trap.cで、extern宣言として符号なし整数型の配列vectorsで割り込みベクタテーブルを参照している。</p>
 <p>vectors.S</p>
 <pre><code class="language-asm">.globl alltraps
@@ -313,7 +313,7 @@ sys_sleep(void)
 trap関数はIRQ番号によって分岐する。<br />
 ticksはタイマー割り込みかつcpu0からの割り込みである場合にのみインクリメントされる。<br />
 その後ticksのアドレスをチャネルとしてスリープ状態のプロセスを起床させる。<br />
-LAPICタイマの設定は<a href="/chapter_05/05_05_lapicinit.html#LAPIC%E3%82%BF%E3%82%A4%E3%83%9E%E3%81%AE%E8%A8%AD%E5%AE%9A">lapicinit</a>で見た。</p>
+LAPICタイマの設定は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_05_lapicinit.html#LAPIC%E3%82%BF%E3%82%A4%E3%83%9E%E3%81%AE%E8%A8%AD%E5%AE%9A">lapicinit</a>で見た。</p>
 <p>trap.c</p>
 <pre><code class="language-c">  switch(tf-&gt;trapno){
   case T_IRQ0 + IRQ_TIMER:

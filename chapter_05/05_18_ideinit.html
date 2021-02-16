@@ -166,12 +166,12 @@
                         <h1><a class="header" href="#518-ideinit関数" id="518-ideinit関数">5.18. ideinit関数</a></h1>
 <p>この関数ではIDEの割り込みの有効化と、ディスク1の存在確認を行う。</p>
 <p>ide.cに宣言されている静的なint型の変数havedisk1が、ディスク1の有無を示すフラグとなっており、値が1場合にディスク1があることを示す。</p>
-<p>IDEからの割り込みを<a href="/chapter_05/05_09_consoleinit.html#ioapicenable%E9%96%A2%E6%95%B0">ioapicenable関数</a>で有効化する。
+<p>IDEからの割り込みを<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#ioapicenable%E9%96%A2%E6%95%B0">ioapicenable関数</a>で有効化する。
 IRQ番号は<a href="https://wiki.osdev.org/Interrupts">「OSDev Interrupt」（リンク29）</a>の表「Standard ISA IRQs」をによると、14番がPrimary ATA Hard Disk、と15番がSecondary ATA Hard Diskとなっている。
 ここでは14番（IRQ_IDE）からの割り込みを有効化する。
 割り込み先はcpuid（LAPIC ID）が最も大きいcpuに設定する。
-cpu数を示す大域変数ncpuは<a href="/chapter_05/05_04_mpinit.html">mpinit関数</a>で設定した。</p>
-<p><a href="/chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">idewait関数</a>でディスク0がビジーでもエラーでもなくなるまで待つ。<br />
+cpu数を示す大域変数ncpuは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">mpinit関数</a>で設定した。</p>
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">idewait関数</a>でディスク0がビジーでもエラーでもなくなるまで待つ。<br />
 ディスク1の有無を確認するために、読み書きを行うディスクをディスク1に切り替える。
 <a href="https://wiki.osdev.org/ATA_PIO_Mode">「OSDev ATA PIO Mode」（リンク23）</a>によると、IDEコントローラのdrive/headレジスタ（0x1f6）の4bitを1にすることでディスク1に切り替えられる。
 また、5～7bitは101で固定のようだが、ここでは0xe0で全て1に設定している。<br />

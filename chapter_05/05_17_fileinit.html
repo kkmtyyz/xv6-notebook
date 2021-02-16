@@ -200,7 +200,7 @@ iノードの場合はoffフィールドにファイル内でのオフセット�
 <h2><a class="header" href="#pipe構造体" id="pipe構造体">pipe構造体</a></h2>
 <p>dataフィールドはパイプで流すデータを保持する。<br />
 他のフィールドはコメントの通り。</p>
-<p>data, nread, nwriteフィールドは、<a href="/chapter_05/05_09_consoleinit.html#consoleintr%E9%96%A2%E6%95%B0">consoleintr関数とconsoleread関数</a>で使用されるinput構造体のbuf, r, wフィールドと同様の使い方をする。
+<p>data, nread, nwriteフィールドは、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#consoleintr%E9%96%A2%E6%95%B0">consoleintr関数とconsoleread関数</a>で使用されるinput構造体のbuf, r, wフィールドと同様の使い方をする。
 つまりnreadとnwriteは増加し続け、dataにはnreadとnwriteをPIPESIZEで割った余りをインデックスとしてアクセスする。</p>
 <p>pipe.c</p>
 <pre><code class="language-c">#define PIPESIZE 512

@@ -2975,14 +2975,14 @@ wakeup(void *chan)
 <p>スケジューラの実行までに使用するiノード周りの操作について書く。</p>
 <ul>
 <li><a href="chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93">inode構造体</a></li>
-<li><a href="chapter_05//chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">inode構造体の作成（iget関数）</a></li>
-<li><a href="chapter_05//chapter_05/05_11_inode.html#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">ロック（ilock/iunlock関数）</a></li>
-<li><a href="chapter_05//chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">参照カウンタのインクリメント（idup数）</a></li>
-<li><a href="chapter_05//chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%83%87%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88iput%E9%96%A2%E6%95%B0">参照カウンタのデクリメント（iput関数）</a></li>
-<li><a href="chapter_05//chapter_05/05_11_inode.html#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E5%BE%97readi%E9%96%A2%E6%95%B0">ファイルデータの取得（readi関数）</a></li>
-<li><a href="chapter_05//chapter_05/05_11_inode.html#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">ブロックの割り当て（bmap関数）</a></li>
-<li><a href="chapter_05//chapter_05/05_11_inode.html#%E5%89%8A%E9%99%A4itrunc%E9%96%A2%E6%95%B0">削除（itrunc関数）</a></li>
-<li><a href="chapter_05//chapter_05/05_11_inode.html#%E6%9B%B4%E6%96%B0iupdate%E9%96%A2%E6%95%B0">更新（iupdate関数）</a></li>
+<li><a href="chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">inode構造体の作成（iget関数）</a></li>
+<li><a href="chapter_05/05_11_inode.html#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">ロック（ilock/iunlock関数）</a></li>
+<li><a href="chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">参照カウンタのインクリメント（idup数）</a></li>
+<li><a href="chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%83%87%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88iput%E9%96%A2%E6%95%B0">参照カウンタのデクリメント（iput関数）</a></li>
+<li><a href="chapter_05/05_11_inode.html#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E5%BE%97readi%E9%96%A2%E6%95%B0">ファイルデータの取得（readi関数）</a></li>
+<li><a href="chapter_05/05_11_inode.html#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">ブロックの割り当て（bmap関数）</a></li>
+<li><a href="chapter_05/05_11_inode.html#%E5%89%8A%E9%99%A4itrunc%E9%96%A2%E6%95%B0">削除（itrunc関数）</a></li>
+<li><a href="chapter_05/05_11_inode.html#%E6%9B%B4%E6%96%B0iupdate%E9%96%A2%E6%95%B0">更新（iupdate関数）</a></li>
 </ul>
 <h2><a class="header" href="#inode構造体" id="inode構造体">inode構造体</a></h2>
 <p>inodeについては、<a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」（リンク1）</a>の6章「File system」を読むとよい。</p>
@@ -3202,8 +3202,8 @@ iunlockput(struct inode *ip)
 <p>この関数はファイルからデータを最大nバイト分dstに読み込む。</p>
 <p>iノードがデバイスファイルの場合とそれ以外（ファイルあるいはディレクトリ）とで処理が分かれる。</p>
 <p><strong>デバイスファイルの場合:</strong><br />
-読み込みにはデバイス番号を頼りに<a href="chapter_05//chapter_05/05_09_consoleinit.html">devsw配列</a>の該当するread関数を使う。<br />
-例えばコンソールならdevsw[1].readなので、consoleinit関数で設定した<a href="chapter_05//chapter_05/05_09_consoleinit.html#consoleread%E9%96%A2%E6%95%B0">consoleread関数</a>が実行される。</p>
+読み込みにはデバイス番号を頼りに<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html">devsw配列</a>の該当するread関数を使う。<br />
+例えばコンソールならdevsw[1].readなので、consoleinit関数で設定した<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#consoleread%E9%96%A2%E6%95%B0">consoleread関数</a>が実行される。</p>
 <p><strong>ファイルあるいはディレクトリの場合:</strong><br />
 ファイルのデータをoffバイト目から読み込み始める。<br />
 ファイルサイズよりも読み込みサイズ（off+n）大きい場合は調整する。<br />
@@ -3211,14 +3211,14 @@ iunlockput(struct inode *ip)
 mがループ毎にdstにコピーするバイト数を示し、totにはコピーした総バイト数を持つ。<br />
 読み込みにはbread関数を使う。
 この関数にはデバイス番号とブロック番号を渡す必要がある。
-<a href="chapter_05//chapter_05/05_11_inode.html#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">bmap関数</a>では第一引数のinode構造体のaddrsフィールドから、第二引数で指定されたバイト目があるブロック番号を得ることができる。<br />
+<a href="chapter_05/05_11_inode.html#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">bmap関数</a>では第一引数のinode構造体のaddrsフィールドから、第二引数で指定されたバイト目があるブロック番号を得ることができる。<br />
 基本的にはoffからそのブロックの終わりまでずつコピーしていく。<br />
 例えばoffが600の場合、1ブロック512バイトなので、offは2ブロック目の88バイト目から始まる。
 なので <code>512-88=424</code> バイトずつコピーしていく。
 そして読み込みバイト数nがコピーしていく単位で割り切れない場合は、最後のループでnからコピー済みバイト数totの差だけコピーする。<br />
 他の例として、nが1000の場合、3回目のループで残りコピーバイト数が <code>1000-424*2=152</code> なので、152バイトだけコピーする。
 変数mにはこの動きをするために、minマクロを使用して残りコピーバイト数（n-tot）と基本的なコピー単位のどちらか小さい方を代入する。<br />
-コピーバイト数mが決まると、<a href="chapter_05//chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>でdstにブロックのデータ（bs-&gt;data）のオフセットの位置からその分だけコピーする。<br />
+コピーバイト数mが決まると、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>でdstにブロックのデータ（bs-&gt;data）のオフセットの位置からその分だけコピーする。<br />
 バッファキャッシュbpは読み込み後不要となるのでループ毎に解放する。
 1ブロック分ずつコピーするわけではないので、次のループでも同じブロックをバッファキャッシュに読み込む可能性がある。
 しかしここで解放しなければ、バッファキャッシュのサイズが30なのでコピー対象のデータが30ブロック以上の時にキャッシュが足りなくなりpanicしてしまう。</p>
@@ -3344,7 +3344,7 @@ itrunc(struct inode *ip)
 <h2><a class="header" href="#更新iupdate関数" id="更新iupdate関数">更新（iupdate関数）</a></h2>
 <p>この関数はinode構造体の内容をdinode構造体にコピーし、その変更をディスクに反映する。</p>
 <p>ディスク上にあるdinode構造体はbread関数で取得する。
-その際のブロック番号は<a href="chapter_05//chapter_05/05_11_inode.html#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">IBLOCKマクロ</a>で算出する。<br />
+その際のブロック番号は<a href="chapter_05/05_11_inode.html#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">IBLOCKマクロ</a>で算出する。<br />
 log_write関数で変更をディスクに反映する。
 この関数ではバッファキャッシュのB_DIRTYを立て、後々呼び出されるwrite_log関数でディスクに書き込みを行う。</p>
 <p>fs.c</p>
@@ -3369,12 +3369,12 @@ iupdate(struct inode *ip)
 <h1><a class="header" href="#512-バッファキャッシュとディスクの読み書き" id="512-バッファキャッシュとディスクの読み書き">5.12. バッファキャッシュとディスクの読み書き</a></h1>
 <p>スケジューラの実行までに使用するバッファキャッシュ周りの操作について書く。</p>
 <ul>
-<li><a href="chapter_05//chapter_05/05_12_bcache.html#buf%E6%A7%8B%E9%80%A0%E4%BD%93">buf構造体</a></li>
-<li><a href="chapter_05//chapter_05/05_12_bcache.html#buf%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E5%8F%96%E5%BE%97bread%E9%96%A2%E6%95%B0">buf構造体の取得（bread関数）</a></li>
-<li><a href="chapter_05//chapter_05/05_12_bcache.html#buf%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BFbwrite%E9%96%A2%E6%95%B0">buf構造体の書き込み（bwrite関数）</a></li>
-<li><a href="chapter_05//chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">ディスクの読み書き（iderw関数）</a></li>
-<li><a href="chapter_05/">データブロックの割り当て（balloc関数）</a></li>
-<li><a href="chapter_05/">データブロックの解放（bfree関数）</a></li>
+<li><a href="chapter_05/05_12_bcache.html#buf%E6%A7%8B%E9%80%A0%E4%BD%93">buf構造体</a></li>
+<li><a href="chapter_05/05_12_bcache.html#buf%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E5%8F%96%E5%BE%97bread%E9%96%A2%E6%95%B0">buf構造体の取得（bread関数）</a></li>
+<li><a href="chapter_05/05_12_bcache.html#buf%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BFbwrite%E9%96%A2%E6%95%B0">buf構造体の書き込み（bwrite関数）</a></li>
+<li><a href="chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">ディスクの読み書き（iderw関数）</a></li>
+<li><a href="chapter_05/05_12_bcache.html#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6balloc%E9%96%A2%E6%95%B0">データブロックの割り当て（balloc関数）</a></li>
+<li><a href="chapter_05/05_12_bcache.html#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E8%A7%A3%E6%94%BEbfree%E9%96%A2%E6%95%B0">データブロックの解放（bfree関数）</a></li>
 </ul>
 <h2><a class="header" href="#buf構造体" id="buf構造体">buf構造体</a></h2>
 <p>バッファキャッシュについては、<a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」（リンク1）</a>の6章「File system」を読むとよい。</p>
@@ -3415,7 +3415,7 @@ dataフィールドに1ブロック分のデータを持つ。</p>
 <h2><a class="header" href="#buf構造体の取得bread関数" id="buf構造体の取得bread関数">buf構造体の取得（bread関数）</a></h2>
 <p>bread関数を使用して、欲しいブロックのbuf構造体を取得する。<br />
 ブロックがバッファキャッシュに存在しない場合は、空のエントリにディスクからブロックを読み込む。
-バッファキャッシュからの取得はbget関数で行い、ディスクからの読み込みは<a href="chapter_05//chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">iderw関数</a>で行う。</p>
+バッファキャッシュからの取得はbget関数で行い、ディスクからの読み込みは<a href="chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">iderw関数</a>で行う。</p>
 <p>bio.c</p>
 <pre><code class="language-c">struct buf*
 bread(uint dev, uint blockno)
@@ -3564,7 +3564,7 @@ LBAhiレジスタ（0x1f5）に、LBAの3バイト目を設定する。<br />
 <p>ideにコマンドを発行する。
 buf構造体のflagsフィールドの変更済みフラグ（B_DIRTY）が立っている場合は書き込み、そうでなければ読み込みを行う。</p>
 <p><strong>書き込みの場合:</strong><br />
-コマンドレジスタ（0x1f7）に書き込みコマンド（write_cmd）を書き込み、データレジスタ（0x1f0）に<a href="chapter_05//chapter_05/05_02_kinit2.html#memset%E9%96%A2%E6%95%B0">outsl関数</a>でbuf構造体のdataフィールドの内容を128回に分けて4バイトずつ書き込む。</p>
+コマンドレジスタ（0x1f7）に書き込みコマンド（write_cmd）を書き込み、データレジスタ（0x1f0）に<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_02_kinit2.html#memset%E9%96%A2%E6%95%B0">outsl関数</a>でbuf構造体のdataフィールドの内容を128回に分けて4バイトずつ書き込む。</p>
 <p><strong>読み込みの場合:</strong><br />
 コマンドレジスタ（0x1f0）に読み込みコマンド（read_cmd）を書き込む。</p>
 <p>書き込み終了あるいは、読み込み準備の完了により、ideコントローラから割り込みが入り、最終的にはideintr関数が呼び出される。</p>
@@ -3625,7 +3625,7 @@ idewait(int checkerr)
 <p>まだ割り込みベクタの初期化を読むのは先になるが、動きとしては、このあとディスクの準備ができるとideコントローラからirq14番で割り込みが入り、IOAPICのリダイレクトテーブルによって割り込みベクタ 46(32 + 14)番がtrap関数にわたされ、ideintr関数により読み込みが行われる。</p>
 <p>ideintr関数はidequeueの先頭のbuf構造体のflagsフィールドに応じてディスクから読み込みを行う。</p>
 <p>もしもbuf構造体のflagsフィールドの変更済みフラグ（B_DIRTY）が0で、かつidewait関数でドライブの準備ができている場合、ディスクから読み出しを行う。
-読み出しは<a href="chapter_05//chapter_03/03_02_bootmain.html#inb%E9%96%A2%E6%95%B0outb%E9%96%A2%E6%95%B0insl%E9%96%A2%E6%95%B0">insl関数</a>でコントロールレジスタ（0x1f0）からbuf構造体のdataフィールドにブロックサイズ分読み込む。
+読み出しは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_02_bootmain.html#inb%E9%96%A2%E6%95%B0outb%E9%96%A2%E6%95%B0insl%E9%96%A2%E6%95%B0">insl関数</a>でコントロールレジスタ（0x1f0）からbuf構造体のdataフィールドにブロックサイズ分読み込む。
 次に、buf構造体のflagsフィールドの読み込み済みフラグ（B_VALID）を1にし、変更済みフラグ（B_DIRTY）をビット反転して論理積を取って0にする。</p>
 <p>読み込みを待っているプロセスを起床し、idequeueにエントリがまだ残っている場合は次のエントリを引数としてidestart関数を呼び出す。</p>
 <p>ide.c</p>
@@ -3785,7 +3785,7 @@ UARTチップは一般的に115.2kHzで動作するクロックを持ってお�
 <p>シリアルポートが使用できる場合、割り込みの設定を行う。<br />
 割り込み識別レジスタ（+2）を読み、以前の割り込みに関する情報をクリアする。<br />
 レシーバーバッファレジスタ（+0, DLABは0）を読み、バッファ内のデータをクリアする。<br />
-<a href="chapter_05//chapter_05/05_09_consoleinit.html#ioapicenable%E9%96%A2%E6%95%B0">ioapicenable関数</a>でシリアルポート（COM1）からの割り込みの設定と有効化をする。
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#ioapicenable%E9%96%A2%E6%95%B0">ioapicenable関数</a>でシリアルポート（COM1）からの割り込みの設定と有効化をする。
 IOAPICのリダイレクトテーブルにIRQ4番からの割り込みをIRQ36番としてBSP（cpu0）のLAPICにリダイレクトするよう設定する。</p>
 <p>最後に「xv6...」という文字列をuartputc関数を使用して1文字ずつ画面に表示する。</p>
 <p>uart.c</p>
@@ -3983,7 +3983,7 @@ Intel SDMの図で確認すると3bitがDになり、ゲートディスクリプ
 <p>割り込みベクタテーブルはvectors.Sに定義されている256個の関数のアドレスが、同ファイル内のvectorsラベル以下に列挙されている。
 関数はvector0からvector255まであり、スタックに0とIRQ番号をプッシュし、alltraps関数に跳んでいる。
 alltraps関数はtrapasm.Sで定義されている。
-vectors.Sは<a href="chapter_05//chapter_02/02_04_kernel.html">make時</a>にvectors.plを実行することで作られる。<br />
+vectors.Sは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_04_kernel.html">make時</a>にvectors.plを実行することで作られる。<br />
 trap.cで、extern宣言として符号なし整数型の配列vectorsで割り込みベクタテーブルを参照している。</p>
 <p>vectors.S</p>
 <pre><code class="language-asm">.globl alltraps
@@ -4074,7 +4074,7 @@ sys_sleep(void)
 trap関数はIRQ番号によって分岐する。<br />
 ticksはタイマー割り込みかつcpu0からの割り込みである場合にのみインクリメントされる。<br />
 その後ticksのアドレスをチャネルとしてスリープ状態のプロセスを起床させる。<br />
-LAPICタイマの設定は<a href="chapter_05//chapter_05/05_05_lapicinit.html#LAPIC%E3%82%BF%E3%82%A4%E3%83%9E%E3%81%AE%E8%A8%AD%E5%AE%9A">lapicinit</a>で見た。</p>
+LAPICタイマの設定は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_05_lapicinit.html#LAPIC%E3%82%BF%E3%82%A4%E3%83%9E%E3%81%AE%E8%A8%AD%E5%AE%9A">lapicinit</a>で見た。</p>
 <p>trap.c</p>
 <pre><code class="language-c">  switch(tf-&gt;trapno){
   case T_IRQ0 + IRQ_TIMER:
@@ -4089,7 +4089,7 @@ LAPICタイマの設定は<a href="chapter_05//chapter_05/05_05_lapicinit.html#L
 </code></pre>
 <h1><a class="header" href="#516-binit関数" id="516-binit関数">5.16. binit関数</a></h1>
 <p>この関数でバッファキャッシュを初期化を行う。</p>
-<p>バッファキャッシュについては<a href="chapter_05//chapter_05/05_12_bcache.html">5.12. バッファキャッシュとディスクの読み書き</a>で見た。<br />
+<p>バッファキャッシュについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_12_bcache.html">5.12. バッファキャッシュとディスクの読み書き</a>で見た。<br />
 キャッシュを走査するためのbcache内のheadフィールドの前（prev）と後（next）のアドレスをheadフィールドの値で初期化する。<br />
 そしてforループでバッファキャッシュの全エントリ（30個）を初期化し、buf配列が循環するようにリンクさせる。
 ループが終わると、headのnextはbuf配列の29番目を指すようになり、prevは0番目を指すようになる。
@@ -4154,7 +4154,7 @@ iノードの場合はoffフィールドにファイル内でのオフセット�
 <h2><a class="header" href="#pipe構造体" id="pipe構造体">pipe構造体</a></h2>
 <p>dataフィールドはパイプで流すデータを保持する。<br />
 他のフィールドはコメントの通り。</p>
-<p>data, nread, nwriteフィールドは、<a href="chapter_05//chapter_05/05_09_consoleinit.html#consoleintr%E9%96%A2%E6%95%B0">consoleintr関数とconsoleread関数</a>で使用されるinput構造体のbuf, r, wフィールドと同様の使い方をする。
+<p>data, nread, nwriteフィールドは、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#consoleintr%E9%96%A2%E6%95%B0">consoleintr関数とconsoleread関数</a>で使用されるinput構造体のbuf, r, wフィールドと同様の使い方をする。
 つまりnreadとnwriteは増加し続け、dataにはnreadとnwriteをPIPESIZEで割った余りをインデックスとしてアクセスする。</p>
 <p>pipe.c</p>
 <pre><code class="language-c">#define PIPESIZE 512
@@ -4171,12 +4171,12 @@ struct pipe {
 <h1><a class="header" href="#518-ideinit関数" id="518-ideinit関数">5.18. ideinit関数</a></h1>
 <p>この関数ではIDEの割り込みの有効化と、ディスク1の存在確認を行う。</p>
 <p>ide.cに宣言されている静的なint型の変数havedisk1が、ディスク1の有無を示すフラグとなっており、値が1場合にディスク1があることを示す。</p>
-<p>IDEからの割り込みを<a href="chapter_05//chapter_05/05_09_consoleinit.html#ioapicenable%E9%96%A2%E6%95%B0">ioapicenable関数</a>で有効化する。
+<p>IDEからの割り込みを<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#ioapicenable%E9%96%A2%E6%95%B0">ioapicenable関数</a>で有効化する。
 IRQ番号は<a href="https://wiki.osdev.org/Interrupts">「OSDev Interrupt」（リンク29）</a>の表「Standard ISA IRQs」をによると、14番がPrimary ATA Hard Disk、と15番がSecondary ATA Hard Diskとなっている。
 ここでは14番（IRQ_IDE）からの割り込みを有効化する。
 割り込み先はcpuid（LAPIC ID）が最も大きいcpuに設定する。
-cpu数を示す大域変数ncpuは<a href="chapter_05//chapter_05/05_04_mpinit.html">mpinit関数</a>で設定した。</p>
-<p><a href="chapter_05//chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">idewait関数</a>でディスク0がビジーでもエラーでもなくなるまで待つ。<br />
+cpu数を示す大域変数ncpuは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">mpinit関数</a>で設定した。</p>
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">idewait関数</a>でディスク0がビジーでもエラーでもなくなるまで待つ。<br />
 ディスク1の有無を確認するために、読み書きを行うディスクをディスク1に切り替える。
 <a href="https://wiki.osdev.org/ATA_PIO_Mode">「OSDev ATA PIO Mode」（リンク23）</a>によると、IDEコントローラのdrive/headレジスタ（0x1f6）の4bitを1にすることでディスク1に切り替えられる。
 また、5～7bitは101で固定のようだが、ここでは0xe0で全て1に設定している。<br />
@@ -4220,7 +4220,7 @@ ideinit(void)
 APで行う設定はほとんどBSPと同じように行う。</p>
 <p>startothers関数を見る前に、APのエントリポイントとなるentryother.Sを見る。<br />
 Makefileのターゲットentryotherを見ると、まずgccでentryother.Sからentryother.oを作成する。</p>
-<p>各コマンドのオプションについては<a href="chapter_05//chapter_02/02_00_xv6_img_build.html">「2. xv6.imgのビルド」</a>で見た。<br />
+<p>各コマンドのオプションについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_00_xv6_img_build.html">「2. xv6.imgのビルド」</a>で見た。<br />
 ldのTtextオプションでTEXTセグメントの開始アドレスを0x7000とし、entryother.oからbootblockother.oを作成する。
 objcopyでbootblockother.oからTEXTセクションのみをentryotherとしてコピーする。
 出力にバイナリを指定しているため、entryotherに次の3つのシンボルが作成される。</p>
@@ -4238,20 +4238,20 @@ objcopyでbootblockother.oからTEXTセクションのみをentryotherとして�
   $(OBJCOPY) -S -O binary -j .text bootblockother.o entryother
   $(OBJDUMP) -S bootblockother.o &gt; entryother.asm
 </code></pre>
-<p><a href="chapter_05//chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>を使用してentryother.Sのコードを物理アドレス0x7000にコピーする。
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>を使用してentryother.Sのコードを物理アドレス0x7000にコピーする。
 APではページングがまだ有効化されていないので、P2Vマクロを使用して仮想アドレスを求める必要がある。</p>
-<p>forループで<a href="chapter_05//chapter_05/05_04_mpinit.html">大域変数cpus</a>を走査し、APをひとつずつ起動する。
+<p>forループで<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">大域変数cpus</a>を走査し、APをひとつずつ起動する。
 BSPの場合はcontinue。
 このループはBSPで実行されているため、mycpu関数はBSPのcpu構造体を返す。</p>
 <p>APの起動時に使用するカーネルスタックとして変数stackに1ページ分のメモリを割り当てる。
-割り当てには<a href="chapter_05//chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>を用いる。
+割り当てには<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>を用いる。
 大域変数kmemのuse_lockフィールドは依然として0なので排他制御は行わない（kinit2関数で初めて1になる）。</p>
 <p>entryotherを実行する際に渡す引数をスタックにセットする。</p>
 <ul>
 <li><strong>第一引数:</strong> スタックの底のアドレス。
 スタックのアドレスにカーネルスタックサイズ（4kB）を加算して求める。</li>
 <li><strong>第二引数:</strong> main.cに定義されているmpenter関数のアドレス。関数ポインタとしてキャストして代入する。</li>
-<li><strong>第三引数:</strong> main.cに定義されている<a href="chapter_05//chapter_04/04_01_entry.html">変数entrypgdir</a>のアドレス。
+<li><strong>第三引数:</strong> main.cに定義されている<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_04/04_01_entry.html">変数entrypgdir</a>のアドレス。
 ラージページのページディレクトリで、0番と512番の2つのエントリが0ページ目（物理アドレス0から4MB分）を指している。</li>
 </ul>
 <p>BSPはAPのcpu構造体のstartedフィールドが0でなくなるまでwhileループする。
@@ -4321,7 +4321,7 @@ BIOSシャットダウンコード（0x0A）は、リセット時にBIOSの初�
 <li>手順4と5をもう一度行う。INIT IPIとSTARTUP IPIは自動で再試行せず、OSはそれを正常に行う必要があるため2回呼び出す。
 lapicstartap関数のコメントによると、2回目のSTARTUP IPIでのみAPを起動させるアーキテクチャも存在するらしい。</li>
 </ol>
-<p>INIT IPIの使用方法は<a href="chapter_05//chapter_05/05_05_lapicinit.html#icr%E3%81%AE%E8%A8%AD%E5%AE%9A">lapicinit関数</a>で見た。<br />
+<p>INIT IPIの使用方法は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_05_lapicinit.html#icr%E3%81%AE%E8%A8%AD%E5%AE%9A">lapicinit関数</a>で見た。<br />
 STARTUP IPIの使用方法は「MultiProcessor Specification Version 1.4」（リンク14）のB.4.2「USING STARTUP IPI」に記載されている。
 このIPIは送信先のプロセッサをリアルモードで物理アドレス0x000VV000から実行する。
 VVの部分は、ICRのVectorフィールドに設定された値が入る。</p>
@@ -4334,7 +4334,7 @@ BIOSの設定を行うCMOSのポートは<a href="http://bochs.sourceforge.net/d
 リセット時にentryother.Sが実行されるよう、物理アドレス0x467にcode（引数addr）のアドレスを代入する。
 リアルモードのセグメント機構ではセグメントレジスタが16bit、アドレスバスが20bitであるため、セグメントのアクセスではアドレスの下位4bitを0とする。
 そのため0x7000（entryotherの開始アドレス）を4bit右シフトしている。
-この辺りのことは<a href="chapter_05//ref_books.html">「初めて読む486」（書籍2）</a>に書いてある。</p>
+この辺りのことは<a href="chapter_05/ref_books.html">「初めて読む486」（書籍2）</a>に書いてある。</p>
 <p><strong>手順2:</strong><br />
 APにINIT IPIを2回送る。<br />
 INIT IPIはlapicinit関数で使用したが、ここではLevelがAssertになっているため、もう一度見る。<br />
@@ -4348,7 +4348,8 @@ LAPICのICR（Interrupt Command Register）（LAPICのインデックス0x310）
 15bitが1なのでTrigger ModeはLevel。<br />
 Levelフラグが1（Assert）かつ、Delivery ModeのINITがLevel De-assertでないことから、INITリクエストを特定のプロセッサに送信することがわかる。
 送信先はDestination ModeがPhysicalであることから、ICRの56～59bitで指定されたLAPICIDのプロセッサとなる。</p>
-<p>INIT IPIの処理が終わるまで200μs待つ（<a href="chapter_05//chapter_05/05_13_uartinit.html#uartputc%E9%96%A2%E6%95%B0">microdelay関数</a>）。</p>
+<p>INIT IPIの処理が終わるまで200μ秒待つ
+（<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_13_uartinit.html#uartputc%E9%96%A2%E6%95%B0">microdelay関数</a>）。</p>
 <p>2回目:<br />
 Levelフラグを0（De-assert）でINIT IPIを送信する。
 Delivery ModeがDe-assertなので送信先は全てのプロセッサとなる。</p>
@@ -4419,7 +4420,7 @@ lapicstartap(uchar apicid, uint addr)
 </code></pre>
 <h2><a class="header" href="#entryothers" id="entryothers">entryother.S</a></h2>
 <p>この関数はSTARTUP IPIによりAPで実行される。<br />
-概ね<a href="chapter_05//chapter_03/03_01_bootasm.html">bootasm.S</a>、<a href="chapter_05//chapter_04/04_01_entry.html">entry.S</a>と同様。<br />
+概ね<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_01_bootasm.html">bootasm.S</a>、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_04/04_01_entry.html">entry.S</a>と同様。<br />
 GDTをロードし、プロテクトモードへ移行、ページングを有効化する。<br />
 最後にスタックポインタをセットし、mpenter関数を呼び出す。</p>
 <p>ラージページの設定まではbootasm.Sとentry.Sのコードと同じ。<br />
@@ -4504,10 +4505,10 @@ gdtdesc:
 </code></pre>
 <h2><a class="header" href="#mpenter関数" id="mpenter関数">mpenter関数</a></h2>
 <p>BSPで行った設定を同様にAPにも行う。<br />
-<a href="chapter_05//chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でcr3にカーネル用のページディレクトリkpgdirのアドレスをセットする。
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でcr3にカーネル用のページディレクトリkpgdirのアドレスをセットする。
 kpgdirはBSPと同じものが使用される。
-<a href="chapter_05//chapter_05/05_03_kvmalloc.html#walkpgdir%E9%96%A2%E6%95%B0">4kBページングとなる</a>のも同様。<br />
-<a href="chapter_05//chapter_05/05_06_seginit.html">seginit関数</a>でGDTの作成とロード、<a href="chapter_05//chapter_05/05_05_lapicinit.html">lapicinit関数</a>でLAPICの設定を行う。</p>
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#walkpgdir%E9%96%A2%E6%95%B0">4kBページングとなる</a>のも同様。<br />
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_06_seginit.html">seginit関数</a>でGDTの作成とロード、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_05_lapicinit.html">lapicinit関数</a>でLAPICの設定を行う。</p>
 <p>main.c</p>
 <pre><code class="language-c">static void
 mpenter(void)
@@ -4521,7 +4522,7 @@ mpenter(void)
 <h2><a class="header" href="#mpmain関数" id="mpmain関数">mpmain関数</a></h2>
 <p>この関数はコンソールに「cpu1: starting 1」と表示し、IDTをロードしてcpu構造体のstartedフィールドの値を1にした後、スケジューラを呼び出す。
 コンソールの文字列はLAPIC IDによって変わる。<br />
-cpu構造体のstartedフィールドを<a href="chapter_05//chapter_05/05_10_lock.html#xchg%E9%96%A2%E6%95%B0">xchg関数</a>で1にする。
+cpu構造体のstartedフィールドを<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#xchg%E9%96%A2%E6%95%B0">xchg関数</a>で1にする。
 ここでxchg命令を使ってアトミックにstartedフィールドの値を更新する理由はわからない。<br />
 この関数はBSPからmain関数の最後でも呼び出される。
 scheduler関数はその時に見ることにする。</p>
@@ -4542,7 +4543,7 @@ mpmain(void)
 第一引数fmtのアドレスをuint分加算し、スタックの低い位置（高いアドレス）に有る第二引数を得る。<br />
 fmtを1バイトずつ操作し、場合分けしながらコンソールに出力する。</p>
 <ul>
-<li><strong>%以外:</strong> <a href="chapter_05//chapter_05/05_09_consoleinit.html#consolewrite%E9%96%A2%E6%95%B0">consputc関数</a>でコンソールに出力する。</li>
+<li><strong>%以外:</strong> <a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#consolewrite%E9%96%A2%E6%95%B0">consputc関数</a>でコンソールに出力する。</li>
 <li><strong>0:</strong> ループをbreak。</li>
 <li><strong>d:</strong> printint関数で可変長引数から10進数符号ありでコンソールに出力する。</li>
 <li><strong>x, p:</strong> printint関数で可変長引数から16進数符号なしでコンソールに出力する。</li>
@@ -4636,7 +4637,7 @@ printint(int xx, int base, int sign)
 }
 </code></pre>
 <h2><a class="header" href="#idtinit関数" id="idtinit関数">idtinit関数</a></h2>
-<p>この関数は<a href="chapter_05//chapter_05/05_15_tvinit.html">tvinit関数</a>で作成したIDTをlidt関数を通してlidt命令でロードする。</p>
+<p>この関数は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_15_tvinit.html">tvinit関数</a>で作成したIDTをlidt関数を通してlidt命令でロードする。</p>
 <p>trap.c</p>
 <pre><code class="language-c">void
 idtinit(void)
@@ -4660,7 +4661,7 @@ lidt(struct gatedesc *p, int size)
 }
 </code></pre>
 <h1><a class="header" href="#520-kinit2関数" id="520-kinit2関数">5.20. kinit2関数</a></h1>
-<p><a href="chapter_05//chapter_05/05_02_kinit1.html#freerange%E9%96%A2%E6%95%B0">freerange関数</a>で<a href="chapter_05//chapter_05/05_02_kinit1.html">kmem構造体</a>のfreelistに0x400000～0xe000000までの領域をページとして加える。
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_02_kinit1.html#freerange%E9%96%A2%E6%95%B0">freerange関数</a>で<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_02_kinit1.html">kmem構造体</a>のfreelistに0x400000～0xe000000までの領域をページとして加える。
 差を取ると0xdc00000で4096で割ると56320ページ分ある。</p>
 <p>main.c</p>
 <pre><code class="language-c">int
@@ -4687,7 +4688,7 @@ kinit2(void *vstart, void *vend)
 <p>initcode.Sのプロセスを作成し、プロセステーブルに追加する。</p>
 <p>userinit関数を見る前に、initプロセスを実行するinitcode.Sと、プロセステーブルのエントリをプロセスとして割り当てるallocproc関数を見る。</p>
 <h2><a class="header" href="#initcodes" id="initcodes">initcode.S</a></h2>
-<p><a href="chapter_05//chapter_05/05_19_startothers.html">entryother.S</a>と同様。
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_19_startothers.html">entryother.S</a>と同様。
 TEXTセグメントの開始アドレスは0x0。
 以下のシンボルが作成され、バイナリがカーネルにリンクされる。</p>
 <ul>
@@ -4704,9 +4705,9 @@ TEXTセグメントの開始アドレスは0x0。
 </code></pre>
 <h2><a class="header" href="#allocproc関数" id="allocproc関数">allocproc関数</a></h2>
 <p>この関数はプロセステーブルから未使用のエントリを取得し、初期化して返す。</p>
-<p><a href="chapter_05//chapter_05/05_14_pinit.html">プロセステーブル</a>を走査し、stateフィールドがUNUSEDのエントリを取得してfoundラベルにジャンプする。</p>
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_14_pinit.html">プロセステーブル</a>を走査し、stateフィールドがUNUSEDのエントリを取得してfoundラベルにジャンプする。</p>
 <p>foundラベル以降ではproc構造体の各フィールドと、カーネルスタックを初期化する。<br />
-<a href="chapter_05//chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>で1ページ分のをカーネルスタックとして割り当てる。
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>で1ページ分のをカーネルスタックとして割り当てる。
 カーネルスタックの底（p-&gt;state + KSTACKSIZE）から順に以下3つを設定する。</p>
 <ul>
 <li>プロセスの状態を保存するために使用するトラップフレームの領域を確保する。</li>
@@ -4771,7 +4772,7 @@ found:
 このプロセスは最初initcode.Sを実行するために使用されるが、後からexecシステムコールによりinit.cを実行するプロセスに変わる。
 そのため、initプロセスを持つためのproc.cの変数initprocに代入しておく。<br />
 プロセスのpgdirフィールドにカーネル空間のページディレクトリエントリを持ったページディレクトリを作成する。
-作成は<a href="chapter_05//chapter_05/05_03_kvmalloc.html#setupkvm%E9%96%A2%E6%95%B0">setupkvm関数</a>でvm.cのkmap配列を基に行われる。
+作成は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#setupkvm%E9%96%A2%E6%95%B0">setupkvm関数</a>でvm.cのkmap配列を基に行われる。
 inituvm関数で、initcode.Sを配置するためのページを割り当て、ページディレクトリにPDEとPTEを作成する。
 initcode.SのTEXTセクションは仮想アドレス0から始まるので、0番目のPDEから変換するように作る。</p>
 <p>initプロセスのトラップフレームの設定を行う。<br />
@@ -4779,7 +4780,7 @@ initcode.SのTEXTセクションは仮想アドレス0から始まるので、0�
 さらにforkret関数からiret命令によりtrapret関数が実行され、トラップフレームの内容にしたがってプログラムが実行される。
 ここではその準備をする。</p>
 <ul>
-<li><strong>cs:</strong> <a href="chapter_05//chapter_05/05_06_seginit.html">ユーザコードセグメントディスクリプタ</a>のエントリ番号（3）と、DPL3を設定する。</li>
+<li><strong>cs:</strong> <a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_06_seginit.html">ユーザコードセグメントディスクリプタ</a>のエントリ番号（3）と、DPL3を設定する。</li>
 <li><strong>ds:</strong> 同様にユーザデータセグメントディスクリプタのエントリ番号（4）と、DPL3を設定する。</li>
 <li><strong>es, ss:</strong> データセグメントディスクリプタを設定する。
 特に使用しないので、とりあえずデータセグメントディスクリプタを設定しているんだと思う。</li>
@@ -4791,7 +4792,7 @@ initcode.Sには1ページ分の領域しか割り当てないので、その中
 <li><strong>eip:</strong> initcode.Sは仮想アドレス0から開始するようにリンクされているため0を設定する。</li>
 </ul>
 <p>プロセスの名前に「initcode」を設定する。
-<a href="chapter_05//chapter_05/05_21_userinit.html#safestrcpy%E9%96%A2%E6%95%B0">safestrcpy関数</a>で即値 &quot;initcode&quot; をコピーしている。<br />
+<a href="chapter_05/05_21_userinit.html#safestrcpy%E9%96%A2%E6%95%B0">safestrcpy関数</a>で即値 &quot;initcode&quot; をコピーしている。<br />
 cwdフィールドにルートディレクトリのinode構造体を設定する。
 namei関数はinode構造体を取得する。<br />
 プロセスを実行する準備が整ったので、状態を実行可能状態とする。<br />
@@ -4840,9 +4841,9 @@ userinit(void)
 まずszがページサイズ以上だった場合にpanicする。
 理由は定かではないけど、恐らく、ページングが有効になっている都合上、initcode.Sが複数ページにわたるとkallocでも複数ページ確保しなければならず、initcode.Sを適切に分割して各ページに配置することが手間になるからだと思う。<br />
 pgdirに仮想アドレス0から1ページ分の領域を、memの物理アドレスを参照するようにPDEとPTEを作成する。
-作成には<a href="chapter_05//chapter_05/05_03_kvmalloc.html#mappages%E9%96%A2%E6%95%B0">mappages関数</a>を使用し、PTEの属性は書き込みフラグとユーザフラグを立てる。<br />
+作成には<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#mappages%E9%96%A2%E6%95%B0">mappages関数</a>を使用し、PTEの属性は書き込みフラグとユーザフラグを立てる。<br />
 最後にinitcode.Sをmemmove関数でmemにコピーする。
-memは<a href="chapter_05//chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>で割り当てる1ページ分の領域しか持っていないため、initプロセスは4kBに収まる必要がある。</p>
+memは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>で割り当てる1ページ分の領域しか持っていないため、initプロセスは4kBに収まる必要がある。</p>
 <p>vm.c</p>
 <pre><code class="language-c">void
 inituvm(pde_t *pgdir, char *init, uint sz)
@@ -4891,7 +4892,7 @@ namei(char *path)
 また、引数nameにファイル名を代入してくれる。<br />
 引数nameiparentが0以外の場合は、pathの親ファイルのinode構造体を返す。</p>
 <p>変数ipに、ルートディレクトリのinode構造体か、現在のプロセスのカレントディレクトリのinode構造体を代入する。
-<a href="chapter_05//chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">iget</a>と<a href="chapter_05//chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">idup</a>はiノードのところで見た。</p>
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">iget</a>と<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">idup</a>はiノードのところで見た。</p>
 <p>whileループでpathのiノードを順に辿り、目的のiノードを探す。
 条件式でskipelem関数を実行し、pathのファイル名をひとつずつ消化して、nameにその時のファイル名を代入し、pathを残りのパスで更新する。
 つまり、namex関数の引数pathが単一のファイル名だった場合、whileループは行われない。</p>
@@ -4905,7 +4906,7 @@ ipを更新するため、変数nextにipのディレクトリエントリでフ
 この関数は第一引数のinode構造体のデータをバッファキャッシュから取得し、ディレクトリエントリから第二引数のnameとファイル名が等しいエントリのinodeを返してくれる。
 第三引数は目的のディレクトリエントリが何番目だったかを返してくれるが、使用しないのでここでは0。</p>
 <p>whileループが終わったとき、nameには引数pathの最後のファイル名が入っており、そのinode構造体がipに入っている。
-引数nameiparentが真のときにwhileループ終了後まで来る場合は不正なので、<a href="chapter_05//chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%83%87%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88iput%E9%96%A2%E6%95%B0">iput関数</a>でipの参照カウンタをデクリメントし、必要であれば解放する。
+引数nameiparentが真のときにwhileループ終了後まで来る場合は不正なので、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%83%87%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88iput%E9%96%A2%E6%95%B0">iput関数</a>でipの参照カウンタをデクリメントし、必要であれば解放する。
 pathが単一のファイル名だけだった場合がこれにあたる。</p>
 <p>fs.c</p>
 <pre><code class="language-c">static struct inode*
@@ -4983,7 +4984,7 @@ skipelem(char *path, char *name)
 <p>この関数はディレクトリdpから引数nameと同名のディレクトリエントリを返す。
 また、引数poffにディレクトリエントリが何番目だったかを返してくれる。</p>
 <p>forループでディレクトリエントリを走査する。
-dirent構造体の取得は<a href="chapter_05//chapter_05/05_11_inode.html#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E5%BE%97read%E9%96%A2%E6%95%B0">readi</a>で行う。</p>
+dirent構造体の取得は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_11_inode.html#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E5%BE%97read%E9%96%A2%E6%95%B0">readi</a>で行う。</p>
 <p>fs.h</p>
 <pre><code class="language-c">#define DIRSIZ 14
 
@@ -5045,12 +5046,12 @@ strncmp(const char *p, const char *q, uint n)
 <li>sti関数で割り込みを有効化する</li>
 <li>プロセステーブルを走査して実行可能状態（RUNNABLE）のプロセスにコンテキストスイッチする</li>
 </ol>
-<p>最初にschedulerが実行されるとき、プロセステーブルの64個のプロセスの内、状態がRUNNABLEになっているのは<a href="chapter_05//chapter_05/05_21_userinit.html">userinit関数</a>で作成されたinitcode.Sのプロセスのみなので、それが実行されることになる。<br />
+<p>最初にschedulerが実行されるとき、プロセステーブルの64個のプロセスの内、状態がRUNNABLEになっているのは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_21_userinit.html">userinit関数</a>で作成されたinitcode.Sのプロセスのみなので、それが実行されることになる。<br />
 全てのプロセッサでschedulerが実行されており、プロセステーブルを触る可能性があるため、forループの前後でプロセステーブルのロックの取得と解放を行う。<br />
 実行可能状態のプロセスを見つけた場合、switchuvm関数でコンテキストスイッチの準備を行う。<br />
 準備ができたらプロセスを実行状態とし、swtch関数でコンテキストスイッチする。
 コンテキストスイッチはTSSを用いたx86の機能を使うのではなく、スタックフレームの切り替えによって行う。<br />
-その後再びプロセスからスケジューラにコンテキストスイッチされたとき、<a href="chapter_05//chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でページディレクトリをカーネルのものに切り替え、cpu構造体のprocフィールドに0を代入する。</p>
+その後再びプロセスからスケジューラにコンテキストスイッチされたとき、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でページディレクトリをカーネルのものに切り替え、cpu構造体のprocフィールドに0を代入する。</p>
 <p>proc.c</p>
 <pre><code class="language-c">void
 scheduler(void)
@@ -5089,14 +5090,14 @@ scheduler(void)
 }
 </code></pre>
 <h2><a class="header" href="#コンテキストスイッチ" id="コンテキストスイッチ">コンテキストスイッチ</a></h2>
-<p>x86にはTSSディスクリプタを使用してコンテキストスイッチを行う機能があり、<a href="chapter_05//ref_books.html">「初めて読む486」（書籍2）</a>の8章「タスク」や、<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>のVol.3 CHAPTER7「TASK MANAGEMENT」に記載があるが、xv6ではそれをフルに使わない。
+<p>x86にはTSSディスクリプタを使用してコンテキストスイッチを行う機能があり、<a href="chapter_05/ref_books.html">「初めて読む486」（書籍2）</a>の8章「タスク」や、<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>のVol.3 CHAPTER7「TASK MANAGEMENT」に記載があるが、xv6ではそれをフルに使わない。
 TSSディスクリプタ自体はカーネルモードのスタックの情報とプロセスのIOMAPのために使用する。
 これはLinuxカーネルも同様で、「詳解LINUXカーネル 第3版」（書籍3）の3.3.2「タスク状態セグメント」に記載がある。
 xv6はタスク切り替えをスタックとret命令を使用して行う。</p>
 <h2><a class="header" href="#switchuvm関数" id="switchuvm関数">switchuvm関数</a></h2>
 <p>この関数はコンテキストスイッチするプロセスのTSS構造体とそのディスクリプタを作成し、ltr命令でそれをロードする。<br />
-また、<a href="chapter_05//chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">lcr3関数</a>でプロセスのページディレクトリをcr3にロードする。</p>
-<p>TSSディスクリプタはcpuの<a href="chapter_05//chapter_05/05_06_seginit.html">GDT</a>の5番目にセットする。
+また、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">lcr3関数</a>でプロセスのページディレクトリをcr3にロードする。</p>
+<p>TSSディスクリプタはcpuの<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_06_seginit.html">GDT</a>の5番目にセットする。
 x86のコンテキストスイッチ機能を使用する場合はプロセス切り替え時に、切り替え前のプロセスと切り替え後のプロセスの2つのTSSディスクリプタがGDTに必要だが、その機能を使用しないので毎回GDTの5番目にTSSディスクリプタを格納する。
 TSSとTSSディスクリプタの構造はIntel-SDM（リンク8）のVol.3 Figure 7-2「32-Bit Task-State Segment (TSS)」とVol.3 Figure 7-3「TSS Descriptor」に書いてある。
 TSSディスクリプタはmmu.hに定義されているSEG16マクロを使用して作成する。<br />
@@ -5156,7 +5157,7 @@ switchuvm(struct proc *p)
 <p>swtch関数の動きとしては、espを切り替え先プロセスのスタックに切り替え、そこに積まれているリターンアドレスにret命令でeipを移動する。<br />
 初めてのschedulerが呼ばれてから、プロセスへの切り替えの流れは以下のようになる。</p>
 <ol>
-<li>swtch関数の第一引数にはスケジューラのコンテキスト（まだ0x0）、第二引数には<a href="chapter_05/chapter_05/05_21_userinit.html">userinit関数</a>で作成されたproc構造体のcontextフィールドが渡される。
+<li>swtch関数の第一引数にはスケジューラのコンテキスト（まだ0x0）、第二引数には<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_21_userinit.html">userinit関数</a>で作成されたproc構造体のcontextフィールドが渡される。
 この時点でスタックには次のように値が積まれている。
 添え字は積まれている順番で、括弧内は入っている値。
 popすると2番目（リターンアドレス）が取り出されることになる。<br />

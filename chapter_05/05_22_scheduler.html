@@ -169,12 +169,12 @@
 <li>sti関数で割り込みを有効化する</li>
 <li>プロセステーブルを走査して実行可能状態（RUNNABLE）のプロセスにコンテキストスイッチする</li>
 </ol>
-<p>最初にschedulerが実行されるとき、プロセステーブルの64個のプロセスの内、状態がRUNNABLEになっているのは<a href="/chapter_05/05_21_userinit.html">userinit関数</a>で作成されたinitcode.Sのプロセスのみなので、それが実行されることになる。<br />
+<p>最初にschedulerが実行されるとき、プロセステーブルの64個のプロセスの内、状態がRUNNABLEになっているのは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_21_userinit.html">userinit関数</a>で作成されたinitcode.Sのプロセスのみなので、それが実行されることになる。<br />
 全てのプロセッサでschedulerが実行されており、プロセステーブルを触る可能性があるため、forループの前後でプロセステーブルのロックの取得と解放を行う。<br />
 実行可能状態のプロセスを見つけた場合、switchuvm関数でコンテキストスイッチの準備を行う。<br />
 準備ができたらプロセスを実行状態とし、swtch関数でコンテキストスイッチする。
 コンテキストスイッチはTSSを用いたx86の機能を使うのではなく、スタックフレームの切り替えによって行う。<br />
-その後再びプロセスからスケジューラにコンテキストスイッチされたとき、<a href="/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でページディレクトリをカーネルのものに切り替え、cpu構造体のprocフィールドに0を代入する。</p>
+その後再びプロセスからスケジューラにコンテキストスイッチされたとき、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でページディレクトリをカーネルのものに切り替え、cpu構造体のprocフィールドに0を代入する。</p>
 <p>proc.c</p>
 <pre><code class="language-c">void
 scheduler(void)
@@ -213,14 +213,14 @@ scheduler(void)
 }
 </code></pre>
 <h2><a class="header" href="#コンテキストスイッチ" id="コンテキストスイッチ">コンテキストスイッチ</a></h2>
-<p>x86にはTSSディスクリプタを使用してコンテキストスイッチを行う機能があり、<a href="/ref_books.html">「初めて読む486」（書籍2）</a>の8章「タスク」や、<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>のVol.3 CHAPTER7「TASK MANAGEMENT」に記載があるが、xv6ではそれをフルに使わない。
+<p>x86にはTSSディスクリプタを使用してコンテキストスイッチを行う機能があり、<a href="ref_books.html">「初めて読む486」（書籍2）</a>の8章「タスク」や、<a href="https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-1-2a-2b-2c-2d-3a-3b-3c-3d-and-4.html">「Intel 64 and IA-32 architectures software developer's manual combined volumes: 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4」（リンク8）</a>のVol.3 CHAPTER7「TASK MANAGEMENT」に記載があるが、xv6ではそれをフルに使わない。
 TSSディスクリプタ自体はカーネルモードのスタックの情報とプロセスのIOMAPのために使用する。
 これはLinuxカーネルも同様で、「詳解LINUXカーネル 第3版」（書籍3）の3.3.2「タスク状態セグメント」に記載がある。
 xv6はタスク切り替えをスタックとret命令を使用して行う。</p>
 <h2><a class="header" href="#switchuvm関数" id="switchuvm関数">switchuvm関数</a></h2>
 <p>この関数はコンテキストスイッチするプロセスのTSS構造体とそのディスクリプタを作成し、ltr命令でそれをロードする。<br />
-また、<a href="/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">lcr3関数</a>でプロセスのページディレクトリをcr3にロードする。</p>
-<p>TSSディスクリプタはcpuの<a href="/chapter_05/05_06_seginit.html">GDT</a>の5番目にセットする。
+また、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">lcr3関数</a>でプロセスのページディレクトリをcr3にロードする。</p>
+<p>TSSディスクリプタはcpuの<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_06_seginit.html">GDT</a>の5番目にセットする。
 x86のコンテキストスイッチ機能を使用する場合はプロセス切り替え時に、切り替え前のプロセスと切り替え後のプロセスの2つのTSSディスクリプタがGDTに必要だが、その機能を使用しないので毎回GDTの5番目にTSSディスクリプタを格納する。
 TSSとTSSディスクリプタの構造はIntel-SDM（リンク8）のVol.3 Figure 7-2「32-Bit Task-State Segment (TSS)」とVol.3 Figure 7-3「TSS Descriptor」に書いてある。
 TSSディスクリプタはmmu.hに定義されているSEG16マクロを使用して作成する。<br />
@@ -280,7 +280,7 @@ switchuvm(struct proc *p)
 <p>swtch関数の動きとしては、espを切り替え先プロセスのスタックに切り替え、そこに積まれているリターンアドレスにret命令でeipを移動する。<br />
 初めてのschedulerが呼ばれてから、プロセスへの切り替えの流れは以下のようになる。</p>
 <ol>
-<li>swtch関数の第一引数にはスケジューラのコンテキスト（まだ0x0）、第二引数には<a href="chapter_05/05_21_userinit.html">userinit関数</a>で作成されたproc構造体のcontextフィールドが渡される。
+<li>swtch関数の第一引数にはスケジューラのコンテキスト（まだ0x0）、第二引数には<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_21_userinit.html">userinit関数</a>で作成されたproc構造体のcontextフィールドが渡される。
 この時点でスタックには次のように値が積まれている。
 添え字は積まれている順番で、括弧内は入っている値。
 popすると2番目（リターンアドレス）が取り出されることになる。<br />

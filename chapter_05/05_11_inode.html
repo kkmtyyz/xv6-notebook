@@ -167,14 +167,14 @@
 <p>スケジューラの実行までに使用するiノード周りの操作について書く。</p>
 <ul>
 <li><a href="#inode%E6%A7%8B%E9%80%A0%E4%BD%93">inode構造体</a></li>
-<li><a href="/chapter_05/05_11_inode.html#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">inode構造体の作成（iget関数）</a></li>
-<li><a href="/chapter_05/05_11_inode.html#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">ロック（ilock/iunlock関数）</a></li>
-<li><a href="/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">参照カウンタのインクリメント（idup数）</a></li>
-<li><a href="/chapter_05/05_11_inode.html#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%83%87%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88iput%E9%96%A2%E6%95%B0">参照カウンタのデクリメント（iput関数）</a></li>
-<li><a href="/chapter_05/05_11_inode.html#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E5%BE%97readi%E9%96%A2%E6%95%B0">ファイルデータの取得（readi関数）</a></li>
-<li><a href="/chapter_05/05_11_inode.html#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">ブロックの割り当て（bmap関数）</a></li>
-<li><a href="/chapter_05/05_11_inode.html#%E5%89%8A%E9%99%A4itrunc%E9%96%A2%E6%95%B0">削除（itrunc関数）</a></li>
-<li><a href="/chapter_05/05_11_inode.html#%E6%9B%B4%E6%96%B0iupdate%E9%96%A2%E6%95%B0">更新（iupdate関数）</a></li>
+<li><a href="#inode%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E4%BD%9C%E6%88%90iget%E9%96%A2%E6%95%B0">inode構造体の作成（iget関数）</a></li>
+<li><a href="#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">ロック（ilock/iunlock関数）</a></li>
+<li><a href="#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88idup%E9%96%A2%E6%95%B0">参照カウンタのインクリメント（idup数）</a></li>
+<li><a href="#%E5%8F%82%E7%85%A7%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%81%AE%E3%83%87%E3%82%AF%E3%83%AA%E3%83%A1%E3%83%B3%E3%83%88iput%E9%96%A2%E6%95%B0">参照カウンタのデクリメント（iput関数）</a></li>
+<li><a href="#%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E5%BE%97readi%E9%96%A2%E6%95%B0">ファイルデータの取得（readi関数）</a></li>
+<li><a href="#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">ブロックの割り当て（bmap関数）</a></li>
+<li><a href="#%E5%89%8A%E9%99%A4itrunc%E9%96%A2%E6%95%B0">削除（itrunc関数）</a></li>
+<li><a href="#%E6%9B%B4%E6%96%B0iupdate%E9%96%A2%E6%95%B0">更新（iupdate関数）</a></li>
 </ul>
 <h2><a class="header" href="#inode構造体" id="inode構造体">inode構造体</a></h2>
 <p>inodeについては、<a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」（リンク1）</a>の6章「File system」を読むとよい。</p>
@@ -394,8 +394,8 @@ iunlockput(struct inode *ip)
 <p>この関数はファイルからデータを最大nバイト分dstに読み込む。</p>
 <p>iノードがデバイスファイルの場合とそれ以外（ファイルあるいはディレクトリ）とで処理が分かれる。</p>
 <p><strong>デバイスファイルの場合:</strong><br />
-読み込みにはデバイス番号を頼りに<a href="/chapter_05/05_09_consoleinit.html">devsw配列</a>の該当するread関数を使う。<br />
-例えばコンソールならdevsw[1].readなので、consoleinit関数で設定した<a href="/chapter_05/05_09_consoleinit.html#consoleread%E9%96%A2%E6%95%B0">consoleread関数</a>が実行される。</p>
+読み込みにはデバイス番号を頼りに<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html">devsw配列</a>の該当するread関数を使う。<br />
+例えばコンソールならdevsw[1].readなので、consoleinit関数で設定した<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#consoleread%E9%96%A2%E6%95%B0">consoleread関数</a>が実行される。</p>
 <p><strong>ファイルあるいはディレクトリの場合:</strong><br />
 ファイルのデータをoffバイト目から読み込み始める。<br />
 ファイルサイズよりも読み込みサイズ（off+n）大きい場合は調整する。<br />
@@ -403,14 +403,14 @@ iunlockput(struct inode *ip)
 mがループ毎にdstにコピーするバイト数を示し、totにはコピーした総バイト数を持つ。<br />
 読み込みにはbread関数を使う。
 この関数にはデバイス番号とブロック番号を渡す必要がある。
-<a href="/chapter_05/05_11_inode.html#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">bmap関数</a>では第一引数のinode構造体のaddrsフィールドから、第二引数で指定されたバイト目があるブロック番号を得ることができる。<br />
+<a href="#%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6bmap%E9%96%A2%E6%95%B0">bmap関数</a>では第一引数のinode構造体のaddrsフィールドから、第二引数で指定されたバイト目があるブロック番号を得ることができる。<br />
 基本的にはoffからそのブロックの終わりまでずつコピーしていく。<br />
 例えばoffが600の場合、1ブロック512バイトなので、offは2ブロック目の88バイト目から始まる。
 なので <code>512-88=424</code> バイトずつコピーしていく。
 そして読み込みバイト数nがコピーしていく単位で割り切れない場合は、最後のループでnからコピー済みバイト数totの差だけコピーする。<br />
 他の例として、nが1000の場合、3回目のループで残りコピーバイト数が <code>1000-424*2=152</code> なので、152バイトだけコピーする。
 変数mにはこの動きをするために、minマクロを使用して残りコピーバイト数（n-tot）と基本的なコピー単位のどちらか小さい方を代入する。<br />
-コピーバイト数mが決まると、<a href="/chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>でdstにブロックのデータ（bs-&gt;data）のオフセットの位置からその分だけコピーする。<br />
+コピーバイト数mが決まると、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>でdstにブロックのデータ（bs-&gt;data）のオフセットの位置からその分だけコピーする。<br />
 バッファキャッシュbpは読み込み後不要となるのでループ毎に解放する。
 1ブロック分ずつコピーするわけではないので、次のループでも同じブロックをバッファキャッシュに読み込む可能性がある。
 しかしここで解放しなければ、バッファキャッシュのサイズが30なのでコピー対象のデータが30ブロック以上の時にキャッシュが足りなくなりpanicしてしまう。</p>
@@ -536,7 +536,7 @@ itrunc(struct inode *ip)
 <h2><a class="header" href="#更新iupdate関数" id="更新iupdate関数">更新（iupdate関数）</a></h2>
 <p>この関数はinode構造体の内容をdinode構造体にコピーし、その変更をディスクに反映する。</p>
 <p>ディスク上にあるdinode構造体はbread関数で取得する。
-その際のブロック番号は<a href="/chapter_05/05_11_inode.html#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">IBLOCKマクロ</a>で算出する。<br />
+その際のブロック番号は<a href="#%E3%83%AD%E3%83%83%E3%82%AFilockiunlock%E9%96%A2%E6%95%B0">IBLOCKマクロ</a>で算出する。<br />
 log_write関数で変更をディスクに反映する。
 この関数ではバッファキャッシュのB_DIRTYを立て、後々呼び出されるwrite_log関数でディスクに書き込みを行う。</p>
 <p>fs.c</p>

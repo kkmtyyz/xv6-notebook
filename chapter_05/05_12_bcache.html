@@ -166,12 +166,12 @@
                         <h1><a class="header" href="#512-バッファキャッシュとディスクの読み書き" id="512-バッファキャッシュとディスクの読み書き">5.12. バッファキャッシュとディスクの読み書き</a></h1>
 <p>スケジューラの実行までに使用するバッファキャッシュ周りの操作について書く。</p>
 <ul>
-<li><a href="/chapter_05/05_12_bcache.html#buf%E6%A7%8B%E9%80%A0%E4%BD%93">buf構造体</a></li>
-<li><a href="/chapter_05/05_12_bcache.html#buf%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E5%8F%96%E5%BE%97bread%E9%96%A2%E6%95%B0">buf構造体の取得（bread関数）</a></li>
-<li><a href="/chapter_05/05_12_bcache.html#buf%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BFbwrite%E9%96%A2%E6%95%B0">buf構造体の書き込み（bwrite関数）</a></li>
-<li><a href="/chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">ディスクの読み書き（iderw関数）</a></li>
-<li><a href="">データブロックの割り当て（balloc関数）</a></li>
-<li><a href="">データブロックの解放（bfree関数）</a></li>
+<li><a href="#buf%E6%A7%8B%E9%80%A0%E4%BD%93">buf構造体</a></li>
+<li><a href="#buf%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E5%8F%96%E5%BE%97bread%E9%96%A2%E6%95%B0">buf構造体の取得（bread関数）</a></li>
+<li><a href="#buf%E6%A7%8B%E9%80%A0%E4%BD%93%E3%81%AE%E6%9B%B8%E3%81%8D%E8%BE%BC%E3%81%BFbwrite%E9%96%A2%E6%95%B0">buf構造体の書き込み（bwrite関数）</a></li>
+<li><a href="#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">ディスクの読み書き（iderw関数）</a></li>
+<li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E5%89%B2%E3%82%8A%E5%BD%93%E3%81%A6balloc%E9%96%A2%E6%95%B0">データブロックの割り当て（balloc関数）</a></li>
+<li><a href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%AE%E8%A7%A3%E6%94%BEbfree%E9%96%A2%E6%95%B0">データブロックの解放（bfree関数）</a></li>
 </ul>
 <h2><a class="header" href="#buf構造体" id="buf構造体">buf構造体</a></h2>
 <p>バッファキャッシュについては、<a href="https://pdos.csail.mit.edu/6.828/2018/xv6/book-rev11.pdf">「xv6 a simple, Unix-like teaching operating system」（リンク1）</a>の6章「File system」を読むとよい。</p>
@@ -212,7 +212,7 @@ dataフィールドに1ブロック分のデータを持つ。</p>
 <h2><a class="header" href="#buf構造体の取得bread関数" id="buf構造体の取得bread関数">buf構造体の取得（bread関数）</a></h2>
 <p>bread関数を使用して、欲しいブロックのbuf構造体を取得する。<br />
 ブロックがバッファキャッシュに存在しない場合は、空のエントリにディスクからブロックを読み込む。
-バッファキャッシュからの取得はbget関数で行い、ディスクからの読み込みは<a href="/chapter_05/05_12_bcache.html#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">iderw関数</a>で行う。</p>
+バッファキャッシュからの取得はbget関数で行い、ディスクからの読み込みは<a href="#%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8Diderw%E9%96%A2%E6%95%B0">iderw関数</a>で行う。</p>
 <p>bio.c</p>
 <pre><code class="language-c">struct buf*
 bread(uint dev, uint blockno)
@@ -361,7 +361,7 @@ LBAhiレジスタ（0x1f5）に、LBAの3バイト目を設定する。<br />
 <p>ideにコマンドを発行する。
 buf構造体のflagsフィールドの変更済みフラグ（B_DIRTY）が立っている場合は書き込み、そうでなければ読み込みを行う。</p>
 <p><strong>書き込みの場合:</strong><br />
-コマンドレジスタ（0x1f7）に書き込みコマンド（write_cmd）を書き込み、データレジスタ（0x1f0）に<a href="/chapter_05/05_02_kinit2.html#memset%E9%96%A2%E6%95%B0">outsl関数</a>でbuf構造体のdataフィールドの内容を128回に分けて4バイトずつ書き込む。</p>
+コマンドレジスタ（0x1f7）に書き込みコマンド（write_cmd）を書き込み、データレジスタ（0x1f0）に<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_02_kinit2.html#memset%E9%96%A2%E6%95%B0">outsl関数</a>でbuf構造体のdataフィールドの内容を128回に分けて4バイトずつ書き込む。</p>
 <p><strong>読み込みの場合:</strong><br />
 コマンドレジスタ（0x1f0）に読み込みコマンド（read_cmd）を書き込む。</p>
 <p>書き込み終了あるいは、読み込み準備の完了により、ideコントローラから割り込みが入り、最終的にはideintr関数が呼び出される。</p>
@@ -422,7 +422,7 @@ idewait(int checkerr)
 <p>まだ割り込みベクタの初期化を読むのは先になるが、動きとしては、このあとディスクの準備ができるとideコントローラからirq14番で割り込みが入り、IOAPICのリダイレクトテーブルによって割り込みベクタ 46(32 + 14)番がtrap関数にわたされ、ideintr関数により読み込みが行われる。</p>
 <p>ideintr関数はidequeueの先頭のbuf構造体のflagsフィールドに応じてディスクから読み込みを行う。</p>
 <p>もしもbuf構造体のflagsフィールドの変更済みフラグ（B_DIRTY）が0で、かつidewait関数でドライブの準備ができている場合、ディスクから読み出しを行う。
-読み出しは<a href="/chapter_03/03_02_bootmain.html#inb%E9%96%A2%E6%95%B0outb%E9%96%A2%E6%95%B0insl%E9%96%A2%E6%95%B0">insl関数</a>でコントロールレジスタ（0x1f0）からbuf構造体のdataフィールドにブロックサイズ分読み込む。
+読み出しは<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_02_bootmain.html#inb%E9%96%A2%E6%95%B0outb%E9%96%A2%E6%95%B0insl%E9%96%A2%E6%95%B0">insl関数</a>でコントロールレジスタ（0x1f0）からbuf構造体のdataフィールドにブロックサイズ分読み込む。
 次に、buf構造体のflagsフィールドの読み込み済みフラグ（B_VALID）を1にし、変更済みフラグ（B_DIRTY）をビット反転して論理積を取って0にする。</p>
 <p>読み込みを待っているプロセスを起床し、idequeueにエントリがまだ残っている場合は次のエントリを引数としてidestart関数を呼び出す。</p>
 <p>ide.c</p>

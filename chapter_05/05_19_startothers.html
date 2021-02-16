@@ -170,7 +170,7 @@
 APで行う設定はほとんどBSPと同じように行う。</p>
 <p>startothers関数を見る前に、APのエントリポイントとなるentryother.Sを見る。<br />
 Makefileのターゲットentryotherを見ると、まずgccでentryother.Sからentryother.oを作成する。</p>
-<p>各コマンドのオプションについては<a href="/chapter_02/02_00_xv6_img_build.html">「2. xv6.imgのビルド」</a>で見た。<br />
+<p>各コマンドのオプションについては<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_02/02_00_xv6_img_build.html">「2. xv6.imgのビルド」</a>で見た。<br />
 ldのTtextオプションでTEXTセグメントの開始アドレスを0x7000とし、entryother.oからbootblockother.oを作成する。
 objcopyでbootblockother.oからTEXTセクションのみをentryotherとしてコピーする。
 出力にバイナリを指定しているため、entryotherに次の3つのシンボルが作成される。</p>
@@ -188,20 +188,20 @@ objcopyでbootblockother.oからTEXTセクションのみをentryotherとして�
   $(OBJCOPY) -S -O binary -j .text bootblockother.o entryother
   $(OBJDUMP) -S bootblockother.o &gt; entryother.asm
 </code></pre>
-<p><a href="/chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>を使用してentryother.Sのコードを物理アドレス0x7000にコピーする。
+<p><a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#memmove%E9%96%A2%E6%95%B0">memmove関数</a>を使用してentryother.Sのコードを物理アドレス0x7000にコピーする。
 APではページングがまだ有効化されていないので、P2Vマクロを使用して仮想アドレスを求める必要がある。</p>
-<p>forループで<a href="/chapter_05/05_04_mpinit.html">大域変数cpus</a>を走査し、APをひとつずつ起動する。
+<p>forループで<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_04_mpinit.html">大域変数cpus</a>を走査し、APをひとつずつ起動する。
 BSPの場合はcontinue。
 このループはBSPで実行されているため、mycpu関数はBSPのcpu構造体を返す。</p>
 <p>APの起動時に使用するカーネルスタックとして変数stackに1ページ分のメモリを割り当てる。
-割り当てには<a href="/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>を用いる。
+割り当てには<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#kalloc%E9%96%A2%E6%95%B0">kalloc関数</a>を用いる。
 大域変数kmemのuse_lockフィールドは依然として0なので排他制御は行わない（kinit2関数で初めて1になる）。</p>
 <p>entryotherを実行する際に渡す引数をスタックにセットする。</p>
 <ul>
 <li><strong>第一引数:</strong> スタックの底のアドレス。
 スタックのアドレスにカーネルスタックサイズ（4kB）を加算して求める。</li>
 <li><strong>第二引数:</strong> main.cに定義されているmpenter関数のアドレス。関数ポインタとしてキャストして代入する。</li>
-<li><strong>第三引数:</strong> main.cに定義されている<a href="/chapter_04/04_01_entry.html">変数entrypgdir</a>のアドレス。
+<li><strong>第三引数:</strong> main.cに定義されている<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_04/04_01_entry.html">変数entrypgdir</a>のアドレス。
 ラージページのページディレクトリで、0番と512番の2つのエントリが0ページ目（物理アドレス0から4MB分）を指している。</li>
 </ul>
 <p>BSPはAPのcpu構造体のstartedフィールドが0でなくなるまでwhileループする。
@@ -271,7 +271,7 @@ BIOSシャットダウンコード（0x0A）は、リセット時にBIOSの初�
 <li>手順4と5をもう一度行う。INIT IPIとSTARTUP IPIは自動で再試行せず、OSはそれを正常に行う必要があるため2回呼び出す。
 lapicstartap関数のコメントによると、2回目のSTARTUP IPIでのみAPを起動させるアーキテクチャも存在するらしい。</li>
 </ol>
-<p>INIT IPIの使用方法は<a href="/chapter_05/05_05_lapicinit.html#icr%E3%81%AE%E8%A8%AD%E5%AE%9A">lapicinit関数</a>で見た。<br />
+<p>INIT IPIの使用方法は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_05_lapicinit.html#icr%E3%81%AE%E8%A8%AD%E5%AE%9A">lapicinit関数</a>で見た。<br />
 STARTUP IPIの使用方法は「MultiProcessor Specification Version 1.4」（リンク14）のB.4.2「USING STARTUP IPI」に記載されている。
 このIPIは送信先のプロセッサをリアルモードで物理アドレス0x000VV000から実行する。
 VVの部分は、ICRのVectorフィールドに設定された値が入る。</p>
@@ -284,7 +284,7 @@ BIOSの設定を行うCMOSのポートは<a href="http://bochs.sourceforge.net/d
 リセット時にentryother.Sが実行されるよう、物理アドレス0x467にcode（引数addr）のアドレスを代入する。
 リアルモードのセグメント機構ではセグメントレジスタが16bit、アドレスバスが20bitであるため、セグメントのアクセスではアドレスの下位4bitを0とする。
 そのため0x7000（entryotherの開始アドレス）を4bit右シフトしている。
-この辺りのことは<a href="/ref_books.html">「初めて読む486」（書籍2）</a>に書いてある。</p>
+この辺りのことは<a href="ref_books.html">「初めて読む486」（書籍2）</a>に書いてある。</p>
 <p><strong>手順2:</strong><br />
 APにINIT IPIを2回送る。<br />
 INIT IPIはlapicinit関数で使用したが、ここではLevelがAssertになっているため、もう一度見る。<br />
@@ -298,7 +298,8 @@ LAPICのICR（Interrupt Command Register）（LAPICのインデックス0x310）
 15bitが1なのでTrigger ModeはLevel。<br />
 Levelフラグが1（Assert）かつ、Delivery ModeのINITがLevel De-assertでないことから、INITリクエストを特定のプロセッサに送信することがわかる。
 送信先はDestination ModeがPhysicalであることから、ICRの56～59bitで指定されたLAPICIDのプロセッサとなる。</p>
-<p>INIT IPIの処理が終わるまで200μs待つ（<a href="/chapter_05/05_13_uartinit.html#uartputc%E9%96%A2%E6%95%B0">microdelay関数</a>）。</p>
+<p>INIT IPIの処理が終わるまで200μ秒待つ
+（<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_13_uartinit.html#uartputc%E9%96%A2%E6%95%B0">microdelay関数</a>）。</p>
 <p>2回目:<br />
 Levelフラグを0（De-assert）でINIT IPIを送信する。
 Delivery ModeがDe-assertなので送信先は全てのプロセッサとなる。</p>
@@ -369,7 +370,7 @@ lapicstartap(uchar apicid, uint addr)
 </code></pre>
 <h2><a class="header" href="#entryothers" id="entryothers">entryother.S</a></h2>
 <p>この関数はSTARTUP IPIによりAPで実行される。<br />
-概ね<a href="/chapter_03/03_01_bootasm.html">bootasm.S</a>、<a href="/chapter_04/04_01_entry.html">entry.S</a>と同様。<br />
+概ね<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_03/03_01_bootasm.html">bootasm.S</a>、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_04/04_01_entry.html">entry.S</a>と同様。<br />
 GDTをロードし、プロテクトモードへ移行、ページングを有効化する。<br />
 最後にスタックポインタをセットし、mpenter関数を呼び出す。</p>
 <p>ラージページの設定まではbootasm.Sとentry.Sのコードと同じ。<br />
@@ -454,10 +455,10 @@ gdtdesc:
 </code></pre>
 <h2><a class="header" href="#mpenter関数" id="mpenter関数">mpenter関数</a></h2>
 <p>BSPで行った設定を同様にAPにも行う。<br />
-<a href="/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でcr3にカーネル用のページディレクトリkpgdirのアドレスをセットする。
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#switchkvm%E9%96%A2%E6%95%B0">switchkvm関数</a>でcr3にカーネル用のページディレクトリkpgdirのアドレスをセットする。
 kpgdirはBSPと同じものが使用される。
-<a href="/chapter_05/05_03_kvmalloc.html#walkpgdir%E9%96%A2%E6%95%B0">4kBページングとなる</a>のも同様。<br />
-<a href="/chapter_05/05_06_seginit.html">seginit関数</a>でGDTの作成とロード、<a href="/chapter_05/05_05_lapicinit.html">lapicinit関数</a>でLAPICの設定を行う。</p>
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_03_kvmalloc.html#walkpgdir%E9%96%A2%E6%95%B0">4kBページングとなる</a>のも同様。<br />
+<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_06_seginit.html">seginit関数</a>でGDTの作成とロード、<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_05_lapicinit.html">lapicinit関数</a>でLAPICの設定を行う。</p>
 <p>main.c</p>
 <pre><code class="language-c">static void
 mpenter(void)
@@ -471,7 +472,7 @@ mpenter(void)
 <h2><a class="header" href="#mpmain関数" id="mpmain関数">mpmain関数</a></h2>
 <p>この関数はコンソールに「cpu1: starting 1」と表示し、IDTをロードしてcpu構造体のstartedフィールドの値を1にした後、スケジューラを呼び出す。
 コンソールの文字列はLAPIC IDによって変わる。<br />
-cpu構造体のstartedフィールドを<a href="/chapter_05/05_10_lock.html#xchg%E9%96%A2%E6%95%B0">xchg関数</a>で1にする。
+cpu構造体のstartedフィールドを<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_10_lock.html#xchg%E9%96%A2%E6%95%B0">xchg関数</a>で1にする。
 ここでxchg命令を使ってアトミックにstartedフィールドの値を更新する理由はわからない。<br />
 この関数はBSPからmain関数の最後でも呼び出される。
 scheduler関数はその時に見ることにする。</p>
@@ -492,7 +493,7 @@ mpmain(void)
 第一引数fmtのアドレスをuint分加算し、スタックの低い位置（高いアドレス）に有る第二引数を得る。<br />
 fmtを1バイトずつ操作し、場合分けしながらコンソールに出力する。</p>
 <ul>
-<li><strong>%以外:</strong> <a href="/chapter_05/05_09_consoleinit.html#consolewrite%E9%96%A2%E6%95%B0">consputc関数</a>でコンソールに出力する。</li>
+<li><strong>%以外:</strong> <a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_09_consoleinit.html#consolewrite%E9%96%A2%E6%95%B0">consputc関数</a>でコンソールに出力する。</li>
 <li><strong>0:</strong> ループをbreak。</li>
 <li><strong>d:</strong> printint関数で可変長引数から10進数符号ありでコンソールに出力する。</li>
 <li><strong>x, p:</strong> printint関数で可変長引数から16進数符号なしでコンソールに出力する。</li>
@@ -586,7 +587,7 @@ printint(int xx, int base, int sign)
 }
 </code></pre>
 <h2><a class="header" href="#idtinit関数" id="idtinit関数">idtinit関数</a></h2>
-<p>この関数は<a href="/chapter_05/05_15_tvinit.html">tvinit関数</a>で作成したIDTをlidt関数を通してlidt命令でロードする。</p>
+<p>この関数は<a href="https://kkmtyyz.github.io/xv6-notebook/chapter_05/05_15_tvinit.html">tvinit関数</a>で作成したIDTをlidt関数を通してlidt命令でロードする。</p>
 <p>trap.c</p>
 <pre><code class="language-c">void
 idtinit(void)
